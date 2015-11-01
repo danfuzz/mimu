@@ -1,0 +1,47 @@
+/*
+ * Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+ * Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+ * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Amaranth:400,700,400italic,700italic|Rosario:400,400italic,700italic,700);
+
+body {
+    background-color: white;
+    color: black;
+    font-family: Rosario, sans-serif;
+    font-weight: normal;
+    font-size: 14pt;
+    line-height: 150%;
+
+    margin-top: 2em;
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
+h1, h2, h3 {
+    font-family: Amaranth, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36pt;
+}
+
+h2 {
+    margin-bottom: 3em;
+    font-size: 28pt;
+}
+
+h3 {
+    margin-top: 2em;
+    font-size: 24pt;
+}
+
+#demoList {
+    font-size: 18pt;
+}
+
+hr {
+    margin-top: 3em;
+}

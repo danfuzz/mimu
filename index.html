@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" type="text/css"/>
+    <title>Mimu</title>
+    <script type="text/javascript" src="Harmonics.js"></script>
+    <script type="text/javascript" src="MusicControl.js"></script>
+    <script type="text/javascript" src="Oscilloscope.js"></script>
+    <script type="text/javascript" src="Piece.js"></script>
+  </head>
+
+  <body>
+    <h1>Mimu</h1>
+    <h2>Milk Music: Demos and Library</h2>
+
+    <h3>The Demos</h3>
+
+    <ul id="#demoList">
+        <li><a href="./awkward-js-music/">AWKward JS Music</a></li>
+        <li><a href="./triangle-wave-explorer/">Triangle Wave Explorer</a></li>
+    </ul>
+
+    <h3>What is this?</h3>
+
+    <p>This is a small collection of programmatically-generated music / audio
+        demos. All of the audio processing of these demos takes place inside
+        the web browser; there is no server code involved at all.
+    </p>
+
+    <p>The code here is meant to serve as straightforward examples
+        of how to do script-based audio generation and analysis using the
+        JavaScript <a href="http://www.w3.org/TR/webaudio/">Web Audio API</a>.
+        Most of the code is in library form, ready for importation into other
+        projects. Please use it!
+    </p>
+
+    <p><a href="https://github.com/danfuzz/mimu">See the source</a>. It
+        is released under the Apache 2 License.
+    </p>
+
+    <h3>Items of note</h3>
+
+    <p>This code uses the <code>ScriptProcessorNode</code> class, which is
+        slated to be deprecated in a future version of Web Audio, but for
+        which no replacement is yet implemented in any production web browser
+        (as of late 2015). Hooray!
+    </p>
+
+    <p>This code uses the new (as of 2015) JavaScript <code>class</code>
+        definition syntax. As of this writing, this means that some browsers
+        (notably Firefox) will not be able to run the page successfully.
+    </p>
+
+    <h3>One final word</h3>
+    <p align="center">Enjoy!</p>
+
+    <hr>
+    <p>Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+        Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+        Version 2.0. Details:
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">
+        http://www.apache.org/licenses/LICENSE-2.0</a>
+    </p>
+
+    <p><a href="http://milk.com/home/danfuzz/">Dan Bornstein</a> /
+        <a href="http://milk.com/">milk.com</a>
+    </p>
+  </body>
+</html>
