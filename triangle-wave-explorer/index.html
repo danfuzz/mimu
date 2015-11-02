@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" type="text/css"/>
+    <title>Triangle Wave Explorer</title>
+    <script type="text/javascript" src="../lib/Harmonics.js"></script>
+    <script type="text/javascript" src="../lib/MusicControl.js"></script>
+    <script type="text/javascript" src="../lib/Oscilloscope.js"></script>
+    <script type="text/javascript" src="Piece.js"></script>
+  </head>
+
+  <body>
+    <h1>Triangle Wave Explorer</h1>
+    <h2>a JavaScript music demo</h2>
+
+    <h3>Call to action!</h3>
+
+    <p align="center">Press the button to play the waveform, and adjust the
+        controls to alter its shape.
+    </p>
+
+    <p align="center"><button id="playPause">Play / Pause</button></p>
+
+    <table id="oscTable">
+        <tr><td id="oscCell"></td></tr>
+    </table>
+
+    <table id="harmTable">
+        <tr><td id="harmCell"></td></tr>
+    </table>
+
+    <table id="controlTable">
+        <tr>
+            <td>Downward Bias</td>
+            <td>
+                <input id="upBias" type="range" value="0" min="-1" max="1" step="0.005">
+            </td>
+            <td>Upward Bias</td>
+        </tr>
+        <tr><td/><td id="upBiasText">0</td><td/></tr>
+        <tr>
+            <td>Negative Bias</td>
+            <td>
+                <input id="posBias" type="range" value="0" min="-1" max="1" step="0.005">
+            </td>
+            <td>Positive Bias</td>
+        </tr>
+        <tr><td/><td id="posBiasText">0</td><td/></tr>
+        <tr>
+            <td>De&auml;mping Bias</td>
+            <td>
+                <input id="ampBias" type="range" value="0" min="-1" max="1" step="0.005">
+            </td>
+            <td>Amping Bias</td>
+        </tr>
+        <tr><td/><td id="ampBiasText">0</td><td/></tr>
+        <tr>
+            <td>Low Pitch</td>
+            <td>
+                <input id="freq" type="range" value="440" min="20" max="2000" step="1">
+            </td>
+            <td>High Pitch</td>
+        </tr>
+        <tr><td/><td id="freqText">440</td><td/></tr>
+        <tr>
+            <td>Low Amplitude</td>
+            <td>
+                <input id="amp" type="range" value="0.75" min="0" max="1" step="0.01">
+            </td>
+            <td>High Amplitude</td>
+        </tr>
+        <tr><td/><td id="ampText">0.75</td><td/></tr>
+    </table>
+
+    <script type="text/javascript">
+        // The overall audio context instance. Unfortunately, the name
+        // `AudioContext` isn't fully standardized and is prefixed in some
+        // browsers. Ideally, the expression would just be `new AudioContext()`
+        // per se.
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        var gen = new Piece(audioCtx.sampleRate);
+        var mc = new MusicControl(audioCtx, gen);
+        mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
+        mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
+
+        var upBiasText = document.querySelector("#upBiasText");
+        var posBiasText = document.querySelector("#posBiasText");
+        var ampBiasText = document.querySelector("#ampBiasText");
+        var freqText = document.querySelector("#freqText");
+        var ampText = document.querySelector("#ampText");
+
+        document.querySelector("#playPause").onclick = function() {
+            mc.playPause();
+        }
+
+        document.querySelector("#upBias").oninput = function() {
+            gen.upBias = parseFloat(this.value);
+            upBiasText.textContent = this.value;
+        }
+
+        document.querySelector("#posBias").oninput = function() {
+            gen.posBias = parseFloat(this.value);
+            posBiasText.textContent = this.value;
+        }
+
+        document.querySelector("#ampBias").oninput = function() {
+            gen.ampBias = parseFloat(this.value);
+            ampBiasText.textContent = this.value;
+        }
+
+        document.querySelector("#freq").oninput = function() {
+            gen.freq = parseFloat(this.value);
+            freqText.textContent = this.value;
+        }
+
+        document.querySelector("#amp").oninput = function() {
+            gen.amp = parseFloat(this.value);
+            ampText.textContent = this.value;
+        }
+    </script>
+
+    <h3>What is this?</h3>
+
+    <p>This is a tool to explore the timbral quality of the triangle wave
+        family of waveforms, including both symmetric and asymmetric variants.
+        The top box is an oscilloscope view which visualizes the waveform,
+        and the bottom box is a harmonic analysis.
+    </p>
+
+    <p>Three different symmetries of the wave are parameterized and can be
+        controlled to "bias" the wave away from symmetrical. These symmetries
+        / biases are:
+
+        <ul>
+            <li>downward&ndash;upward bias &mdash; In a symmetric triangle wave,
+                there is equal representation in the portions of the waveform
+                which have an upward (positive) slope and those which have a
+                downward (negative) slope. A negative bias skews representation
+                towards the downward-sloping portion. A positive bias on this
+                control skews representation towards the upward-sloping portion
+                of the waveform. At the extremes of this bias, the
+                waveform becomes a sawtooth wave.
+            </li>
+            <li>negative&ndash;positive bias &mdash; In a symmetric triangle
+                wave, there is equal representation of positive and negative
+                values. A negative bias on this control skews representation
+                towards negative values. A positive bias on this control skews
+                representation towards positive values.
+            </li>
+            <li>de&auml;mping&ndash;amping bias &mdash; In a symmetric triangle
+                wave, there is equal representation of value movement away from
+                zero (amping up) and value movement towards zero (de&auml;amping
+                or amping down). A negative bias on this control skews
+                representation towards de&auml;amping. A positive bias on this
+                control skews representation towards amping up.
+            </li>
+        </ul>
+    </p>
+
+    <p><a href="https://github.com/danfuzz/triangle-wave">See the source</a>.
+        It is released under the Apache 2 License.
+    </p>
+
+    <hr>
+    <p><b><a href="../">Mimu</a></b></p>
+    <p>Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+        Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+        Version 2.0. Details:
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">
+        http://www.apache.org/licenses/LICENSE-2.0</a>
+    </p>
+  </body>
+</html>
