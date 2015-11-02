@@ -1,0 +1,57 @@
+/*
+ * Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+ * Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+ * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
+ */
+
+@import url("../index.css");
+
+button {
+    font-family: Rosario, sans-serif;
+    font-weight: bold;
+    font-size: 30pt;
+    padding: 2pt 15pt 6pt 15pt;
+    border-radius: 5pt;
+}
+
+hr {
+    margin-top: 3em;
+}
+
+#oscTable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 5pt;
+    border-radius: 20pt;
+    padding: 5pt;
+    background-color: black;
+}
+
+#oscCell {
+    width: 100vw;
+    height: 45vw;
+}
+
+#harmTable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 5pt;
+    border-radius: 20pt;
+    padding: 5pt;
+    background-color: black;
+}
+
+#harmCell {
+    width: 100vw;
+    height: 25vw;
+}

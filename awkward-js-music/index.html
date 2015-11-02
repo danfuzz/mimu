@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" type="text/css"/>
+    <title>AWKward JS Music</title>
+    <script type="text/javascript" src="../lib/Harmonics.js"></script>
+    <script type="text/javascript" src="../lib/MusicControl.js"></script>
+    <script type="text/javascript" src="../lib/Oscilloscope.js"></script>
+    <script type="text/javascript" src="Piece.js"></script>
+  </head>
+
+  <body>
+    <h1>AWKward JS Music</h1>
+    <h2>a JavaScript music demo</h2>
+
+    <h3>Call to action!</h3>
+
+    <p align="center">Press the button and bliss out on languid semiharmonic
+        ambient tones.
+    </p>
+
+    <p align="center"><button id="playPause">Play / Pause</button></p>
+
+    <table id="oscTable">
+        <tr><td id="oscCell"></td></tr>
+    </table>
+
+    <table id="harmTable">
+        <tr><td id="harmCell"></td></tr>
+    </table>
+
+    <script type="text/javascript">
+        // The overall audio context instance. Unfortunately, the name
+        // `AudioContext` isn't fully standardized and is prefixed in some
+        // browsers. Ideally, the expression would just be `new AudioContext()`
+        // per se.
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        var gen = new Piece(audioCtx.sampleRate);
+        var mc = new MusicControl(audioCtx, gen);
+        mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
+        mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
+
+        document.querySelector("#playPause").onclick = function() {
+            mc.playPause();
+        }
+    </script>
+
+    <h3>What is this?</h3>
+
+    <p>This is a rough translation (close but not 100% faithful) from AWK
+        to JavaScript of the musical composition
+        <a href="http://kmkeen.com/awk-music/">AWK Music</a> by Kyle Keen,
+        plus bonus waveform (oscilloscope) and harmonics visualization of the
+        generated tones.
+    </p>
+
+    <h3>Items of note</h3>
+
+    <p>The basic audio element of this demo is a pair of triangle waves of
+        different frequencies, which are played in unison. Though simple
+        geometrically, triangle waves are harmonically rich and tend to sound
+        mellow to human ears.
+    </p>
+
+    <p>The notes played by this demo are picked randomly from two octaves in an
+        equal-tempered pentatonic scale. This is not a scale that is often
+        encountered in Western music, however it happens to make for note
+        pairs and transitions that are pleasing to human ears.
+    </p>
+
+    <p>The waveform is intentionally level-quantized to simulate low bit-depth.
+        You can see this quantization in the oscilloscope as "stair steps" which
+        are most visible in gently-sloping portions of the waveform. (That is,
+        the stair steps are <i>not</i> a visual artifact from the oscilloscope
+        rendering, but rather an accurate reflection of the waveform
+        being generated.) In terms of the sound you hear, this quantization
+        causes a quiet high-pitched "shimmering" effect.
+    </p>
+
+    <hr>
+    <p><b><a href="../">Mimu</a></b></p>
+    <p>Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+        Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+        Version 2.0. Details:
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">
+        http://www.apache.org/licenses/LICENSE-2.0</a>
+    </p>
+  </body>
+</html>
