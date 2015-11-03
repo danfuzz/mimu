@@ -73,7 +73,7 @@ button {
 }
 
 #controlTable td:first-child + td {
-    width: 70%;
+    width: 60%;
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;
