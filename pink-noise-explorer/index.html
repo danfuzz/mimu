@@ -92,14 +92,17 @@
         slopes down from low to high frequencies. More technically, pink noise
         is parameterized on a variable <i>&alpha;</i> (alpha); at a given
         frequency <i>f</i>, the amplitude is 1/<i>f<sup>&alpha;</sup></i>.
-        <i>&alpha;</i> can range from 0 (inclusive) to 2 (exclusive).
+        <i>&alpha;</i> can range from 0 to 2 (inclusive).
     </p>
 
     <p>For "normal" pink noise &mdash; what is sometimes inaccurately just
         called "pink noise" per se &mdash; <i>&alpha;</i> is 1, which means
         that there is equal energy across all octaves. At the extreme of
         <i>&alpha;</i> 0, the generated noise is actually white noise, that is,
-        equal energy at all frequencies.
+        equal energy at all frequencies. At the other extreme of
+        <i>&alpha;</i> 2, the generated noise is brown noise, which is an
+        integration over white noise; the waveform's instantaneous amplitude
+        takes the form of brownian motion.
     </p>
 
     <p>This tool allows you to adjust <i>&alpha;</i> as well as the overall
@@ -112,9 +115,9 @@
 
     <h3>Items of note</h3>
 
-    <p>Becuase <i>&alpha;</i> is not actually allowed to be 2, if you set it
-        to that value, you will instead get 1.999 (that is, <i>very nearly</i>
-        but <i>not quite</i> 2).
+    <p>Becuase true brown noise (<i>&alpha;</i> 2) is not actually fruitful
+        when turned into a waveform, this demo clamps <i>&alpha;</i> to
+        1.999 (that is, <i>very nearly</i> but <i>not quite</i> 2).
     </p>
 
     <p>At higher <i>&alpha;</i>s, there is relatively high energy in the
@@ -123,7 +126,7 @@
         for that, simply lower the amplitude.
     </p>
 
-    <p>Pink noise is generated in this demo by using an IIR (infinite impulse
+    <p>The noise is generated in this demo by using an IIR (infinite impulse
         response) filter with five poles. The result is not mathematically
         100% accurate, however this is generally considered close enough for
         most audio applications.
