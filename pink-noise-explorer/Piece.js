@@ -13,6 +13,9 @@
  * This code is based on the `PinkNoise` class by Sampo Niskane, at
  * <http://sampo.kapsi.fi/PinkNoise/> and the gaussian random function
  * found at <http://blog.yjl.im/2010/09/simulating-normal-random-variable-using.html>.
+ * The gaussian code is itself based on _A First Course of Probability_ by
+ * Sheldon Ross (6th edition, page 464), and one can find other variants of
+ * this code scattered around the net as well.
  */
 class Piece {
     constructor(sampleRate) {
@@ -50,6 +53,12 @@ class Piece {
     }
 
     set alpha(value) {
+        if (value < 0) {
+            value = 0;
+        } else if (value > 1.999) {
+            value = 1.999;
+        }
+
         this._alpha = value;
         this.calcDerived();
     }
@@ -86,21 +95,22 @@ class Piece {
         var multipliers = this._multipliers;
         var values = this._values;
         var at = this._at;
-
-        // It would be more accurate to replace this with the following,
-        // assuming you had a function to produce a gaussian-distribution
-        // random value:
         var x = Piece.randomGaussian();
-        //var x = Math.random() - 0.5;
 
         for (var i = 0; i < poles; i++) {
             x -= multipliers[i] * values[(at + i) % poles];
         }
 
+        at = (at + poles + 1) % poles;
         values[at] = x;
-        this._at = (at + 1) % poles;
+        this._at = at;
 
-        return x * this._amp;
+        // Scale by the indicated amp. The additional `0.2` multiplier is to
+        // get most samples to be in the range -1 to 1. After that, clamp to
+        // the valid range -1 to 1.
+        x *= 0.2 * this._amp;
+
+        return (x < -1) ? -1 : ((x > 1) ? 1 : x);
     }
 
     // Get a gaussian-distribution random number using the "polar" method.
