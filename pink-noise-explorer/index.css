@@ -1,0 +1,89 @@
+/*
+ * Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+ * Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+ * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
+ */
+
+@import url("../index.css");
+
+button {
+    font-family: Rosario, sans-serif;
+    font-weight: bold;
+    font-size: 30pt;
+    padding: 2pt 15pt 6pt 15pt;
+    border-radius: 5pt;
+}
+
+.soundDisplay {
+    background-color: black;
+    color: #00ff00;
+}
+
+#oscTable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 5pt;
+    border-radius: 20pt;
+    padding: 5pt;
+    background-color: black;
+}
+
+#oscCell {
+    width: 100vw;
+    height: 30vw;
+}
+
+#harmTable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 5pt;
+    border-radius: 20pt;
+    padding: 5pt;
+    background-color: black;
+}
+
+#harmCell {
+    width: 100vw;
+    height: 30vw;
+}
+
+#controlTable {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+#controlTable tr:nth-child(even) td {
+    padding-bottom: 1em;
+}
+
+#controlTable input {
+    width: 100%;
+}
+
+#controlTable td:first-child {
+    text-align: left;
+}
+
+#controlTable td:first-child + td {
+    width: 60%;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+}
+
+#controlTable td:first-child + td + td {
+    text-align: right;
+}

@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" type="text/css"/>
+    <title>Pink Noise Explorer</title>
+    <script type="text/javascript" src="../lib/Color.js"></script>
+    <script type="text/javascript" src="../lib/StyleUtil.js"></script>
+    <script type="text/javascript" src="../lib/Harmonics.js"></script>
+    <script type="text/javascript" src="../lib/MusicControl.js"></script>
+    <script type="text/javascript" src="../lib/Oscilloscope.js"></script>
+    <script type="text/javascript" src="Piece.js"></script>
+  </head>
+
+  <body>
+    <h1>Pink Noise Explorer</h1>
+    <h2>a JavaScript music demo</h2>
+
+    <h3>Call to action!</h3>
+
+    <p align="center">Press the button to play the waveform, and adjust the
+        controls to alter its shape.
+    </p>
+
+    <p align="center"><button id="playPause">Play / Pause</button></p>
+
+    <table id="oscTable">
+        <tr><td id="oscCell"></td></tr>
+    </table>
+
+    <table id="harmTable">
+        <tr><td id="harmCell"></td></tr>
+    </table>
+
+    <table id="controlTable">
+        <tr>
+            <td>Low <i>&alpha;</i></td>
+            <td>
+                <input id="alpha" type="range" value="1" min="0" max="2" step="0.02">
+            </td>
+            <td>High <i>&alpha;</i></td>
+        </tr>
+        <tr><td/><td id="alphaText">1</td><td/></tr>
+        <tr>
+            <td>Low Amplitude</td>
+            <td>
+                <input id="amp" type="range" value="0.5" min="0" max="1" step="0.02">
+            </td>
+            <td>High Amplitude</td>
+        </tr>
+        <tr><td/><td id="ampText">0.5</td><td/></tr>
+    </table>
+
+    <script type="text/javascript">
+        // The overall audio context instance. Unfortunately, the name
+        // `AudioContext` isn't fully standardized and is prefixed in some
+        // browsers. Ideally, the expression would just be `new AudioContext()`
+        // per se.
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        var gen = new Piece(audioCtx.sampleRate);
+        var mc = new MusicControl(audioCtx, gen);
+        mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
+        mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
+
+        var alphaText = document.querySelector("#alphaText");
+        var ampText = document.querySelector("#ampText");
+
+        document.querySelector("#playPause").onclick = function() {
+            mc.playPause();
+        }
+
+        document.querySelector("#alpha").oninput = function() {
+            gen.alpha = parseFloat(this.value);
+            alphaText.textContent = this.value;
+        }
+
+        document.querySelector("#amp").oninput = function() {
+            gen.amp = parseFloat(this.value);
+            ampText.textContent = this.value;
+        }
+    </script>
+
+    <h3>What is this?</h3>
+
+    <p>This is a tool to explore the timbral quality of pink noise family
+        of waveforms. The top box is an oscilloscope view which visualizes the
+        waveform, and the bottom box is a harmonic analysis.
+    </p>
+
+    <p>Pink noise is characterized as having a harmonic curve where amplitude
+        slopes down from low to high frequencies. More technically, pink noise
+        is parameterized on a variable <i>&alpha;</i> (alpha); at a given
+        frequency <i>f</i>, the amplitude is 1/<i>f<sup>&alpha;</sup></i>.
+    </p>
+
+    <p>In "normal" pink noise &mdash; what is sometimes inaccurately just
+        called "pink noise" per se &mdash; <i>&alpha;</i> is 1, which means
+        that there is equal energy across all octaves.
+    </p>
+
+    <p>This tool allows you to adjust <i>&alpha;</i> as well as the overall
+        amplitude of the sound.
+    </p>
+
+    <p><a href="https://github.com/danfuzz/mimu/tree/master/pink-noise-explorer">
+        See the source</a>.
+    </p>
+
+    <hr>
+    <p><b><a href="../">Mimu</a></b></p>
+    <p>Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+        Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+        Version 2.0. Details:
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">
+        http://www.apache.org/licenses/LICENSE-2.0</a>
+    </p>
+  </body>
+</html>
