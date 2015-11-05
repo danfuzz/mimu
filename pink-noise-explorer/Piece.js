@@ -118,16 +118,14 @@ class Piece {
         var mean = 0;
         var variance = 1;
 
-        // This loop picks candidate points until we find one that falls within
-        // the unit circle. We avoid the center point, as that can't be
-        // scaled.
+        // This loop picks random candidate points until we find one that falls
+        // within the unit circle. We explicitly avoid the center point
+        // (unlikely though it may be), as it can't be scaled.
         var v1, v2, s;
         do {
-            var u1 = Math.random();
-            var u2 = Math.random();
-            v1 = (2 * u1) - 1;
-            v2 = (2 * u2) - 1;
-            s = (v1 * v1) + (v2 * v2);
+            var v1 = (Math.random() * 2) - 1;  // Generate two uniform random...
+            var v2 = (Math.random() * 2) - 1;  // ...numbers in the range -1..1.
+            s = (v1 * v1) + (v2 * v2);         // Distance^2 from origin.
         } while ((s > 1) || (s === 0));
 
         var mult = Math.sqrt(variance) * Math.sqrt(-2 * Math.log(s) / s);
