@@ -115,15 +115,20 @@
 
     <h3>Items of note</h3>
 
-    <p>Becuase true brown noise (<i>&alpha;</i> 2) is not actually fruitful
-        when turned into a waveform, this demo clamps <i>&alpha;</i> to
-        1.999 (that is, <i>very nearly</i> but <i>not quite</i> 2).
-    </p>
-
     <p>At higher <i>&alpha;</i>s, there is relatively high energy in the
         very-low frequency range. This can cause the waveform to wander
-        significantly out of the valid-for-audio range -1 to 1. To correct
-        for that, simply lower the amplitude.
+        significantly out of the valid-for-audio range -1 to 1. This demo
+        adjusts for that implicitly: As you raise <i>&alpha;</i>, the overall
+        amplitude is adjusted downward. It's not a perfect adjustment, though,
+        so you might find that you need to manually adjust amplitude up or
+        down, depending on what you're aiming for.
+    </p>
+
+    <p>True brown noise (<i>&alpha;</i> 2) is not actually fruitful when
+        turned into an audio waveform, but it can still fun to look at.
+        However, don't be surprised if you end up looking at an empty
+        display when the waveform strays far out of range (per the previous
+        note).
     </p>
 
     <p>The noise is generated in this demo by using an IIR (infinite impulse

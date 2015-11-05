@@ -61,8 +61,8 @@ class Piece {
     set alpha(value) {
         if (value < 0) {
             value = 0;
-        } else if (value > 1.999) {
-            value = 1.999;
+        } else if (value > 2) {
+            value = 2;
         }
 
         this._alpha = value;
