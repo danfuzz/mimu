@@ -30,7 +30,8 @@ class Piece {
         // Number of poles.
         this._poles = 5;
 
-        // Amplitude of the note.
+        // Amplitude of the noise. This is only an approximation, in that
+        // pink noise inherently has no real limit on range.
         this._amp = 0.5;
 
         // Derived values
