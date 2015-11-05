@@ -36,6 +36,9 @@ class Piece {
 
         // Derived values
 
+        // Amp including adjustment multiplier for the given alpha.
+        this._ampAdjusted = 0;
+
         // Multipliers for the IIR filter. One per pole.
         this._multipliers = [];
 
@@ -46,11 +49,13 @@ class Piece {
         this._at = 0;
 
         // Final setup.
-        this.calcDerived();
+        this.calcFilter();
+        this.calcAmp();
     }
 
     set amp(value) {
         this._amp = value;
+        this.calcAmp();
     }
 
     set alpha(value) {
@@ -61,16 +66,24 @@ class Piece {
         }
 
         this._alpha = value;
-        this.calcDerived();
+        this.calcFilter();
+        this.calcAmp();
     }
 
     set poles(value) {
         this._poles = value;
-        this.calcDerived();
+        this.calcFilter();
     }
 
-    // Calculate derived values.
-    calcDerived() {
+    // Calculate adjusted amp. This formula was derived empirically and is
+    // probably off.
+    calcAmp() {
+        this._ampAdjusted = this._amp *
+            (Math.log(1.05 + (2 - this._alpha)) / 4.5);
+    }
+
+    // Calculate the filter parameters, and initialize the `values` array.
+    calcFilter() {
         var poles = this._poles;
         var alpha = this._alpha;
 
@@ -109,7 +122,7 @@ class Piece {
         // Scale by the indicated amp. The additional `0.2` multiplier is to
         // get most samples to be in the range -1 to 1. After that, clamp to
         // the valid range -1 to 1.
-        x *= 0.2 * this._amp;
+        x *= this._ampAdjusted;
 
         return (x < -1) ? -1 : ((x > 1) ? 1 : x);
     }
