@@ -119,7 +119,8 @@ class Piece {
         var variance = 1;
 
         // This loop picks candidate points until we find one that falls within
-        // the unit circle.
+        // the unit circle. We avoid the center point, as that can't be
+        // scaled.
         var v1, v2, s;
         do {
             var u1 = Math.random();
