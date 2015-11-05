@@ -115,6 +115,7 @@ class Piece {
 
     // Get a gaussian-distribution random number using the "polar" method.
     static randomGaussian() {
+        // In a general implementation, these could be arguments.
         var mean = 0;
         var variance = 1;
 
