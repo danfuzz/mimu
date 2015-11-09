@@ -173,14 +173,15 @@
     <h3>Items of note</h3>
 
     <p>At many frequencies, you can observe harmonics that are not even
-        multiples of the fundamental frequency. These are <i>aliasing
-        artifacts</i> which are produced because the period (single cycle) of
-        the waveform isn't a whole number of samples. The demo code reduces
-        &mdash; but does not eliminate &mdash; this effect by oversampling, that
-        is, by producing samples at a higher rate than the output sample rate.
-        In this case, those samples are simply averaged together, a tactic which
-        serious audio engineers would probably scoff at but which is both
-        effective and efficient for the current use case.
+        multiples of the fundamental frequency. For example, if you ramp up
+        the pitch slowly, you can see these harmonics "bounce off the wall."
+        These are <i>aliasing artifacts</i> which are produced because the
+        period (single cycle) of the waveform isn't a whole number of samples.
+        The demo code reduces &mdash; but does not eliminate &mdash; this effect
+        by oversampling, that is, by producing samples at a higher rate than the
+        output sample rate. In this case, those samples are simply averaged
+        together, a tactic which serious audio engineers would probably scoff at
+        but which is both effective and efficient for the current use case.
     </p>
 
     <hr>
