@@ -92,7 +92,6 @@ class Piece {
         var alpha = this._alpha;
 
         this._multipliers = new Float64Array(poles);
-        this._values = new Float64Array(poles);
         this._at = 0;
 
         var a = 1;
@@ -101,9 +100,16 @@ class Piece {
             this._multipliers[i] = a;
         }
 
-        // Fill history with random values.
-        for (var i = 0; i < (5 * poles); i++) {
-            this.nextSample();
+        // Set up the historical `values` array, if this is the first time
+        // `calcFilter()` is called *or* if the number of poles has changed.
+        // Otherwise, we "let it ride" to avoid a discontinuity of the waveform.
+        if (!(this._values && (this._values.length == poles))) {
+            this._values = new Float64Array(poles);
+
+            // Fill history with random values.
+            for (var i = 0; i < (5 * poles); i++) {
+                this.nextSample();
+            }
         }
     }
 
