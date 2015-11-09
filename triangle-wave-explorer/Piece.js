@@ -6,6 +6,9 @@
 
 "use strict";
 
+// How many "subsamples" to produce per actual sample output. This is done
+// in order to reduce aliasing artifacts.
+var OVERSAMPLE = 4;
 
 /**
  * Parametric triangle(esque) wave. This represents a wave as four segments,
@@ -43,7 +46,7 @@ class Piece {
         // Base parameters
 
         // Sample rate (samples per second).
-        this.sampleRate = sampleRate;
+        this.sampleRate = sampleRate * OVERSAMPLE;
 
         // Frequency of the note (Hz, that is, cycles per second).
         this._freq = 440.0;  // Middle A.
@@ -193,33 +196,38 @@ class Piece {
     // Perform one iteration of generation, returning a single sample.
     nextSample() {
         var idx = this.idx;
-        var samp;
+        var samp = 0;
 
-        if (idx < this.idxB) {
-            // Ramp from `0` to `1`.
-            samp = idx / this.widthA;
-        } else if (idx < this.idxC) {
-            // Ramp from `1` to `0`.
-            samp = ((idx - this.idxB) / this.widthB) * -1 + 1;
-        } else if (idx < this.idxD) {
-            // Ramp from `0` to `-1`.
-            samp = ((idx - this.idxC) / this.widthC) * -1;
-        } else {
-            // Ramp from `-1` to `0`.
-            samp = ((idx - this.idxD) / this.widthD) - 1;
-        }
+        // Produce a sum of `OVERSAMPLE` "subsamples." These are simply
+        // averaged to produce the final sample. It's a naive technique, but
+        // also efficient and good enough for the purpose here.
+        for (var i = 0; i < OVERSAMPLE; i++) {
+            if (idx < this.idxB) {
+                // Ramp from `0` to `1`.
+                samp += idx / this.widthA;
+            } else if (idx < this.idxC) {
+                // Ramp from `1` to `0`.
+                samp += ((idx - this.idxB) / this.widthB) * -1 + 1;
+            } else if (idx < this.idxD) {
+                // Ramp from `0` to `-1`.
+                samp += ((idx - this.idxC) / this.widthC) * -1;
+            } else {
+                // Ramp from `-1` to `0`.
+                samp += ((idx - this.idxD) / this.widthD) - 1;
+            }
 
-        idx += this.idxRate;
+            idx += this.idxRate;
 
-        if (idx > 1) {
-            idx %= 1;
-            if (this.needCalc) {
-                this.calcDerived();
-                this.needCalc = false;
+            if (idx > 1) {
+                idx %= 1;
+                if (this.needCalc) {
+                    this.calcDerived();
+                    this.needCalc = false;
+                }
             }
         }
 
         this.idx = idx;
-        return samp * this._amp;
+        return samp / OVERSAMPLE * this._amp;
     }
 }
