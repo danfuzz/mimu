@@ -157,6 +157,8 @@
                 <li>low-pass &mdash; The filter passes (allows) frequencies
                     lower than the center frequency and rejects (mutes)
                     frequencies above the center frequency.
+                    <br><b>Note:</b> The current implementation seems to
+                    incorrectly add a positive "DC bias" to the signal.
                 </li>
                 <li>high-pass &mdash; The filter passes frequencies
                     higher than the center frequency and rejects
@@ -170,6 +172,8 @@
                     frequencies away from the center frequency and rejects
                     near the center frequency and rejects frequencies near the
                     center frequency.
+                    <br><b>Note:</b> The current implementation seems to
+                    incorrectly add a positive "DC bias" to the signal.
                 </li>
             </ul>
         </li>
@@ -205,6 +209,11 @@
         even if you cut off the input (by setting the amplitude to zero), you
         will still see output with energy at <i>f<sub>0</sub></i>. It will
         eventually decay.
+    </p>
+
+    <p>It can be hard to tell what a notch filter is doing at higher <i>Q</i>,
+        both audibly and in terms of the spectrum. When using a notch filter,
+        you'll probably have better results with <i>Q</i> under 10.
     </p>
 
     <p>It's easy to pick filter parameters which will "blow out" the output
