@@ -70,7 +70,7 @@
         <tr>
             <td>Low <i>Q</i></td>
             <td>
-                <input id="q" type="range" value="30" min="0" max="1000" step="0.1">
+                <input id="q" type="range" value="30" min="0" max="1000" step="0.01">
             </td>
             <td>High <i>Q</i></td>
         </tr>
@@ -149,30 +149,6 @@
     </p>
 
     <ul>
-        <li>type &mdash; There are four basic types of filter. In each
-            case, the filter performs a transformation from its input harmonic
-            spectrum, with a "pivot" at its center frequency. The filter
-            type indicates the general shape of the transformation:
-            <ul>
-                <li>low-pass &mdash; The filter passes (allows) frequencies
-                    lower than the center frequency and rejects (mutes)
-                    frequencies above the center frequency.
-                </li>
-                <li>high-pass &mdash; The filter passes frequencies
-                    higher than the center frequency and rejects
-                    frequencies below the center frequency.
-                </li>
-                <li>band-pass &mdash; The filter passes frequencies
-                    near the center frequency and rejects frequencies
-                    away from the center frequency.
-                </li>
-                <li>notch (band-reject) &mdash; The filter passes
-                    frequencies away from the center frequency and rejects
-                    near the center frequency and rejects frequencies near the
-                    center frequency.
-                </li>
-            </ul>
-        </li>
         <li><i>f<sub>0</sub></i> (center frequency) &mdash; <i>f<sub>0</sub></i>
             is the frequency at which the filter is most active and at which
             the frequency response of the filter "pivots."
@@ -180,10 +156,34 @@
         <li><i>Q</i> (quality) &mdash; <i>Q</i> is a measure of how steep the
             dropoff is of the frequency response curve around
             <i>f<sub>0</sub></i>. A low <i>Q</i> means that the
-            frequency curve ramps gently down, passing a relatively wider portion
-            of the spectrum. A high <i>Q</i> means that the frequency curve
-            ramps steeply down, passing a relatively narrower portion of the
+            frequency curve ramps gently down, such that the filter encompasses
+            a relatively wider portion of the spectrum. A high <i>Q</i> means
+            that the frequency curve ramps steeply down, such that the
+            filter encompasses a relatively narrower portion of the
             spectrum. <i>Q</i> must be a positive (non-zero) value.
+        </li>
+        <li>type &mdash; There are four basic types of filter. In each
+            case, the filter performs a transformation from its input harmonic
+            spectrum, with a "pivot" at <i>f<sub>0</sub></i>. The filter
+            type indicates the general shape of the transformation:
+            <ul>
+                <li>low-pass &mdash; The filter passes (allows) frequencies
+                    lower than <i>f<sub>0</sub></i> and rejects (squelches)
+                    frequencies above <i>f<sub>0</sub></i>.
+                </li>
+                <li>high-pass &mdash; The filter passes frequencies
+                    higher than <i>f<sub>0</sub></i> and rejects
+                    frequencies below <i>f<sub>0</sub></i>.
+                </li>
+                <li>band-pass &mdash; The filter passes frequencies
+                    near <i>f<sub>0</sub></i> and rejects frequencies
+                    away from <i>f<sub>0</sub></i>.
+                </li>
+                <li>notch (band-reject) &mdash; The filter passes
+                    frequencies away from <i>f<sub>0</sub></i> and rejects
+                    frequencies near <i>f<sub>0</sub></i>.
+                </li>
+            </ul>
         </li>
     </ul>
 
