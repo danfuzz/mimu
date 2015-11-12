@@ -95,32 +95,32 @@
 
         document.querySelector("#playPause").onclick = function() {
             mc.playPause();
-        }
+        };
 
         document.querySelector("#upBias").oninput = function() {
             gen.upBias = parseFloat(this.value);
             upBiasText.textContent = this.value;
-        }
+        };
 
         document.querySelector("#posBias").oninput = function() {
             gen.posBias = parseFloat(this.value);
             posBiasText.textContent = this.value;
-        }
+        };
 
         document.querySelector("#ampBias").oninput = function() {
             gen.ampBias = parseFloat(this.value);
             ampBiasText.textContent = this.value;
-        }
+        };
 
         document.querySelector("#freq").oninput = function() {
             gen.freq = parseFloat(this.value);
             freqText.textContent = this.value;
-        }
+        };
 
         document.querySelector("#amp").oninput = function() {
             gen.amp = parseFloat(this.value);
             ampText.textContent = this.value;
-        }
+        };
     </script>
 
     <h3>What is this?</h3>

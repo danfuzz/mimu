@@ -68,17 +68,17 @@
 
         document.querySelector("#playPause").onclick = function() {
             mc.playPause();
-        }
+        };
 
         document.querySelector("#alpha").oninput = function() {
             gen.alpha = parseFloat(this.value);
             alphaText.textContent = this.value;
-        }
+        };
 
         document.querySelector("#amp").oninput = function() {
             gen.amp = parseFloat(this.value);
             ampText.textContent = this.value;
-        }
+        };
     </script>
 
     <h3>What is this?</h3>
