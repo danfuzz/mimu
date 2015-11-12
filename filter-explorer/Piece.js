@@ -107,6 +107,6 @@ class Piece {
         this._y2 = this._y1;
         this._y1 = y0;;
 
-        return y0 * this._amp;
+        return Math.max(Math.min(y0 * this._amp, 1), -1);
     }
 }

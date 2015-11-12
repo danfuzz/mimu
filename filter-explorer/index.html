@@ -139,6 +139,14 @@
         1000. This more or less covers the useful range for sound synthesis.
     </p>
 
+    <p>It's easy to pick filter parameters which will "blow out" the output
+        out of the valid-for-audio range of -1 to 1. The way to correct for
+        this is simply to lower the output amplitude. If you don't, the
+        main thing you will notice is that you end up with extra peaks in
+        the output harmonics, which correspond to the "shelf" caused by the
+        cutoff of the waveform at either extreme of instantaneous amplitude.
+    </p>
+
     <hr>
     <p><b><a href="../">Mimu</a></b></p>
     <p>Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
