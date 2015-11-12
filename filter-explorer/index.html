@@ -34,6 +34,14 @@
 
     <table id="controlTable">
         <tr>
+            <td>Low Input Amp</td>
+            <td>
+                <input id="inAmp" type="range" value="1" min="0" max="10" step="0.1">
+            </td>
+            <td>High Input Amp</td>
+        </tr>
+        <tr><td/><td id="inAmpText">1</td><td/></tr>
+        <tr>
             <td>Low Center <i>f<sub>0</sub></i></td>
             <td>
                 <input id="f0" type="range" value="440" min="20" max="8000" step="1">
@@ -79,6 +87,11 @@
             mc.playPause();
         }
 
+        document.querySelector("#inAmp").oninput = function() {
+            gen.inAmp = parseFloat(this.value);
+            inAmpText.textContent = this.value;
+        }
+
         document.querySelector("#f0").oninput = function() {
             gen.f0 = parseFloat(this.value);
             f0Text.textContent = this.value;
@@ -103,9 +116,9 @@
         a harmonic spectrum view.
     </p>
 
-    <p>This tool generates white noise at (audiowise) maximum amplitude, and
-        allows you to adjust the parameters of the filter as well the output
-        volume. The filter parameters are:
+    <p>This tool generates white noise at an adjustable amplitude, and allows
+        you to adjust the parameters of the filter as well the overall output
+        amplitude (volume). The filter parameters are:
     </p>
 
     <ul>
@@ -139,12 +152,19 @@
         1000. This more or less covers the useful range for sound synthesis.
     </p>
 
+    <p>At higher <i>Q</i> the filter becomes significantly "resonant." That is,
+        even if you cut off the input (by setting the amplituded to zero), you
+        will still see output with energy at <i>f<sub>0</sub></i>. It will
+        eventually decay.
+    </p>
+
     <p>It's easy to pick filter parameters which will "blow out" the output
-        out of the valid-for-audio range of -1 to 1. The way to correct for
-        this is simply to lower the output amplitude. If you don't, the
-        main thing you will notice is that you end up with extra peaks in
-        the output harmonics, which correspond to the "shelf" caused by the
-        cutoff of the waveform at either extreme of instantaneous amplitude.
+        out of the valid-for-audio range of -1 to 1. The straightforward way
+        to correct for this is simply to lower either the input or output
+        amplitude. If you don't, the main thing you will notice is that you
+        end up with extra peaks in the output harmonics, which correspond to
+        the "shelf" caused by the cutoff of the waveform at either extreme of
+        instantaneous amplitude.
     </p>
 
     <hr>

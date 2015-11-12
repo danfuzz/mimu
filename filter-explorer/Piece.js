@@ -22,6 +22,9 @@ class Piece {
         // Sample rate (samples per second).
         this.sampleRate = sampleRate;
 
+        // Input amplitude.
+        this._inAmp = 1;
+
         // Center frequency.
         this._f0 = 440;
 
@@ -52,6 +55,10 @@ class Piece {
 
         // Final setup.
         this.calcFilter();
+    }
+
+    set inAmp(value) {
+        this._inAmp = value;
     }
 
     set amp(value) {
@@ -98,7 +105,7 @@ class Piece {
         var y1 = this._y1;
         var y2 = this._y2;
 
-        var x0 = Math.random();  // Current input sample.
+        var x0 = Math.random() * this._inAmp;  // Current input sample.
         var y0 = (this._x0Co * x0) + (this._x1Co * x1) + (this._x2Co * x2) +
             (this._y1Co * y1) + (this._y2Co * y2);
 
