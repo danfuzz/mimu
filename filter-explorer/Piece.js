@@ -8,11 +8,11 @@
 
 
 /**
- * Filter generator, with adjustable center frequency and Q. What it filters
- * is white noise.
+ * Filter generator, with adjustable type, center frequency, and Q. What it
+ * filters is adjustable-amplitude white noise.
  *
- * This is an implementation of a two-pole IIR band-pass filter, as described
- * by Robert Bristow-Johnson in
+ * The filters implemented herein are two-pole IIR filters, as described by
+ * Robert Bristow-Johnson in
  * <http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt>.
  */
 class Piece {
@@ -24,6 +24,10 @@ class Piece {
 
         // Input amplitude.
         this._inAmp = 1;
+
+        // Filter type. Must be one of:
+        // `"low-pass" "high-pass" "band-pass" "notch"`
+        this._filterType = "band-pass";
 
         // Center frequency.
         this._f0 = 440;
@@ -65,6 +69,24 @@ class Piece {
         this._amp = value;
     }
 
+    set filterType(value) {
+        switch (value) {
+            case "low-pass":
+            case "high-pass":
+            case "band-pass":
+            case "notch": {
+                // These are okay.
+                break;
+            }
+            default: {
+                value = "low-pass";
+            }
+        }
+
+        this._filterType = value;
+        this.calcFilter();
+    }
+
     set f0(value) {
         this._f0 = value;
         this.calcFilter();
@@ -83,13 +105,54 @@ class Piece {
     calcFilter() {
         var w0 = 2 * Math.PI * this._f0 / this.sampleRate;
         var alpha = Math.sin(w0) / (this._q * 2);
+        var cosW0 = Math.cos(w0);
+        var b0, b1, b2, a0, a1, a2;
 
-        var b0 = this._q * alpha;
-        var b1 = 0;
-        var b2 = -this._q * alpha;
-        var a0 = 1 + alpha;
-        var a1 = -2 * Math.cos(w0);
-        var a2 = 1 - alpha;
+        switch (this._filterType) {
+            case "low-pass": {
+                b0 = (1 - cosW0) / 2;
+                b1 = 1 - cosW0;
+                b2 = (1 - cosW0) / 2;
+                a0 = 1 + alpha;
+                a1 = -2 * cosW0;
+                a2 = 1 - alpha;
+                break;
+            }
+            case "high-pass": {
+                b0 = (1 + cosW0) / 2;
+                b1 = -(1 + cosW0);
+                b2 = (1 + cosW0) / 2;
+                a0 = 1 + alpha;
+                a1 = -2 * cosW0;
+                a2 = 1 - alpha;
+                break;
+            }
+            case "band-pass": {
+                // This is the "peak gain = Q" BPF variant from the Audio EQ
+                // Cookbook.
+                b0 = this._q * alpha;
+                b1 = 0;
+                b2 = -this._q * alpha;
+                a0 = 1 + alpha;
+                a1 = -2 * cosW0;
+                a2 = 1 - alpha;
+                break;
+            }
+            case "notch": {
+                b0 = 1;
+                b1 = -2 * cosW0;
+                b2 = 1;
+                a0 = 1 + alpha;
+                a1 = -2 * cosW0;
+                a2 = 1 - alpha;
+                break;
+            }
+            default: {
+                // Unknown filter type.
+                b0 = b1 = b2 = a0 = a1 = a2 = 0;
+                break;
+            }
+        }
 
         this._x0Co = b0 / a0;
         this._x1Co = b1 / a0;

@@ -69,8 +69,13 @@ button {
     padding-bottom: 1em;
 }
 
-#controlTable input {
+#controlTable input[type="range"] {
     width: 100%;
+}
+
+#controlTable input[type="radio"] {
+    margin-left: 3em;
+    margin-right: 0.5em;
 }
 
 #controlTable td:first-child {
