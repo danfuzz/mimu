@@ -163,13 +163,13 @@
         to correct for this is simply to lower either the input or output
         amplitude. If you don't, the main thing you will notice is that you
         end up with extra peaks in the output harmonics, which correspond to
-        the "shelf" caused by the cutoff of the waveform at either extreme of
+        the "shelves" caused by the cutoff of the waveform at either extreme of
         instantaneous amplitude.
     </p>
 
     <p>The filter implemented in this demo is a two-pole infinite impulse
         response (IIR) filter. The "infinite" in the name means that the
-        filter output at any given point in time depends on *all* of the
+        filter output at any given point in time depends on <i>all</i> of the
         input that the filter has ever received. This is in contrast to a
         finite impulse response (FIR) filter, which only depends on a
         limited rolling window of previous input to the filter. (In digital
