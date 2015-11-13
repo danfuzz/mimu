@@ -33,7 +33,7 @@ class Piece {
         this._f0 = 440;
 
         // Q.
-        this._q = 30.0;
+        this._q = 10.0;
 
         // Amplitude of the output.
         this._amp = 0.5;
