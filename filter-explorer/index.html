@@ -209,7 +209,7 @@
 
     <p>It can be hard to tell what a notch filter is doing at higher <i>Q</i>,
         both audibly and in terms of the spectrum. When using a notch filter,
-        you'll probably have better results with <i>Q</i> under 10.
+        you'll probably have better results with <i>Q</i> under 5.
     </p>
 
     <p>It's easy to pick filter parameters which will "blow out" the output
@@ -221,13 +221,18 @@
         instantaneous amplitude.
     </p>
 
-    <p>The filter implemented in this demo is a two-pole infinite impulse
-        response (IIR) filter. The "infinite" in the name means that the
-        filter output at any given point in time depends on <i>all</i> of the
+    <p>The filters implemented in this demo are two-pole infinite impulse
+        response (IIR) filter. The "infinite" in the name means that filter
+        output at any given point in time depends on <i>all</i> of the
         input that the filter has ever received. This is in contrast to a
         finite impulse response (FIR) filter, which only depends on a
         limited rolling window of previous input to the filter. (In digital
         filters, this window is generally one sample per pole.)
+    </p>
+
+    <p>The four basic types of filter demonstrated here aren't the only kinds of
+        filter. There are many others. Roughly speaking, though, one can think
+        of any filter as a combination of the types described here.
     </p>
 
     <hr>
