@@ -6,11 +6,6 @@
 
 "use strict";
 
-var PI = Math.PI;
-var HALF_PI = PI / 2;
-var TWO_PI = PI * 2;
-
-
 // The musical piece per se.
 class Piece {
     constructor(sampleRate) {
@@ -97,8 +92,8 @@ class Piece {
         // jarring moment of total silence.
         var vol = Math.pow(0.9, this.idx / this.decayRate) * 0.95 + 0.05;
 
-        var sa = Piece.waveform(TWO_PI * this.idx / this.wla) * 0.5;
-        var sb = Piece.waveform(TWO_PI * this.idx / this.wlb) * 0.25;
+        var sa = Piece.waveform(this.idx / this.wla) * 0.5;
+        var sb = Piece.waveform(this.idx / this.wlb) * 0.25;
         var samp = vol * (sa + sb);
 
         // This quantizes the sample, recreating the "shimmer" effect of the
@@ -110,30 +105,33 @@ class Piece {
         return samp;
     }
 
-    // Wave function. Same cycle as sine (2*PI). Doesn't expect to be given
-    // negative angles.
-    static waveform(angle) {
-        return triangleWave(angle);
+    // Wave function. Cycle time is 1. Doesn't expect to be given negative
+    // indices.
+    static waveform(n) {
+        return triangleWave(n);
+        // return sineWave(n);
+        // return squareWave(n);
 
         // Reasonably interesting choices.
 
-        function triangleWave(angle) {
-            // `+ HALF_PI` makes it so that `triangle(0) == 0`.
-            var x = (angle + HALF_PI) % TWO_PI;
-            if (x < PI) {
-                return (x / PI) * 2 - 1;
+        function triangleWave(n) {
+            // `+ 0.25` makes it so that `triangle(0) == 0`.
+            var x = (n + 0.25) % 1;
+            if (x < 0.5) {
+                return (x * 4) - 1;
             } else {
-                return -(((x - PI) / PI) * 2 - 1);
+                x -= 0.5;
+                return 1 - (x * 4);
             }
         }
 
-        function sineWave(angle) {
-            return Math.sin(angle);
+        function sineWave(n) {
+            return Math.sin(n * (Math.PI * 2));
         }
 
-        function squareWave(angle) {
-            var x = angle % TWO_PI;
-            return (x < PI) ? -1 : 1;
+        function squareWave(n) {
+            var x = n % 1;
+            return (x < 0.5) ? -1 : 1;
         }
     }
 }
