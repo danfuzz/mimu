@@ -6,37 +6,46 @@
 
 "use strict";
 
-// The musical piece per se.
+/**
+ * The AWK Music composition.
+ */
 class Piece {
+    /**
+     * Contructs an instance, given a `sampleRate` (in samples per second).
+     */
     constructor(sampleRate) {
-        // Sample rate (samples per second).
+        /** Sample rate (samples per second). */
         this.sampleRate = sampleRate;
 
-        // Decay rate of notes, in particular, the number of samples it takes
-        // a note to reduce in volume by 10%. As defined, it is 0.1sec.
+        /**
+         * Decay rate of notes, in particular, the number of samples it takes
+         * a note to reduce in volume by 10%. As defined, it is 0.1sec.
+         */
         this.decayRate = sampleRate / 10;
 
-        // Wavelength of the primary note.
+        /** Wavelength of the primary note. */
         this.wla = this.randomWl();
 
-        // Wavelength of the secondary note.
+        /** Wavelength of the secondary note. */
         this.wlb = 0;
 
-        // Index of (number of samples into) the current note-pair.
+        /** Index of (number of samples into) the current note-pair. */
         this.idx = 0;
 
-        // Duration (total number of samples) for the current note-pair.
+        /** Duration (total number of samples) for the current note-pair. */
         this.dur = 0;
 
-        // Most recently-generated sample. Used for de-clicking.
+        /** Most recently-generated sample. Used for de-clicking. */
         this.lastSamp = 0;
 
-        // Whether we are currently de-clicking.
+        /** Whether we are currently de-clicking. */
         this.declick = false;
     }
 
-    // Pick a random wavelength within the harmonic confines of the piece.
-    // The result is the number of samples in a single cycle of the note.
+    /**
+     * Picks a random wavelength within the harmonic confines of the piece.
+     * The result is the number of samples in a single cycle of the note.
+     */
     randomWl() {
         // What do all those numbers mean?
         //
@@ -54,7 +63,9 @@ class Piece {
             Math.pow(0.8705506, Math.trunc(Math.random() * 10));
     }
 
-    // Perform one iteration of generation, returning a single sample.
+    /**
+     * Performs one iteration of generation, returning a single sample.
+     */
     nextSample() {
         if (this.declick) {
             // We're "de-clicking." This just means we gracefully (but promptly)
@@ -105,8 +116,10 @@ class Piece {
         return samp;
     }
 
-    // Wave function. Cycle time is 1. Doesn't expect to be given negative
-    // indices.
+    /**
+     * Given a non-negative index into the cycle, returns a value for the
+     * wave function. Cycle time is 1.
+     */
     static waveform(n) {
         return triangleWave(n);
         // return sineWave(n);

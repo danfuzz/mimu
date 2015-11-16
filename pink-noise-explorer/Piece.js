@@ -22,34 +22,39 @@
  * introduction to the technique used.
  */
 class Piece {
+    /**
+     * Contructs an instance, given a `sampleRate` (in samples per second).
+     */
     constructor(sampleRate) {
         // Base parameters
 
-        // Sample rate (samples per second).
+        /** Sample rate (samples per second). */
         this.sampleRate = sampleRate;
 
-        // Alpha.
-        this._alpha = 1.0;  // "Normal" pink noise.
+        /** Alpha. 1.0 is "normal" pink noise. */
+        this._alpha = 1.0;
 
-        // Number of poles.
+        /** Number of poles. */
         this._poles = 5;
 
-        // Amplitude of the noise. This is only an approximation, in that
-        // pink noise inherently has no real limit on range.
+        /**
+         * Amplitude of the noise. This is only an approximation, in that
+         * pink noise inherently has no real limit on range.
+         */
         this._amp = 0.5;
 
         // Derived values
 
-        // Amp including adjustment multiplier for the given alpha.
+        /** Amp including adjustment multiplier for the given alpha. */
         this._ampAdjusted = 0;
 
-        // Multipliers for the IIR filter. One per pole.
+        /** Multipliers for the IIR filter. One per pole. */
         this._multipliers = [];
 
-        // Circular history of recently-generated values. One per pole.
+        /** Circular history of recently-generated values. One per pole. */
         this._values = [];
 
-        // Notional start index of the `values` array.
+        /** Notional start index of the `values` array. */
         this._at = 0;
 
         // Final setup.
@@ -57,11 +62,17 @@ class Piece {
         this.calcAmp();
     }
 
+    /**
+     * Sets the output amplitude.
+     */
     set amp(value) {
         this._amp = value;
         this.calcAmp();
     }
 
+    /**
+     * Sets the alpha.
+     */
     set alpha(value) {
         if (value < 0) {
             value = 0;
@@ -74,19 +85,27 @@ class Piece {
         this.calcAmp();
     }
 
+    /**
+     * Sets the count of poles.
+     */
     set poles(value) {
         this._poles = value;
         this.calcFilter();
     }
 
-    // Calculate adjusted amp. This formula was derived empirically and is
-    // probably off.
+    /**
+     * Calculates derived parameters for amplitude. This formula was derived
+     * empirically and is probably off.
+     */
     calcAmp() {
         this._ampAdjusted = this._amp *
             (Math.log(1.05 + (2 - this._alpha)) / 4.5);
     }
 
-    // Calculate the filter parameters, and initialize the `values` array.
+    /**
+     * Calculates the derived filter parameters, and initializes the `values`
+     * array if not already done.
+     */
     calcFilter() {
         var poles = this._poles;
         var alpha = this._alpha;
@@ -113,7 +132,9 @@ class Piece {
         }
     }
 
-    // Perform one iteration of generation, returning a single sample.
+    /**
+     * Performs one iteration of generation, returning a single sample.
+     */
     nextSample() {
         var poles = this._poles;
         var multipliers = this._multipliers;
@@ -137,7 +158,9 @@ class Piece {
         return (x < -1) ? -1 : ((x > 1) ? 1 : x);
     }
 
-    // Get a gaussian-distribution random number using the "polar" method.
+    /**
+     * Gets a gaussian-distribution random number using the "polar" method.
+     */
     static randomGaussian() {
         // In a general implementation, these could be arguments.
         var mean = 0;

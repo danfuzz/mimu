@@ -16,59 +16,85 @@
  * <http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt>.
  */
 class Piece {
+    /**
+     * Contructs an instance, given a `sampleRate` (in samples per second).
+     */
     constructor(sampleRate) {
         // Base parameters
 
-        // Sample rate (samples per second).
+        /** Sample rate (samples per second). */
         this.sampleRate = sampleRate;
 
-        // Input amplitude.
+        /** Input amplitude. */
         this._inAmp = 1;
 
-        // Filter type. Must be one of:
-        // `"low-pass" "high-pass" "band-pass" "notch"`
+        /**
+         * Filter type. Must be one of:
+         * `"low-pass" "high-pass" "band-pass" "notch"`
+         */
         this._filterType = "band-pass";
 
-        // Center frequency.
+        /** Center frequency. */
         this._f0 = 440;
 
-        // Q.
+        /** Q (filter quality). */
         this._q = 10.0;
 
-        // Amplitude of the output.
+        /** Amplitude of the output. */
         this._amp = 0.5;
 
         // Derived values
 
-        // Previous two input samples. Subscripts are taken as negative
-        // indices.
+        /**
+         * Previous input sample. (Subscripts are taken as negative indices.)
+         */
         this._x1 = 0;
+
+        /** Second-previous input sample. */
         this._x2 = 0;
 
-        // Previous two output samples. Subscripts are taken as negative
-        // indices.
+        /** Previous output sample. */
         this._y1 = 0;
+
+        /** Second-previous output sample. */
         this._y2 = 0;
 
-        // Coefficients for the filter. Named after what element they apply to.
+        /** Filter coefficient applied to `x0`. */
         this._x0Co = 0;
+
+        /** Filter coefficient applied to `x1`. */
         this._x1Co = 0;
+
+        /** Filter coefficient applied to `x2`. */
         this._x2Co = 0;
+
+        /** Filter coefficient applied to `y1`. */
         this._y1Co = 0;
+
+        /** Filter coefficient applied to `y2`. */
         this._y2Co = 0;
 
         // Final setup.
         this.calcFilter();
     }
 
+    /**
+     * Sets the input amplitude.
+     */
     set inAmp(value) {
         this._inAmp = value;
     }
 
+    /**
+     * Sets the output amplitude.
+     */
     set amp(value) {
         this._amp = value;
     }
 
+    /**
+     * Sets the filter type.
+     */
     set filterType(value) {
         switch (value) {
             case "low-pass":
@@ -87,11 +113,17 @@ class Piece {
         this.calcFilter();
     }
 
+    /**
+     * Sets the center frequency.
+     */
     set f0(value) {
         this._f0 = value;
         this.calcFilter();
     }
 
+    /**
+     * Sets Q (the filter quality).
+     */
     set q(value) {
         if (value <= 0.0001) {
             value = 0.0001;
@@ -101,7 +133,9 @@ class Piece {
         this.calcFilter();
     }
 
-    // Calculate the filter parameters.
+    /**
+     * Calculates the derived filter parameters.
+     */
     calcFilter() {
         var w0 = 2 * Math.PI * this._f0 / this.sampleRate;
         var alpha = Math.sin(w0) / (this._q * 2);
@@ -161,7 +195,9 @@ class Piece {
         this._y2Co = -a2 / a0;
     }
 
-    // Perform one iteration of generation, returning a single sample.
+    /**
+     * Performs one iteration of generation, returning a single sample.
+     */
     nextSample() {
         var x1 = this._x1;
         var x2 = this._x2;

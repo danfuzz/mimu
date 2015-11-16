@@ -6,8 +6,10 @@
 
 "use strict";
 
-// How many "subsamples" to produce per actual sample output. This is done
-// in order to reduce aliasing artifacts.
+/**
+ * How many "subsamples" to produce per actual sample output. This is done
+ * in order to reduce aliasing artifacts.
+ */
 var OVERSAMPLE = 4;
 
 /**
@@ -42,95 +44,126 @@ var OVERSAMPLE = 4;
  *   dominates.
  */
 class Piece {
+    /**
+     * Contructs an instance, given a `sampleRate` (in samples per second).
+     */
     constructor(sampleRate) {
         // Base parameters
 
-        // Sample rate (samples per second).
+        /** Sample rate (samples per second). */
         this.sampleRate = sampleRate * OVERSAMPLE;
 
-        // Frequency of the note (Hz, that is, cycles per second).
-        this._freq = 440.0;  // Middle A.
+        /**
+         * Frequency of the note (Hz, that is, cycles per second). 440 is
+         * Middle A.
+         */
+        this._freq = 440.0;
 
-        // Amplitude of the note.
+        /** Output amplitude. */
         this._amp = 0.75;
 
-        // Upward bias.
+        /** Upward bias. */
         this._upBias = 0.005;
 
-        // Positive bias.
+        /** Positive bias. */
         this._posBias = 0.0;
 
-        // Amping bias.
+        /** Amping bias. */
         this._ampBias = 0.0;
 
         // Derived parameters
 
-        // How "fast" to index through a single cycle, given the current
-        // note frequency and sample rate.
+        /**
+         * How "fast" to index through a single cycle, given the current
+         * note frequency and sample rate.
+         */
         this.idxRate = 0;
 
-        // Width of segment A. This is also the index at the start of segment
-        // B (but we also include that separately for clarity).
+        /**
+         * Width of segment A. This is also the index at the start of segment
+         * B (but we also include that separately for clarity).
+         */
         this.widthA = 0;
 
-        // Width of segment B.
+        /** Width of segment B. */
         this.widthB = 0;
 
-        // Width of segment C.
+        /** Width of segment C. */
         this.widthC = 0;
 
-        // Width of segment D.
+        /** Width of segment D. */
         this.widthD = 0;
 
-        // Index at the start of segment B.
+        /** Index at the start of segment B. */
         this.idxB = 0;
 
-        // Index at the start of segment C.
+        /** Index at the start of segment C. */
         this.idxC = 0;
 
-        // Index at the start of segment D.
+        /** Index at the start of segment D. */
         this.idxD = 0;
 
         // Continuous variables
 
-        // Whether the derived parameters are in need of a refresh. We
-        // service this at the start of each waveform cycle (upward
-        // zero-crossing).
+        /**
+         * Whether the derived parameters are in need of a refresh. We
+         * service this at the start of each waveform cycle (upward
+         * zero-crossing).
+         */
         this.needCalc = true;
 
-        // Current index into a single cycle of the waveform. Ranges from `0`
-        // to `1`.
+        /**
+         * Current index into a single cycle of the waveform. Ranges from `0`
+         * to `1`.
+         */
         this.idx = 0;
 
         // Final setup.
         this.calcDerived();
     }
 
+    /**
+     * Sets the output amplitude.
+     */
     set amp(value) {
         this._amp = value;
     }
 
+    /**
+     * Sets note frequency.
+     */
     set freq(freq) {
         this._freq = freq;
         this.needCalc = true;
     }
 
+    /**
+     * Sets the upward bias.
+     */
     set upBias(value) {
         this._upBias = value;
         this.needCalc = true;
     }
 
+    /**
+     * Sets the positive bias.
+     */
     set posBias(value) {
         this._posBias = value;
         this.needCalc = true;
     }
 
+    /**
+     * Sets the amping bias.
+     */
     set ampBias(value) {
         this._ampBias = value;
         this.needCalc = true;
     }
 
-    // Calculate all of the derived variables.
+    /**
+     * Calculates all the derived parameters.
+     */
     calcDerived() {
         this.idxRate = this._freq / this.sampleRate;
 
@@ -193,7 +226,9 @@ class Piece {
         this.idxD = this.idxC + widthC;
     }
 
-    // Perform one iteration of generation, returning a single sample.
+    /**
+     * Performs one iteration of generation, returning a single sample.
+     */
     nextSample() {
         var idx = this.idx;
         var samp = 0;
