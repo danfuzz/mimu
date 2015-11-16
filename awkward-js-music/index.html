@@ -32,6 +32,26 @@
         <tr><td id="harmCell"></td></tr>
     </table>
 
+    <table id="controlTable">
+        <tr>
+            <td><b>Waveform</b></td>
+            <td>
+                <input type="radio" name="waveform" value="sine">
+                    sine
+                </input>
+                <input type="radio" name="waveform" value="triangle" checked="1">
+                    triangle
+                </input>
+                <input type="radio" name="waveform" value="sawtooth">
+                    sawtooth
+                </input>
+                <input type="radio" name="waveform" value="square">
+                    square
+                </input>
+            </td>
+        </tr>
+    </table>
+
     <script type="text/javascript">
         // The overall audio context instance. Unfortunately, the name
         // `AudioContext` isn't fully standardized and is prefixed in some
@@ -47,6 +67,15 @@
         document.querySelector("#playPause").onclick = function() {
             mc.playPause();
         };
+
+        var waveRadios =
+            document.querySelectorAll("input[name='waveform']");
+        for (var i = 0; i < waveRadios.length; i++) {
+            var r = waveRadios[i];
+            r.onclick = function() {
+                gen.waveform = this.value;
+            };
+        }
     </script>
 
     <h3>What is this?</h3>
@@ -54,16 +83,36 @@
     <p>This is a rough translation (close but not 100% faithful) from AWK
         to JavaScript of the musical composition
         <a href="http://kmkeen.com/awk-music/">AWK Music</a> by Kyle Keen,
-        plus bonus waveform (oscilloscope) and harmonic spectrum visualization
-        of the generated tones.
+        with bonus waveform selection and visualization (oscilloscope above
+        and harmonic spectrum below).
     </p>
 
     <h3>Items of note</h3>
 
-    <p>The basic audio element of this demo is a pair of triangle waves of
-        different frequencies, which are played in unison. Though simple
-        geometrically, triangle waves are harmonically rich and tend to sound
-        mellow to human ears.
+    <p>The basic audio element of this demo is a pair of simple waves of
+        different frequencies, which are played in unison. You can pick
+        among a few options for the basic waveform:
+
+        <ul>
+            <li>sine &mdash; Sine waves are, harmonically, the simplest
+                possible waveforms. They generally have a "pure" sound to
+                human ears, which might remind you of a kalimba (finger piano).
+            </li>
+            <li>triangle &mdash; Triangle waves are simple geometrically, yet
+                harmonically rich and mellow to human ears. The sound might
+                remind you of a marimba (wooden xylophone). This is the default
+                waveform choice, as this is the choice made by Keen in his
+                original composition.
+            </li>
+            <li>sawtooth &mdash; Sawtooth waves tend to sound buzzy and a bit
+                harsh to human ears. The sound might remind you of a reed
+                instrument such as an oboe or clarinet.
+            </li>
+            <li>square &mdash; Square waves also have a buzziness about them.
+                The sound might remind you a little bit of a recorder
+                (woodwind).
+            </li>
+        </ul>
     </p>
 
     <p>The notes played by this demo are picked randomly from two octaves in an

@@ -17,6 +17,9 @@ class Piece {
         /** Sample rate (samples per second). */
         this._sampleRate = sampleRate;
 
+        /** Which waveform to use. This is the function, not the name. */
+        this._waveform = Piece.triangleWave;
+
         /**
          * Decay rate of notes, in particular, the number of samples it takes
          * a note to reduce in volume by 10%. As defined, it is 0.1sec.
@@ -40,6 +43,30 @@ class Piece {
 
         /** Whether we are currently de-clicking. */
         this._declick = false;
+    }
+
+    /**
+     * Sets the waveform type.
+     */
+    set waveform(value) {
+        switch (value) {
+            case "sine": {
+                this._waveform = Piece.sineWave;
+                break;
+            }
+            case "triangle": {
+                this._waveform = Piece.triangleWave;
+                break;
+            }
+            case "sawtooth": {
+                this._waveform = Piece.sawtoothWave;
+                break;
+            }
+            case "square":  {
+                this._waveform = Piece.squareWave;
+                break;
+            }
+        }
     }
 
     /**
@@ -103,8 +130,8 @@ class Piece {
         // jarring moment of total silence.
         var vol = Math.pow(0.9, this._idx / this._decayRate) * 0.95 + 0.05;
 
-        var sa = Piece._waveform(this._idx / this._wla) * 0.5;
-        var sb = Piece._waveform(this._idx / this._wlb) * 0.25;
+        var sa = this._waveform(this._idx / this._wla) * 0.5;
+        var sb = this._waveform(this._idx / this._wlb) * 0.25;
         var samp = vol * (sa + sb);
 
         // This quantizes the sample, recreating the "shimmer" effect of the
@@ -116,42 +143,33 @@ class Piece {
         return samp;
     }
 
-    /**
-     * Given a non-negative index into the cycle, returns a value for the
-     * wave function. Cycle time is 1.
-     */
-    static _waveform(n) {
-        return triangleWave(n);
-        // return sawtoothWave(n);
-        // return sineWave(n);
-        // return squareWave(n);
+    /** Sine wave function, period 1. */
+    static sineWave(n) {
+        return Math.sin(n * (Math.PI * 2));
+    }
 
-        // Reasonably interesting choices.
-
-        function triangleWave(n) {
-            // `+ 0.25` makes it so that `triangleWave(0) == 0`.
-            var x = (n + 0.25) % 1;
-            if (x < 0.5) {
-                return (x * 4) - 1;
-            } else {
-                x -= 0.5;
-                return 1 - (x * 4);
-            }
+    /** Triangle wave function, period 1. Doesn't expect negative input. */
+    static triangleWave(n) {
+        // `+ 0.25` makes it so that `triangleWave(0) == 0`.
+        var x = (n + 0.25) % 1;
+        if (x < 0.5) {
+            return (x * 4) - 1;
+        } else {
+            x -= 0.5;
+            return 1 - (x * 4);
         }
+    }
 
-        function sawtoothWave(n) {
-            // `+ 0.5` makes it so that `sawtoothWave(0) == 0`
-            var x = (n + 0.5) % 1;
-            return (x * 2) - 1;
-        }
+    /** Sawtooth wave function, period 1. Doesn't expect negative input. */
+    static sawtoothWave(n) {
+        // `+ 0.5` makes it so that `sawtoothWave(0) == 0`
+        var x = (n + 0.5) % 1;
+        return (x * 2) - 1;
+    }
 
-        function sineWave(n) {
-            return Math.sin(n * (Math.PI * 2));
-        }
-
-        function squareWave(n) {
-            var x = n % 1;
-            return (x < 0.5) ? -1 : 1;
-        }
+    /** Square wave function, period 1. Doesn't expect negative input. */
+    static squareWave(n) {
+        var x = n % 1;
+        return (x < 0.5) ? -1 : 1;
     }
 }
