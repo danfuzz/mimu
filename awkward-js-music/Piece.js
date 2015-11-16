@@ -122,13 +122,14 @@ class Piece {
      */
     static _waveform(n) {
         return triangleWave(n);
+        // return sawtoothWave(n);
         // return sineWave(n);
         // return squareWave(n);
 
         // Reasonably interesting choices.
 
         function triangleWave(n) {
-            // `+ 0.25` makes it so that `triangle(0) == 0`.
+            // `+ 0.25` makes it so that `triangleWave(0) == 0`.
             var x = (n + 0.25) % 1;
             if (x < 0.5) {
                 return (x * 4) - 1;
@@ -136,6 +137,12 @@ class Piece {
                 x -= 0.5;
                 return 1 - (x * 4);
             }
+        }
+
+        function sawtoothWave(n) {
+            // `+ 0.5` makes it so that `sawtoothWave(0) == 0`
+            var x = (n + 0.5) % 1;
+            return (x * 2) - 1;
         }
 
         function sineWave(n) {
