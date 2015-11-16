@@ -77,31 +77,31 @@ class Piece {
          * How "fast" to index through a single cycle, given the current
          * note frequency and sample rate.
          */
-        this.idxRate = 0;
+        this._idxRate = 0;
 
         /**
          * Width of segment A. This is also the index at the start of segment
          * B (but we also include that separately for clarity).
          */
-        this.widthA = 0;
+        this._widthA = 0;
 
         /** Width of segment B. */
-        this.widthB = 0;
+        this._widthB = 0;
 
         /** Width of segment C. */
-        this.widthC = 0;
+        this._widthC = 0;
 
         /** Width of segment D. */
-        this.widthD = 0;
+        this._widthD = 0;
 
         /** Index at the start of segment B. */
-        this.idxB = 0;
+        this._idxB = 0;
 
         /** Index at the start of segment C. */
-        this.idxC = 0;
+        this._idxC = 0;
 
         /** Index at the start of segment D. */
-        this.idxD = 0;
+        this._idxD = 0;
 
         // Continuous variables
 
@@ -110,13 +110,13 @@ class Piece {
          * service this at the start of each waveform cycle (upward
          * zero-crossing).
          */
-        this.needCalc = true;
+        this._needCalc = true;
 
         /**
          * Current index into a single cycle of the waveform. Ranges from `0`
          * to `1`.
          */
-        this.idx = 0;
+        this._idx = 0;
 
         // Final setup.
         this.calcDerived();
@@ -134,7 +134,7 @@ class Piece {
      */
     set freq(freq) {
         this._freq = freq;
-        this.needCalc = true;
+        this._needCalc = true;
     }
 
     /**
@@ -142,7 +142,7 @@ class Piece {
      */
     set upBias(value) {
         this._upBias = value;
-        this.needCalc = true;
+        this._needCalc = true;
     }
 
     /**
@@ -150,7 +150,7 @@ class Piece {
      */
     set posBias(value) {
         this._posBias = value;
-        this.needCalc = true;
+        this._needCalc = true;
     }
 
     /**
@@ -158,14 +158,14 @@ class Piece {
      */
     set ampBias(value) {
         this._ampBias = value;
-        this.needCalc = true;
+        this._needCalc = true;
     }
 
     /**
      * Calculates all the derived parameters.
      */
     calcDerived() {
-        this.idxRate = this._freq / this._sampleRate;
+        this._idxRate = this._freq / this._sampleRate;
 
         // Clamp the biases to prevent NaN results at the extremes.
         if      (this._upBias  < -0.999) { this._upBias  = -0.999; }
@@ -217,52 +217,52 @@ class Piece {
             break;
         }
 
-        this.widthA = widthA;
-        this.widthB = widthB;
-        this.widthC = widthC;
-        this.widthD = widthD;
-        this.idxB = widthA;
-        this.idxC = this.idxB + widthB;
-        this.idxD = this.idxC + widthC;
+        this._widthA = widthA;
+        this._widthB = widthB;
+        this._widthC = widthC;
+        this._widthD = widthD;
+        this._idxB = widthA;
+        this._idxC = this._idxB + widthB;
+        this._idxD = this._idxC + widthC;
     }
 
     /**
      * Performs one iteration of generation, returning a single sample.
      */
     nextSample() {
-        var idx = this.idx;
+        var idx = this._idx;
         var samp = 0;
 
         // Produce a sum of `OVERSAMPLE` "subsamples." These are simply
         // averaged to produce the final sample. It's a naive technique, but
         // also efficient and good enough for the purpose here.
         for (var i = 0; i < OVERSAMPLE; i++) {
-            if (idx < this.idxB) {
+            if (idx < this._idxB) {
                 // Ramp from `0` to `1`.
-                samp += idx / this.widthA;
-            } else if (idx < this.idxC) {
+                samp += idx / this._widthA;
+            } else if (idx < this._idxC) {
                 // Ramp from `1` to `0`.
-                samp += ((idx - this.idxB) / this.widthB) * -1 + 1;
-            } else if (idx < this.idxD) {
+                samp += ((idx - this._idxB) / this._widthB) * -1 + 1;
+            } else if (idx < this._idxD) {
                 // Ramp from `0` to `-1`.
-                samp += ((idx - this.idxC) / this.widthC) * -1;
+                samp += ((idx - this._idxC) / this._widthC) * -1;
             } else {
                 // Ramp from `-1` to `0`.
-                samp += ((idx - this.idxD) / this.widthD) - 1;
+                samp += ((idx - this._idxD) / this._widthD) - 1;
             }
 
-            idx += this.idxRate;
+            idx += this._idxRate;
 
             if (idx > 1) {
                 idx %= 1;
-                if (this.needCalc) {
+                if (this._needCalc) {
                     this.calcDerived();
-                    this.needCalc = false;
+                    this._needCalc = false;
                 }
             }
         }
 
-        this.idx = idx;
+        this._idx = idx;
         return samp / OVERSAMPLE * this._amp;
     }
 }
