@@ -23,7 +23,7 @@ class Piece {
         // Base parameters
 
         /** Sample rate (samples per second). */
-        this.sampleRate = sampleRate;
+        this._sampleRate = sampleRate;
 
         /** Input amplitude. */
         this._inAmp = 1;
@@ -137,7 +137,7 @@ class Piece {
      * Calculates the derived filter parameters.
      */
     calcFilter() {
-        var w0 = 2 * Math.PI * this._f0 / this.sampleRate;
+        var w0 = 2 * Math.PI * this._f0 / this._sampleRate;
         var alpha = Math.sin(w0) / (this._q * 2);
         var cosW0 = Math.cos(w0);
         var b0, b1, b2, a0, a1, a2;

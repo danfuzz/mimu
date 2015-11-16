@@ -15,31 +15,31 @@ class Piece {
      */
     constructor(sampleRate) {
         /** Sample rate (samples per second). */
-        this.sampleRate = sampleRate;
+        this._sampleRate = sampleRate;
 
         /**
          * Decay rate of notes, in particular, the number of samples it takes
          * a note to reduce in volume by 10%. As defined, it is 0.1sec.
          */
-        this.decayRate = sampleRate / 10;
+        this._decayRate = sampleRate / 10;
 
         /** Wavelength of the primary note. */
-        this.wla = this.randomWl();
+        this._wla = this.randomWl();
 
         /** Wavelength of the secondary note. */
-        this.wlb = 0;
+        this._wlb = 0;
 
         /** Index of (number of samples into) the current note-pair. */
-        this.idx = 0;
+        this._idx = 0;
 
         /** Duration (total number of samples) for the current note-pair. */
-        this.dur = 0;
+        this._dur = 0;
 
         /** Most recently-generated sample. Used for de-clicking. */
-        this.lastSamp = 0;
+        this._lastSamp = 0;
 
         /** Whether we are currently de-clicking. */
-        this.declick = false;
+        this._declick = false;
     }
 
     /**
@@ -59,7 +59,7 @@ class Piece {
         //
         // `10` is the number of choices of note. That is, we pick amongst
         // the notes of two octaves.
-        return (this.sampleRate / 160) *
+        return (this._sampleRate / 160) *
             Math.pow(0.8705506, Math.trunc(Math.random() * 10));
     }
 
@@ -67,52 +67,52 @@ class Piece {
      * Performs one iteration of generation, returning a single sample.
      */
     nextSample() {
-        if (this.declick) {
+        if (this._declick) {
             // We're "de-clicking." This just means we gracefully (but promptly)
             // decay to near-0. De-click is over if the sample is close enough
             // to 0.
 
-            var samp = this.lastSamp * 0.99;
+            var samp = this._lastSamp * 0.99;
 
-            this.declick = (samp < -0.000001) || (samp > 0.000001);
-            this.lastSamp = samp;
+            this._declick = (samp < -0.000001) || (samp > 0.000001);
+            this._lastSamp = samp;
             return samp;
         }
 
-        if (this.idx >= this.dur) {
+        if (this._idx >= this._dur) {
             // We hit the duration of the current note-pair. Pick a new note,
             // and indicate we're now de-clicking.
-            this.wlb = this.wla;
-            this.wla = this.randomWl();
+            this._wlb = this._wla;
+            this._wla = this.randomWl();
 
-            if (this.wla === this.wlb) {
+            if (this._wla === this._wlb) {
                 // If we happen to pick the same note, instead go down an
                 // octave.
-                this.wla *= 2;
+                this._wla *= 2;
             }
 
-            this.dur =
-                Math.trunc((Math.random() * 10 + 5) * this.sampleRate / 4);
-            this.idx = 0;
-            this.declick = true;
-            return this.lastSamp;
+            this._dur =
+                Math.trunc((Math.random() * 10 + 5) * this._sampleRate / 4);
+            this._idx = 0;
+            this._declick = true;
+            return this._lastSamp;
         }
 
         // See definition of `decayRate` above. We add a little bit so that
         // notes never fully decay; aesthetically, this prevents the occasional
         // jarring moment of total silence.
-        var vol = Math.pow(0.9, this.idx / this.decayRate) * 0.95 + 0.05;
+        var vol = Math.pow(0.9, this._idx / this._decayRate) * 0.95 + 0.05;
 
-        var sa = Piece.waveform(this.idx / this.wla) * 0.5;
-        var sb = Piece.waveform(this.idx / this.wlb) * 0.25;
+        var sa = Piece.waveform(this._idx / this._wla) * 0.5;
+        var sb = Piece.waveform(this._idx / this._wlb) * 0.25;
         var samp = vol * (sa + sb);
 
         // This quantizes the sample, recreating the "shimmer" effect of the
         // original awk code.
         samp = Math.trunc(samp * 64) / 64;
 
-        this.idx++;
-        this.lastSamp = samp;
+        this._idx++;
+        this._lastSamp = samp;
         return samp;
     }
 

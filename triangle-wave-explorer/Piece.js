@@ -51,7 +51,7 @@ class Piece {
         // Base parameters
 
         /** Sample rate (samples per second). */
-        this.sampleRate = sampleRate * OVERSAMPLE;
+        this._sampleRate = sampleRate * OVERSAMPLE;
 
         /**
          * Frequency of the note (Hz, that is, cycles per second). 440 is
@@ -165,7 +165,7 @@ class Piece {
      * Calculates all the derived parameters.
      */
     calcDerived() {
-        this.idxRate = this._freq / this.sampleRate;
+        this.idxRate = this._freq / this._sampleRate;
 
         // Clamp the biases to prevent NaN results at the extremes.
         if      (this._upBias  < -0.999) { this._upBias  = -0.999; }

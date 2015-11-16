@@ -29,7 +29,7 @@ class Piece {
         // Base parameters
 
         /** Sample rate (samples per second). */
-        this.sampleRate = sampleRate;
+        this._sampleRate = sampleRate;
 
         /** Alpha. 1.0 is "normal" pink noise. */
         this._alpha = 1.0;
