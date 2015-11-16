@@ -24,7 +24,7 @@ class Piece {
         this._decayRate = sampleRate / 10;
 
         /** Wavelength of the primary note. */
-        this._wla = this.randomWl();
+        this._wla = this._randomWl();
 
         /** Wavelength of the secondary note. */
         this._wlb = 0;
@@ -46,7 +46,7 @@ class Piece {
      * Picks a random wavelength within the harmonic confines of the piece.
      * The result is the number of samples in a single cycle of the note.
      */
-    randomWl() {
+    _randomWl() {
         // What do all those numbers mean?
         //
         // `160` below sets the base (lowest) note to be 160Hz, which is
@@ -83,7 +83,7 @@ class Piece {
             // We hit the duration of the current note-pair. Pick a new note,
             // and indicate we're now de-clicking.
             this._wlb = this._wla;
-            this._wla = this.randomWl();
+            this._wla = this._randomWl();
 
             if (this._wla === this._wlb) {
                 // If we happen to pick the same note, instead go down an
@@ -103,8 +103,8 @@ class Piece {
         // jarring moment of total silence.
         var vol = Math.pow(0.9, this._idx / this._decayRate) * 0.95 + 0.05;
 
-        var sa = Piece.waveform(this._idx / this._wla) * 0.5;
-        var sb = Piece.waveform(this._idx / this._wlb) * 0.25;
+        var sa = Piece._waveform(this._idx / this._wla) * 0.5;
+        var sb = Piece._waveform(this._idx / this._wlb) * 0.25;
         var samp = vol * (sa + sb);
 
         // This quantizes the sample, recreating the "shimmer" effect of the
@@ -120,7 +120,7 @@ class Piece {
      * Given a non-negative index into the cycle, returns a value for the
      * wave function. Cycle time is 1.
      */
-    static waveform(n) {
+    static _waveform(n) {
         return triangleWave(n);
         // return sineWave(n);
         // return squareWave(n);

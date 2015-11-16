@@ -119,7 +119,7 @@ class Piece {
         this._idx = 0;
 
         // Final setup.
-        this.calcDerived();
+        this._calcDerived();
     }
 
     /**
@@ -164,7 +164,7 @@ class Piece {
     /**
      * Calculates all the derived parameters.
      */
-    calcDerived() {
+    _calcDerived() {
         this._idxRate = this._freq / this._sampleRate;
 
         // Clamp the biases to prevent NaN results at the extremes.
@@ -256,7 +256,7 @@ class Piece {
             if (idx > 1) {
                 idx %= 1;
                 if (this._needCalc) {
-                    this.calcDerived();
+                    this._calcDerived();
                     this._needCalc = false;
                 }
             }

@@ -58,8 +58,8 @@ class Piece {
         this._at = 0;
 
         // Final setup.
-        this.calcFilter();
-        this.calcAmp();
+        this._calcFilter();
+        this._calcAmp();
     }
 
     /**
@@ -67,7 +67,7 @@ class Piece {
      */
     set amp(value) {
         this._amp = value;
-        this.calcAmp();
+        this._calcAmp();
     }
 
     /**
@@ -81,8 +81,8 @@ class Piece {
         }
 
         this._alpha = value;
-        this.calcFilter();
-        this.calcAmp();
+        this._calcFilter();
+        this._calcAmp();
     }
 
     /**
@@ -90,14 +90,14 @@ class Piece {
      */
     set poles(value) {
         this._poles = value;
-        this.calcFilter();
+        this._calcFilter();
     }
 
     /**
      * Calculates derived parameters for amplitude. This formula was derived
      * empirically and is probably off.
      */
-    calcAmp() {
+    _calcAmp() {
         this._ampAdjusted = this._amp *
             (Math.log(1.05 + (2 - this._alpha)) / 4.5);
     }
@@ -106,7 +106,7 @@ class Piece {
      * Calculates the derived filter parameters, and initializes the `values`
      * array if not already done.
      */
-    calcFilter() {
+    _calcFilter() {
         var poles = this._poles;
         var alpha = this._alpha;
 
@@ -120,7 +120,7 @@ class Piece {
         }
 
         // Set up the historical `values` array, if this is the first time
-        // `calcFilter()` is called *or* if the number of poles has changed.
+        // `_calcFilter()` is called *or* if the number of poles has changed.
         // Otherwise, we "let it ride" to avoid a discontinuity of the waveform.
         if (!(this._values && (this._values.length == poles))) {
             this._values = new Float64Array(poles);
@@ -140,7 +140,7 @@ class Piece {
         var multipliers = this._multipliers;
         var values = this._values;
         var at = this._at;
-        var x = Piece.randomGaussian();
+        var x = Piece._randomGaussian();
 
         for (var i = 0; i < poles; i++) {
             x -= multipliers[i] * values[(at + i) % poles];
@@ -161,7 +161,7 @@ class Piece {
     /**
      * Gets a gaussian-distribution random number using the "polar" method.
      */
-    static randomGaussian() {
+    static _randomGaussian() {
         // In a general implementation, these could be arguments.
         var mean = 0;
         var variance = 1;

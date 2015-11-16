@@ -75,7 +75,7 @@ class Piece {
         this._y2Co = 0;
 
         // Final setup.
-        this.calcFilter();
+        this._calcFilter();
     }
 
     /**
@@ -110,7 +110,7 @@ class Piece {
         }
 
         this._filterType = value;
-        this.calcFilter();
+        this._calcFilter();
     }
 
     /**
@@ -118,7 +118,7 @@ class Piece {
      */
     set f0(value) {
         this._f0 = value;
-        this.calcFilter();
+        this._calcFilter();
     }
 
     /**
@@ -130,13 +130,13 @@ class Piece {
         }
 
         this._q = value;
-        this.calcFilter();
+        this._calcFilter();
     }
 
     /**
      * Calculates the derived filter parameters.
      */
-    calcFilter() {
+    _calcFilter() {
         var w0 = 2 * Math.PI * this._f0 / this._sampleRate;
         var alpha = Math.sin(w0) / (this._q * 2);
         var cosW0 = Math.cos(w0);
