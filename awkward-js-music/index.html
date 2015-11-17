@@ -3,13 +3,7 @@
   <head>
     <link rel="stylesheet" href="index.css" type="text/css"/>
     <title>AWKward JS Music</title>
-    <script type="text/javascript" src="../lib/CanvasWidget.js"></script>
-    <script type="text/javascript" src="../lib/Color.js"></script>
-    <script type="text/javascript" src="../lib/StyleUtil.js"></script>
-    <script type="text/javascript" src="../lib/Harmonics.js"></script>
-    <script type="text/javascript" src="../lib/MusicControl.js"></script>
-    <script type="text/javascript" src="../lib/Oscilloscope.js"></script>
-    <script type="text/javascript" src="Piece.js"></script>
+    <script data-main="index" type="text/javascript" src="../lib/require.js"></script>
   </head>
 
   <body>
@@ -51,32 +45,6 @@
             </td>
         </tr>
     </table>
-
-    <script type="text/javascript">
-        // The overall audio context instance. Unfortunately, the name
-        // `AudioContext` isn't fully standardized and is prefixed in some
-        // browsers. Ideally, the expression would just be `new AudioContext()`
-        // per se.
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        var gen = new Piece(audioCtx.sampleRate);
-        var mc = new MusicControl(audioCtx, gen);
-        mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
-        mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
-
-        document.querySelector("#playPause").onclick = function() {
-            mc.playPause();
-        };
-
-        var waveRadios =
-            document.querySelectorAll("input[name='waveform']");
-        for (var i = 0; i < waveRadios.length; i++) {
-            var r = waveRadios[i];
-            r.onclick = function() {
-                gen.waveform = this.value;
-            };
-        }
-    </script>
 
     <h3>What is this?</h3>
 
