@@ -4,13 +4,7 @@
   <head>
     <link rel="stylesheet" href="index.css" type="text/css"/>
     <title>Filter Explorer</title>
-    <script type="text/javascript" src="../lib/CanvasWidget.js"></script>
-    <script type="text/javascript" src="../lib/Color.js"></script>
-    <script type="text/javascript" src="../lib/StyleUtil.js"></script>
-    <script type="text/javascript" src="../lib/Harmonics.js"></script>
-    <script type="text/javascript" src="../lib/MusicControl.js"></script>
-    <script type="text/javascript" src="../lib/Oscilloscope.js"></script>
-    <script type="text/javascript" src="Piece.js"></script>
+    <script data-main="index" type="text/javascript" src="../lib/require.js"></script>
   </head>
 
   <body>
@@ -85,56 +79,6 @@
         </tr>
         <tr><td/><td id="ampText">0.5</td><td/></tr>
     </table>
-
-    <script type="text/javascript">
-        // The overall audio context instance. Unfortunately, the name
-        // `AudioContext` isn't fully standardized and is prefixed in some
-        // browsers. Ideally, the expression would just be `new AudioContext()`
-        // per se.
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        var gen = new Piece(audioCtx.sampleRate);
-        var mc = new MusicControl(audioCtx, gen);
-        mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
-        mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
-
-        var f0Text = document.querySelector("#f0Text");
-        var qText = document.querySelector("#qText");
-        var ampText = document.querySelector("#ampText");
-
-        document.querySelector("#playPause").onclick = function() {
-            mc.playPause();
-        };
-
-        document.querySelector("#inAmp").oninput = function() {
-            gen.inAmp = parseFloat(this.value);
-            inAmpText.textContent = this.value;
-        };
-
-        document.querySelector("#f0").oninput = function() {
-            gen.f0 = parseFloat(this.value);
-            f0Text.textContent = this.value;
-        };
-
-        document.querySelector("#q").oninput = function() {
-            gen.q = parseFloat(this.value);
-            qText.textContent = this.value;
-        };
-
-        document.querySelector("#amp").oninput = function() {
-            gen.amp = parseFloat(this.value);
-            ampText.textContent = this.value;
-        };
-
-        var filterRadios =
-            document.querySelectorAll("input[name='filterType']");
-        for (var i = 0; i < filterRadios.length; i++) {
-            var r = filterRadios[i];
-            r.onclick = function() {
-                gen.filterType = this.value;
-            };
-        }
-    </script>
 
     <h3>What is this?</h3>
 

@@ -6,6 +6,7 @@
 
 "use strict";
 
+define([], function() {
 
 /**
  * Pink noise generator, with adjustable alpha.
@@ -185,3 +186,6 @@ class Piece {
         return x;
     }
 }
+
+return Piece;
+});

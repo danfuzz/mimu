@@ -6,6 +6,8 @@
 
 "use strict";
 
+define([], function() {
+
 /**
  * The AWK Music composition.
  */
@@ -173,3 +175,6 @@ class Piece {
         return (x < 0.5) ? -1 : 1;
     }
 }
+
+return Piece;
+});

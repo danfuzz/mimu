@@ -6,6 +6,8 @@
 
 "use strict";
 
+define([], function() {
+
 /**
  * How many "subsamples" to produce per actual sample output. This is done
  * in order to reduce aliasing artifacts.
@@ -266,3 +268,6 @@ class Piece {
         return samp / OVERSAMPLE * this._amp;
     }
 }
+
+return Piece;
+});
