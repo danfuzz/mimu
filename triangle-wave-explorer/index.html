@@ -4,13 +4,7 @@
   <head>
     <link rel="stylesheet" href="index.css" type="text/css"/>
     <title>Triangle Wave Explorer</title>
-    <script type="text/javascript" src="../lib/CanvasWidget.js"></script>
-    <script type="text/javascript" src="../lib/Color.js"></script>
-    <script type="text/javascript" src="../lib/StyleUtil.js"></script>
-    <script type="text/javascript" src="../lib/Harmonics.js"></script>
-    <script type="text/javascript" src="../lib/MusicControl.js"></script>
-    <script type="text/javascript" src="../lib/Oscilloscope.js"></script>
-    <script type="text/javascript" src="Piece.js"></script>
+    <script data-main="index" type="text/javascript" src="../lib/require.js"></script>
   </head>
 
   <body>
@@ -75,54 +69,6 @@
         </tr>
         <tr><td/><td id="ampText">0.75</td><td/></tr>
     </table>
-
-    <script type="text/javascript">
-        // The overall audio context instance. Unfortunately, the name
-        // `AudioContext` isn't fully standardized and is prefixed in some
-        // browsers. Ideally, the expression would just be `new AudioContext()`
-        // per se.
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        var gen = new Piece(audioCtx.sampleRate);
-        var mc = new MusicControl(audioCtx, gen);
-        mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
-        mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
-
-        var upBiasText = document.querySelector("#upBiasText");
-        var posBiasText = document.querySelector("#posBiasText");
-        var ampBiasText = document.querySelector("#ampBiasText");
-        var freqText = document.querySelector("#freqText");
-        var ampText = document.querySelector("#ampText");
-
-        document.querySelector("#playPause").onclick = function() {
-            mc.playPause();
-        };
-
-        document.querySelector("#upBias").oninput = function() {
-            gen.upBias = parseFloat(this.value);
-            upBiasText.textContent = this.value;
-        };
-
-        document.querySelector("#posBias").oninput = function() {
-            gen.posBias = parseFloat(this.value);
-            posBiasText.textContent = this.value;
-        };
-
-        document.querySelector("#ampBias").oninput = function() {
-            gen.ampBias = parseFloat(this.value);
-            ampBiasText.textContent = this.value;
-        };
-
-        document.querySelector("#freq").oninput = function() {
-            gen.freq = parseFloat(this.value);
-            freqText.textContent = this.value;
-        };
-
-        document.querySelector("#amp").oninput = function() {
-            gen.amp = parseFloat(this.value);
-            ampText.textContent = this.value;
-        };
-    </script>
 
     <h3>What is this?</h3>
 
