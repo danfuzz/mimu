@@ -1,4 +1,12 @@
-requirejs.config({
+/*
+ * Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
+ * Licensed AS IS and WITHOUT WARRANTY under the Apache License,
+ * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
+ */
+
+"use strict";
+
+ requirejs.config({
     paths: {
         lib: "../lib"
     }
