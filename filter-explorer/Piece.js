@@ -6,6 +6,7 @@
 
 "use strict";
 
+define([], function() {
 
 /**
  * Filter generator, with adjustable type, center frequency, and Q. What it
@@ -216,3 +217,6 @@ class Piece {
         return Math.max(Math.min(y0 * this._amp, 1), -1);
     }
 }
+
+return Piece;
+});
