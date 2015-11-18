@@ -64,4 +64,6 @@ for (var i = 0; i < filterRadios.length; i++) {
     };
 }
 
+var slider = new SliderWidget(document.querySelector("#sliderCell"));
+
 });
