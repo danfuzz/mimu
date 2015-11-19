@@ -14,6 +14,13 @@ button {
     border-radius: 5pt;
 }
 
+#sliderCell {
+    width: 500px;
+    height: 100px;
+    background-color: red;
+    color: blue;
+}
+
 .soundDisplay {
     background-color: black;
     color: #00ff00;
