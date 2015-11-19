@@ -17,6 +17,9 @@ button {
 #sliderCell {
     width: 500px;
     height: 100px;
+}
+
+.slider {
     background-color: red;
     color: blue;
 }
