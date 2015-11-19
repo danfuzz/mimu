@@ -13,8 +13,9 @@
 });
 
 requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Piece, Harmonics, MusicControl, Oscilloscope) {
+["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
+    "lib/SliderWidget"],
+function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
 
 // The overall audio context instance. Unfortunately, the name
 // `AudioContext` isn't fully standardized and is prefixed in some
