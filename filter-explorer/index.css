@@ -20,8 +20,9 @@ button {
 }
 
 .slider {
-    background-color: red;
-    color: blue;
+    background-color: #ccffcc;
+    color: black;
+    font-size: 15pt;
 }
 
 .soundDisplay {
