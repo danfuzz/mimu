@@ -132,11 +132,25 @@ class Piece {
     }
 
     /**
-     * Sets note frequency.
+     * Gets the output amplitude.
+     */
+    get amp() {
+        return this._amp;
+    }
+
+    /**
+     * Sets the note frequency.
      */
     set freq(freq) {
         this._freq = freq;
         this._needCalc = true;
+    }
+
+    /**
+     * Gets the note frequency.
+     */
+    get freq() {
+        return this._freq;
     }
 
     /**
@@ -148,6 +162,13 @@ class Piece {
     }
 
     /**
+     * Gets the upward bias.
+     */
+    get upBias() {
+        return this._upBias;
+    }
+
+    /**
      * Sets the positive bias.
      */
     set posBias(value) {
@@ -156,11 +177,25 @@ class Piece {
     }
 
     /**
+     * Gets the upward bias.
+     */
+    get posBias() {
+        return this._posBias;
+    }
+
+    /**
      * Sets the amping bias.
      */
     set ampBias(value) {
         this._ampBias = value;
         this._needCalc = true;
+    }
+
+    /**
+     * Gets the amping bias.
+     */
+    get ampBias() {
+        return this._ampBias;
     }
 
     /**
