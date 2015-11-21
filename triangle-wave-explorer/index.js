@@ -13,8 +13,9 @@
 });
 
 requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Piece, Harmonics, MusicControl, Oscilloscope) {
+["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
+    "lib/SliderWidget"],
+function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
 
 // The overall audio context instance. Unfortunately, the name
 // `AudioContext` isn't fully standardized and is prefixed in some
@@ -27,39 +28,54 @@ var mc = new MusicControl(audioCtx, gen);
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
 mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 
-var upBiasText = document.querySelector("#upBiasText");
-var posBiasText = document.querySelector("#posBiasText");
-var ampBiasText = document.querySelector("#ampBiasText");
-var freqText = document.querySelector("#freqText");
-var ampText = document.querySelector("#ampText");
-
 document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
 
-document.querySelector("#upBias").oninput = function() {
-    gen.upBias = parseFloat(this.value);
-    upBiasText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#upBias"), {
+    minValue:       -1,
+    maxValue:       1,
+    increment:      0.005,
+    precision:      3,
+    target:         gen,
+    targetProperty: "upBias"
+});
 
-document.querySelector("#posBias").oninput = function() {
-    gen.posBias = parseFloat(this.value);
-    posBiasText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#posBias"), {
+    minValue:       -1,
+    maxValue:       1,
+    increment:      0.005,
+    precision:      3,
+    target:         gen,
+    targetProperty: "posBias"
+});
 
-document.querySelector("#ampBias").oninput = function() {
-    gen.ampBias = parseFloat(this.value);
-    ampBiasText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#ampBias"), {
+    minValue:       -1,
+    maxValue:       1,
+    increment:      0.005,
+    precision:      3,
+    target:         gen,
+    targetProperty: "ampBias"
+});
 
-document.querySelector("#freq").oninput = function() {
-    gen.freq = parseFloat(this.value);
-    freqText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#freq"), {
+    minValue:       20,
+    maxValue:       8000,
+    increment:      1,
+    precision:      0,
+    target:         gen,
+    targetProperty: "freq"
+});
 
-document.querySelector("#amp").oninput = function() {
-    gen.amp = parseFloat(this.value);
-    ampText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#amp"), {
+    minValue:       0,
+    maxValue:       1,
+    increment:      0.01,
+    precision:      2,
+    target:         gen,
+    targetProperty: "amp"
+});
+
 
 });

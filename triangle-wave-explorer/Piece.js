@@ -65,7 +65,7 @@ class Piece {
         this._amp = 0.75;
 
         /** Upward bias. */
-        this._upBias = 0.005;
+        this._upBias = 0.0;
 
         /** Positive bias. */
         this._posBias = 0.0;
