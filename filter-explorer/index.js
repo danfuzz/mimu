@@ -37,7 +37,6 @@ document.querySelector("#playPause").onclick = function() {
 };
 
 new SliderWidget(document.querySelector("#inAmp"), {
-    label:          "Input Amp",
     minValue:       0,
     maxValue:       10,
     increment:      0.1,
@@ -47,7 +46,6 @@ new SliderWidget(document.querySelector("#inAmp"), {
 });
 
 new SliderWidget(document.querySelector("#f0"), {
-    label:          "f0",
     minValue:       20,
     maxValue:       8000,
     increment:      1,
@@ -57,7 +55,6 @@ new SliderWidget(document.querySelector("#f0"), {
 });
 
 new SliderWidget(document.querySelector("#q"), {
-    label:          "Q",
     minValue:       0,
     maxValue:       500,
     increment:      0.01,
@@ -67,7 +64,6 @@ new SliderWidget(document.querySelector("#q"), {
 });
 
 new SliderWidget(document.querySelector("#amp"), {
-    label:          "Amplitude",
     minValue:       0,
     maxValue:       10,
     increment:      0.1,
