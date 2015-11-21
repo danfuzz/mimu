@@ -28,10 +28,6 @@ var mc = new MusicControl(audioCtx, gen);
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
 mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 
-var f0Text = document.querySelector("#f0Text");
-var qText = document.querySelector("#qText");
-var ampText = document.querySelector("#ampText");
-
 document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };

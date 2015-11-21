@@ -13,8 +13,9 @@
 });
 
 requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Piece, Harmonics, MusicControl, Oscilloscope) {
+["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
+    "lib/SliderWidget"],
+function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
 
 // The overall audio context instance. Unfortunately, the name
 // `AudioContext` isn't fully standardized and is prefixed in some
@@ -27,21 +28,26 @@ var mc = new MusicControl(audioCtx, gen);
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
 mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 
-var alphaText = document.querySelector("#alphaText");
-var ampText = document.querySelector("#ampText");
-
 document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
 
-document.querySelector("#alpha").oninput = function() {
-    gen.alpha = parseFloat(this.value);
-    alphaText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#alpha"), {
+    minValue:       0,
+    maxValue:       2,
+    increment:      0.02,
+    precision:      2,
+    target:         gen,
+    targetProperty: "alpha"
+});
 
-document.querySelector("#amp").oninput = function() {
-    gen.amp = parseFloat(this.value);
-    ampText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#amp"), {
+    minValue:       0,
+    maxValue:       1,
+    increment:      0.02,
+    precision:      2,
+    target:         gen,
+    targetProperty: "amp"
+});
 
 });
