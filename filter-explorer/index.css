@@ -14,19 +14,6 @@ button {
     border-radius: 5pt;
 }
 
-.sliderCell {
-    width: 100%;
-    height: 28pt;
-}
-
-.slider {
-    width: 100%;
-    height: 28pt;
-    background-color: #eeeeee;
-    color: black;
-    font-size: 15pt;
-}
-
 .soundDisplay {
     background-color: black;
     color: #00ff00;
@@ -100,4 +87,17 @@ button {
 
 #controlTable td:first-child + td + td {
     text-align: right;
+}
+
+.sliderCell {
+    width: 100%;
+    height: 28pt;
+}
+
+.slider {
+    width: 100%;
+    height: 28pt;
+    background-color: #eeeeee;
+    color: black;
+    font-size: 15pt;
 }
