@@ -65,13 +65,14 @@ for (var i = 0; i < filterRadios.length; i++) {
     };
 }
 
-var slider = new SliderWidget(document.querySelector("#sliderCell"));
-slider.label = "Slide!";
-slider.minValue = 20;
-slider.maxValue = 8000;
-slider.increment = 1;
-slider.precision = 0;
-slider.target = gen;
-slider.targetProperty = "f0";
+var slider = new SliderWidget(document.querySelector("#sliderCell"), {
+    label:          "Slide!",
+    minValue:       20,
+    maxValue:       8000,
+    increment:      1,
+    precision:      0,
+    target:         gen,
+    targetProperty: "f0"
+});
 
 });
