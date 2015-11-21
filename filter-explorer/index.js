@@ -36,25 +36,45 @@ document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
 
-document.querySelector("#inAmp").oninput = function() {
-    gen.inAmp = parseFloat(this.value);
-    inAmpText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#inAmp"), {
+    label:          "Input Amp",
+    minValue:       0,
+    maxValue:       10,
+    increment:      0.1,
+    precision:      1,
+    target:         gen,
+    targetProperty: "inAmp"
+});
 
-document.querySelector("#f0").oninput = function() {
-    gen.f0 = parseFloat(this.value);
-    f0Text.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#f0"), {
+    label:          "f0",
+    minValue:       20,
+    maxValue:       8000,
+    increment:      1,
+    precision:      0,
+    target:         gen,
+    targetProperty: "f0"
+});
 
-document.querySelector("#q").oninput = function() {
-    gen.q = parseFloat(this.value);
-    qText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#q"), {
+    label:          "Q",
+    minValue:       0,
+    maxValue:       500,
+    increment:      0.01,
+    precision:      2,
+    target:         gen,
+    targetProperty: "q"
+});
 
-document.querySelector("#amp").oninput = function() {
-    gen.amp = parseFloat(this.value);
-    ampText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#amp"), {
+    label:          "Amplitude",
+    minValue:       0,
+    maxValue:       10,
+    increment:      0.1,
+    precision:      1,
+    target:         gen,
+    targetProperty: "amp"
+});
 
 var filterRadios =
     document.querySelectorAll("input[name='filterType']");
@@ -64,15 +84,5 @@ for (var i = 0; i < filterRadios.length; i++) {
         gen.filterType = this.value;
     };
 }
-
-var slider = new SliderWidget(document.querySelector("#sliderCell"), {
-    label:          "Slide!",
-    minValue:       20,
-    maxValue:       8000,
-    increment:      1,
-    precision:      0,
-    target:         gen,
-    targetProperty: "f0"
-});
 
 });
