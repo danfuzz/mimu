@@ -13,8 +13,9 @@
 });
 
 requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Piece, Harmonics, MusicControl, Oscilloscope) {
+["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
+    "lib/SliderWidget"],
+function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
 
 // The overall audio context instance. Unfortunately, the name
 // `AudioContext` isn't fully standardized and is prefixed in some
@@ -27,33 +28,45 @@ var mc = new MusicControl(audioCtx, gen);
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
 mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 
-var f0Text = document.querySelector("#f0Text");
-var qText = document.querySelector("#qText");
-var ampText = document.querySelector("#ampText");
-
 document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
 
-document.querySelector("#inAmp").oninput = function() {
-    gen.inAmp = parseFloat(this.value);
-    inAmpText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#inAmp"), {
+    minValue:       0,
+    maxValue:       10,
+    increment:      0.1,
+    precision:      1,
+    target:         gen,
+    targetProperty: "inAmp"
+});
 
-document.querySelector("#f0").oninput = function() {
-    gen.f0 = parseFloat(this.value);
-    f0Text.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#f0"), {
+    minValue:       20,
+    maxValue:       8000,
+    increment:      1,
+    precision:      0,
+    target:         gen,
+    targetProperty: "f0"
+});
 
-document.querySelector("#q").oninput = function() {
-    gen.q = parseFloat(this.value);
-    qText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#q"), {
+    minValue:       0,
+    maxValue:       500,
+    increment:      0.01,
+    precision:      2,
+    target:         gen,
+    targetProperty: "q"
+});
 
-document.querySelector("#amp").oninput = function() {
-    gen.amp = parseFloat(this.value);
-    ampText.textContent = this.value;
-};
+new SliderWidget(document.querySelector("#amp"), {
+    minValue:       0,
+    maxValue:       10,
+    increment:      0.1,
+    precision:      1,
+    target:         gen,
+    targetProperty: "amp"
+});
 
 var filterRadios =
     document.querySelectorAll("input[name='filterType']");

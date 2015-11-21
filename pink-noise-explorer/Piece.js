@@ -72,6 +72,13 @@ class Piece {
     }
 
     /**
+     * Gets the output amplitude.
+     */
+    get amp() {
+        return this._amp;
+    }
+
+    /**
      * Sets the alpha.
      */
     set alpha(value) {
@@ -87,11 +94,25 @@ class Piece {
     }
 
     /**
+     * Gets the alpha.
+     */
+    get alpha() {
+        return this._alpha;
+    }
+
+    /**
      * Sets the count of poles.
      */
     set poles(value) {
         this._poles = value;
         this._calcFilter();
+    }
+
+    /**
+     * Gets the count of poles.
+     */
+    get poles() {
+        return this._poles;
     }
 
     /**
