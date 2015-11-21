@@ -87,10 +87,24 @@ class Piece {
     }
 
     /**
+     * Gets the input amplitude.
+     */
+    get inAmp() {
+        return this._inAmp;
+    }
+
+    /**
      * Sets the output amplitude.
      */
     set amp(value) {
         this._amp = value;
+    }
+
+    /**
+     * Gets the output amplitude.
+     */
+    get amp() {
+        return this._amp;
     }
 
     /**
@@ -115,11 +129,25 @@ class Piece {
     }
 
     /**
+     * Gets the filter type.
+     */
+    get filterType() {
+        return this._filterType;
+    }
+
+    /**
      * Sets the center frequency.
      */
     set f0(value) {
         this._f0 = value;
         this._calcFilter();
+    }
+
+    /**
+     * Gets the center frequency.
+     */
+    get f0() {
+        return this._f0;
     }
 
     /**
@@ -132,6 +160,13 @@ class Piece {
 
         this._q = value;
         this._calcFilter();
+    }
+
+    /**
+     * Gets Q (the filter quality).
+     */
+    get q() {
+        return this._q;
     }
 
     /**
