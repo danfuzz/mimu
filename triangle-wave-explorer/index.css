@@ -57,6 +57,16 @@ button {
     height: 30vw;
 }
 
+#piano {
+    width: 100%;
+    height: 10em;
+}
+
+#piano .piano {
+    color: #f8f8f8;
+    background-color: black;
+}
+
 #controlTable {
     margin-top: 2em;
     margin-bottom: 2em;
@@ -87,7 +97,6 @@ button {
 #controlTable td:first-child + td + td {
     text-align: right;
 }
-
 
 .sliderCell {
     width: 100%;

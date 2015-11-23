@@ -14,8 +14,9 @@
 
 requirejs(
 ["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
-    "lib/SliderWidget"],
-function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
+    "lib/PianoWidget", "lib/SliderWidget"],
+function(Piece, Harmonics, MusicControl, Oscilloscope, PianoWidget,
+    SliderWidget) {
 
 // The overall audio context instance. Unfortunately, the name
 // `AudioContext` isn't fully standardized and is prefixed in some
@@ -31,6 +32,8 @@ mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
+
+new PianoWidget(document.querySelector("#piano"));
 
 new SliderWidget(document.querySelector("#upBias"), {
     minValue:       -1,
@@ -76,6 +79,5 @@ new SliderWidget(document.querySelector("#amp"), {
     target:         gen,
     targetProperty: "amp"
 });
-
 
 });
