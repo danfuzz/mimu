@@ -4,11 +4,13 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-@import url("https://fonts.googleapis.com/css?family=Amaranth:400,700,400italic,700italic|Rosario:400,400italic,700italic,700");
+@import url('https://fonts.googleapis.com/css?family=Amaranth:400,700,400italic,700italic');
+@import url('https://fonts.googleapis.com/css?family=Rosario:400,400italic,700italic,700');
+@import url('https://fonts.googleapis.com/css?family=Cousine:400,400i');
 
 body {
-    background-color: white;
-    color: black;
+    background-color: #ddeeff;
+    color: #222244;
     font-family: Rosario, sans-serif;
     font-weight: normal;
     font-size: 14pt;
@@ -17,6 +19,10 @@ body {
     margin-top: 2em;
     margin-left: 5em;
     margin-right: 5em;
+}
+
+code {
+    font-family: Cousine, monospace;
 }
 
 h1, h2, h3 {
