@@ -9,45 +9,16 @@
 # Runs a web server on localhost port 8080, serving the app's content.
 #
 
-#
-# Directory and program name detection
-#
+# Figure out the symlink-resolved program name and directory.
+cmdName="$(readlink -f "$0")" || exit "$?"
+cmdDir="${cmdName%/*}"
+cmdName="${cmdName##*/}"
+baseDir="${cmdDir%/*}" # Parent of `cmdDir`; often useful.
 
-# Preserve the original working dir as `origDir`. Set `progName` to the program
-# name, `progDir` to its directory, and `baseDir` to `progDir`'s directory.
-# Follows symlinks.
-origDir="${PWD}"
-progName=''
-progDir=''
-baseDir=''
-function progSetup {
-    local prog="$0"
-    local newProg
-
-    while [[ -h ${prog} ]]; do
-        [[ "$(/bin/ls -ld "${prog}")" =~ .*' -> '(.*)$ ]]
-        newProg="${BASH_REMATCH[1]}"
-        if [[ ${newProg} =~ ^/ ]]; then
-            prog="${newProg}"
-        else
-            prog="$(dirname "${prog}")/${newProg}"
-        fi
-    done
-
-    progName="$(basename "${prog}")"
-    progDir="$(dirname "${prog}")"
-    cd "${progDir}"
-    progDir="${PWD}"
-    cd ..
-    baseDir="${PWD}"
-    cd "${origDir}"
-}
-progSetup
-unset progSetup
 
 #
 # The main program
 #
 
-cd "${progDir}"
-python -m SimpleHTTPServer 8080
+cd "${cmdDir}"
+npx http-server . --port=8080
