@@ -13,20 +13,19 @@
 });
 
 requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
+["lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
     "lib/SliderWidget"],
-function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
+function(Harmonics, MusicControl, Oscilloscope, SliderWidget) {
 
-var audioCtx = new AudioContext();
-
-var gen = new Piece(audioCtx.sampleRate);
-var mc = new MusicControl(audioCtx, gen);
+var mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
 mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 
 document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
+
+const gen = '<TODO FIX ME>';
 
 new SliderWidget(document.querySelector("#alpha"), {
     minValue:       0,

@@ -4,29 +4,26 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-"use strict";
-
-define([], function() {
+import { AudioGenerator } from '../lib/AudioGenerator.js';
 
 /**
  * The AWK Music composition.
  */
-class Piece {
+class Piece extends AudioGenerator {
     /**
-     * Contructs an instance, given a `sampleRate` (in samples per second).
+     * Decay rate of notes, in particular, the number of samples it takes a note
+     * to reduce in volume by 10%. As defined, it is 0.1sec.
      */
-    constructor(sampleRate) {
-        /** Sample rate (samples per second). */
-        this._sampleRate = sampleRate;
+    #decayRate = sampleRate / 10;
+
+    /**
+     * Contructs an instance.
+     */
+    constructor(options) {
+        super(options);
 
         /** Which waveform to use. This is the function, not the name. */
         this._waveform = Piece.triangleWave;
-
-        /**
-         * Decay rate of notes, in particular, the number of samples it takes
-         * a note to reduce in volume by 10%. As defined, it is 0.1sec.
-         */
-        this._decayRate = sampleRate / 10;
 
         /** Wavelength of the primary note. */
         this._wla = this._randomWl();
@@ -64,7 +61,7 @@ class Piece {
                 this._waveform = Piece.sawtoothWave;
                 break;
             }
-            case "square":  {
+            case "square": {
                 this._waveform = Piece.squareWave;
                 break;
             }
@@ -88,14 +85,14 @@ class Piece {
         //
         // `10` is the number of choices of note. That is, we pick amongst
         // the notes of two octaves.
-        return (this._sampleRate / 160) *
+        return (sampleRate / 160) *
             Math.pow(0.8705506, Math.trunc(Math.random() * 10));
     }
 
     /**
      * Performs one iteration of generation, returning a single sample.
      */
-    nextSample() {
+    _impl_nextSample() {
         if (this._declick) {
             // We're "de-clicking." This just means we gracefully (but promptly)
             // decay to near-0. De-click is over if the sample is close enough
@@ -121,7 +118,7 @@ class Piece {
             }
 
             this._dur =
-                Math.trunc((Math.random() * 10 + 5) * this._sampleRate / 4);
+                Math.trunc((Math.random() * 10 + 5) * sampleRate / 4);
             this._idx = 0;
             this._declick = true;
             return this._lastSamp;
@@ -130,7 +127,7 @@ class Piece {
         // See definition of `decayRate` above. We add a little bit so that
         // notes never fully decay; aesthetically, this prevents the occasional
         // jarring moment of total silence.
-        var vol = Math.pow(0.9, this._idx / this._decayRate) * 0.95 + 0.05;
+        var vol = Math.pow(0.9, this._idx / this.#decayRate) * 0.95 + 0.05;
 
         var sa = this._waveform(this._idx / this._wla) * 0.5;
         var sb = this._waveform(this._idx / this._wlb) * 0.25;
@@ -176,5 +173,4 @@ class Piece {
     }
 }
 
-return Piece;
-});
+registerProcessor("Piece", Piece);

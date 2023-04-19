@@ -4,9 +4,7 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-"use strict";
-
-define([], function() {
+import { AudioGenerator } from '../lib/AudioGenerator.js';
 
 /**
  * Pink noise generator, with adjustable alpha.
@@ -22,15 +20,14 @@ define([], function() {
  * <https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform> for a general
  * introduction to the technique used.
  */
-class Piece {
+class Piece extends AudioGenerator {
     /**
-     * Contructs an instance, given a `sampleRate` (in samples per second).
+     * Contructs an instance.
      */
-    constructor(sampleRate) {
-        // Base parameters
+    constructor(options) {
+        super(options);
 
-        /** Sample rate (samples per second). */
-        this._sampleRate = sampleRate;
+        // Base parameters
 
         /** Alpha. 1.0 is "normal" pink noise. */
         this._alpha = 1.0;
@@ -149,7 +146,7 @@ class Piece {
 
             // Fill history with random values.
             for (var i = 0; i < (5 * poles); i++) {
-                this.nextSample();
+                this._impl_nextSample();
             }
         }
     }
@@ -157,7 +154,7 @@ class Piece {
     /**
      * Performs one iteration of generation, returning a single sample.
      */
-    nextSample() {
+    _impl_nextSample() {
         var poles = this._poles;
         var multipliers = this._multipliers;
         var values = this._values;
@@ -208,5 +205,4 @@ class Piece {
     }
 }
 
-return Piece;
-});
+registerProcessor("Piece", Piece);

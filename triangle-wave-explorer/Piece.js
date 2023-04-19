@@ -4,9 +4,7 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-"use strict";
-
-define([], function() {
+import { AudioGenerator } from '../lib/AudioGenerator.js';
 
 /**
  * How many "subsamples" to produce per actual sample output. This is done
@@ -45,11 +43,13 @@ var OVERSAMPLE = 4;
  *   totally dominates. `1` means that movement away from zero totally
  *   dominates.
  */
-class Piece {
+class Piece extends AudioGenerator {
     /**
-     * Contructs an instance, given a `sampleRate` (in samples per second).
+     * Contructs an instance.
      */
-    constructor(sampleRate) {
+    constructor(options) {
+        super(options);
+
         // Base parameters
 
         /** Sample rate (samples per second). */
@@ -266,7 +266,7 @@ class Piece {
     /**
      * Performs one iteration of generation, returning a single sample.
      */
-    nextSample() {
+    _impl_nextSample() {
         var idx = this._idx;
         var samp = 0;
 
@@ -304,5 +304,4 @@ class Piece {
     }
 }
 
-return Piece;
-});
+registerProcessor("Piece", Piece);

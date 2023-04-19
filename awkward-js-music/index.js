@@ -13,13 +13,10 @@
 });
 
 requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Piece, Harmonics, MusicControl, Oscilloscope) {
+["lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
+function(Harmonics, MusicControl, Oscilloscope) {
 
-var audioCtx = new AudioContext();
-
-var gen = new Piece(audioCtx.sampleRate);
-var mc = new MusicControl(audioCtx, gen);
+var mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
 mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
 

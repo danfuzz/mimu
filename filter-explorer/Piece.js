@@ -4,9 +4,7 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-"use strict";
-
-define([], function() {
+import { AudioGenerator } from '../lib/AudioGenerator.js';
 
 /**
  * Filter generator, with adjustable type, center frequency, and Q. What it
@@ -16,15 +14,12 @@ define([], function() {
  * Robert Bristow-Johnson in
  * <http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt>.
  */
-class Piece {
+class Piece extends AudioGenerator {
     /**
-     * Contructs an instance, given a `sampleRate` (in samples per second).
+     * Contructs an instance.
      */
-    constructor(sampleRate) {
-        // Base parameters
-
-        /** Sample rate (samples per second). */
-        this._sampleRate = sampleRate;
+     constructor(options) {
+         super(options);
 
         /** Input amplitude. */
         this._inAmp = 1;
@@ -173,7 +168,7 @@ class Piece {
      * Calculates the derived filter parameters.
      */
     _calcFilter() {
-        var w0 = 2 * Math.PI * this._f0 / this._sampleRate;
+        var w0 = 2 * Math.PI * this._f0 / sampleRate;
         var alpha = Math.sin(w0) / (this._q * 2);
         var cosW0 = Math.cos(w0);
         var b0, b1, b2, a0, a1, a2;
@@ -234,7 +229,7 @@ class Piece {
     /**
      * Performs one iteration of generation, returning a single sample.
      */
-    nextSample() {
+    _impl_nextSample() {
         var x1 = this._x1;
         var x2 = this._x2;
         var y1 = this._y1;
@@ -253,5 +248,4 @@ class Piece {
     }
 }
 
-return Piece;
-});
+registerProcessor("Piece", Piece);
