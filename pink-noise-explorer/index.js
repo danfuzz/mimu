@@ -17,11 +17,7 @@ requirejs(
     "lib/SliderWidget"],
 function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
 
-// The overall audio context instance. Unfortunately, the name
-// `AudioContext` isn't fully standardized and is prefixed in some
-// browsers. Ideally, the expression would just be `new AudioContext()`
-// per se.
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+var audioCtx = new AudioContext();
 
 var gen = new Piece(audioCtx.sampleRate);
 var mc = new MusicControl(audioCtx, gen);
