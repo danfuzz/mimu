@@ -149,7 +149,7 @@ class Piece extends AudioGenerator {
 
   /** Triangle wave function, period 1. Doesn't expect negative input. */
   static triangleWave(n) {
-    // `+ 0.25` makes it so that `triangleWave(0) == 0`.
+    // `+ 0.25` makes it so that `triangleWave(0) === 0`.
     let x = (n + 0.25) % 1;
     if (x < 0.5) {
       return (x * 4) - 1;
@@ -161,7 +161,7 @@ class Piece extends AudioGenerator {
 
   /** Sawtooth wave function, period 1. Doesn't expect negative input. */
   static sawtoothWave(n) {
-    // `+ 0.5` makes it so that `sawtoothWave(0) == 0`
+    // `+ 0.5` makes it so that `sawtoothWave(0) === 0`
     const x = (n + 0.5) % 1;
     return (x * 2) - 1;
   }
