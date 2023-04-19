@@ -20,5 +20,5 @@ baseDir="${cmdDir%/*}" # Parent of `cmdDir`; often useful.
 # The main program
 #
 
-cd "${cmdDir}"
-npx http-server . --port=8080
+npx http-server "${baseDir}" --tls --port=8443 \
+    --cert="${cmdDir}/localhost-cert.pem" --key="${cmdDir}/localhost-key.pem"
