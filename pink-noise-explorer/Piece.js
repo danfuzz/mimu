@@ -133,7 +133,7 @@ class Piece extends AudioGenerator {
     this._at = 0;
 
     let a = 1;
-    for (var i = 0; i < poles; i++) {
+    for (let i = 0; i < poles; i++) {
       a = (i - (alpha / 2)) * a / (i + 1);
       this._multipliers[i] = a;
     }
@@ -141,11 +141,11 @@ class Piece extends AudioGenerator {
     // Set up the historical `values` array, if this is the first time
     // `_calcFilter()` is called *or* if the number of poles has changed.
     // Otherwise, we "let it ride" to avoid a discontinuity of the waveform.
-    if (!(this._values && (this._values.length == poles))) {
+    if (!(this._values && (this._values.length === poles))) {
       this._values = new Float64Array(poles);
 
       // Fill history with random values.
-      for (var i = 0; i < (5 * poles); i++) {
+      for (let i = 0; i < (5 * poles); i++) {
         this._impl_nextSample();
       }
     }
@@ -174,7 +174,7 @@ class Piece extends AudioGenerator {
     // the valid range -1 to 1.
     x *= this._ampAdjusted;
 
-    return (x < -1) ? -1 : ((x > 1) ? 1 : x);
+    return Math.min(Math.max(x, -1), 1);
   }
 
   /**
@@ -188,10 +188,10 @@ class Piece extends AudioGenerator {
     // This loop picks random candidate points until we find one that falls
     // within the unit circle. We explicitly avoid the center point
     // (unlikely though it may be), as it can't be scaled.
-    var v1, v2, s;
+    let s, v1;
     do {
-      var v1 = (Math.random() * 2) - 1;  // Generate two uniform random...
-      var v2 = (Math.random() * 2) - 1;  // ...numbers in the range -1..1.
+      v1       = (Math.random() * 2) - 1;  // Generate two uniform random...
+      const v2 = (Math.random() * 2) - 1;  // ...numbers in the range -1..1.
       s = (v1 * v1) + (v2 * v2);         // Distance^2 from origin.
     } while ((s > 1) || (s === 0));
 
