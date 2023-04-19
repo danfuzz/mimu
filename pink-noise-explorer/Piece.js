@@ -21,188 +21,188 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  * introduction to the technique used.
  */
 class Piece extends AudioGenerator {
-    /**
+  /**
      * Contructs an instance.
      */
-    constructor(options) {
-        super(options);
+  constructor(options) {
+    super(options);
 
-        // Base parameters
+    // Base parameters
 
-        /** Alpha. 1.0 is "normal" pink noise. */
-        this._alpha = 1.0;
+    /** Alpha. 1.0 is "normal" pink noise. */
+    this._alpha = 1.0;
 
-        /** Number of poles. */
-        this._poles = 5;
+    /** Number of poles. */
+    this._poles = 5;
 
-        /**
+    /**
          * Amplitude of the noise. This is only an approximation, in that
          * pink noise inherently has no real limit on range.
          */
-        this._amp = 0.5;
+    this._amp = 0.5;
 
-        // Derived values
+    // Derived values
 
-        /** Amp including adjustment multiplier for the given alpha. */
-        this._ampAdjusted = 0;
+    /** Amp including adjustment multiplier for the given alpha. */
+    this._ampAdjusted = 0;
 
-        /** Multipliers for the IIR filter. One per pole. */
-        this._multipliers = [];
+    /** Multipliers for the IIR filter. One per pole. */
+    this._multipliers = [];
 
-        /** Circular history of recently-generated values. One per pole. */
-        this._values = [];
+    /** Circular history of recently-generated values. One per pole. */
+    this._values = [];
 
-        /** Notional start index of the `values` array. */
-        this._at = 0;
+    /** Notional start index of the `values` array. */
+    this._at = 0;
 
-        // Final setup.
-        this._calcFilter();
-        this._calcAmp();
-    }
+    // Final setup.
+    this._calcFilter();
+    this._calcAmp();
+  }
 
-    /**
+  /**
      * Sets the output amplitude.
      */
-    set amp(value) {
-        this._amp = value;
-        this._calcAmp();
-    }
+  set amp(value) {
+    this._amp = value;
+    this._calcAmp();
+  }
 
-    /**
+  /**
      * Gets the output amplitude.
      */
-    get amp() {
-        return this._amp;
-    }
+  get amp() {
+    return this._amp;
+  }
 
-    /**
+  /**
      * Sets the alpha.
      */
-    set alpha(value) {
-        if (value < 0) {
-            value = 0;
-        } else if (value > 2) {
-            value = 2;
-        }
-
-        this._alpha = value;
-        this._calcFilter();
-        this._calcAmp();
+  set alpha(value) {
+    if (value < 0) {
+      value = 0;
+    } else if (value > 2) {
+      value = 2;
     }
 
-    /**
+    this._alpha = value;
+    this._calcFilter();
+    this._calcAmp();
+  }
+
+  /**
      * Gets the alpha.
      */
-    get alpha() {
-        return this._alpha;
-    }
+  get alpha() {
+    return this._alpha;
+  }
 
-    /**
+  /**
      * Sets the count of poles.
      */
-    set poles(value) {
-        this._poles = value;
-        this._calcFilter();
-    }
+  set poles(value) {
+    this._poles = value;
+    this._calcFilter();
+  }
 
-    /**
+  /**
      * Gets the count of poles.
      */
-    get poles() {
-        return this._poles;
-    }
+  get poles() {
+    return this._poles;
+  }
 
-    /**
+  /**
      * Calculates derived parameters for amplitude. This formula was derived
      * empirically and is probably off.
      */
-    _calcAmp() {
-        this._ampAdjusted = this._amp *
+  _calcAmp() {
+    this._ampAdjusted = this._amp *
             (Math.log(1.05 + (2 - this._alpha)) / 4.5);
-    }
+  }
 
-    /**
+  /**
      * Calculates the derived filter parameters, and initializes the `values`
      * array if not already done.
      */
-    _calcFilter() {
-        var poles = this._poles;
-        var alpha = this._alpha;
+  _calcFilter() {
+    const poles = this._poles;
+    const alpha = this._alpha;
 
-        this._multipliers = new Float64Array(poles);
-        this._at = 0;
+    this._multipliers = new Float64Array(poles);
+    this._at = 0;
 
-        var a = 1;
-        for (var i = 0; i < poles; i++) {
-            a = (i - (alpha / 2)) * a / (i + 1);
-            this._multipliers[i] = a;
-        }
-
-        // Set up the historical `values` array, if this is the first time
-        // `_calcFilter()` is called *or* if the number of poles has changed.
-        // Otherwise, we "let it ride" to avoid a discontinuity of the waveform.
-        if (!(this._values && (this._values.length == poles))) {
-            this._values = new Float64Array(poles);
-
-            // Fill history with random values.
-            for (var i = 0; i < (5 * poles); i++) {
-                this._impl_nextSample();
-            }
-        }
+    let a = 1;
+    for (var i = 0; i < poles; i++) {
+      a = (i - (alpha / 2)) * a / (i + 1);
+      this._multipliers[i] = a;
     }
 
-    /**
+    // Set up the historical `values` array, if this is the first time
+    // `_calcFilter()` is called *or* if the number of poles has changed.
+    // Otherwise, we "let it ride" to avoid a discontinuity of the waveform.
+    if (!(this._values && (this._values.length == poles))) {
+      this._values = new Float64Array(poles);
+
+      // Fill history with random values.
+      for (var i = 0; i < (5 * poles); i++) {
+        this._impl_nextSample();
+      }
+    }
+  }
+
+  /**
      * Performs one iteration of generation, returning a single sample.
      */
-    _impl_nextSample() {
-        var poles = this._poles;
-        var multipliers = this._multipliers;
-        var values = this._values;
-        var at = this._at;
-        var x = Piece._randomGaussian();
+  _impl_nextSample() {
+    const poles = this._poles;
+    const multipliers = this._multipliers;
+    const values = this._values;
+    let at = this._at;
+    let x = Piece._randomGaussian();
 
-        for (var i = 0; i < poles; i++) {
-            x -= multipliers[i] * values[(at + i) % poles];
-        }
-
-        at = (at + poles + 1) % poles;
-        values[at] = x;
-        this._at = at;
-
-        // Scale by the indicated amp. The additional `0.2` multiplier is to
-        // get most samples to be in the range -1 to 1. After that, clamp to
-        // the valid range -1 to 1.
-        x *= this._ampAdjusted;
-
-        return (x < -1) ? -1 : ((x > 1) ? 1 : x);
+    for (let i = 0; i < poles; i++) {
+      x -= multipliers[i] * values[(at + i) % poles];
     }
 
-    /**
+    at = (at + poles + 1) % poles;
+    values[at] = x;
+    this._at = at;
+
+    // Scale by the indicated amp. The additional `0.2` multiplier is to
+    // get most samples to be in the range -1 to 1. After that, clamp to
+    // the valid range -1 to 1.
+    x *= this._ampAdjusted;
+
+    return (x < -1) ? -1 : ((x > 1) ? 1 : x);
+  }
+
+  /**
      * Gets a gaussian-distribution random number using the "polar" method.
      */
-    static _randomGaussian() {
-        // In a general implementation, these could be arguments.
-        var mean = 0;
-        var variance = 1;
+  static _randomGaussian() {
+    // In a general implementation, these could be arguments.
+    const mean = 0;
+    const variance = 1;
 
-        // This loop picks random candidate points until we find one that falls
-        // within the unit circle. We explicitly avoid the center point
-        // (unlikely though it may be), as it can't be scaled.
-        var v1, v2, s;
-        do {
-            var v1 = (Math.random() * 2) - 1;  // Generate two uniform random...
-            var v2 = (Math.random() * 2) - 1;  // ...numbers in the range -1..1.
-            s = (v1 * v1) + (v2 * v2);         // Distance^2 from origin.
-        } while ((s > 1) || (s === 0));
+    // This loop picks random candidate points until we find one that falls
+    // within the unit circle. We explicitly avoid the center point
+    // (unlikely though it may be), as it can't be scaled.
+    var v1, v2, s;
+    do {
+      var v1 = (Math.random() * 2) - 1;  // Generate two uniform random...
+      var v2 = (Math.random() * 2) - 1;  // ...numbers in the range -1..1.
+      s = (v1 * v1) + (v2 * v2);         // Distance^2 from origin.
+    } while ((s > 1) || (s === 0));
 
-        var mult = Math.sqrt(variance) * Math.sqrt(-2 * Math.log(s) / s);
-        var x = mean + (mult * v1);
+    const mult = Math.sqrt(variance) * Math.sqrt(-2 * Math.log(s) / s);
+    const x = mean + (mult * v1);
 
-        // If we want a second random value:
-        // var y = mean + (mult * v2);
+    // If we want a second random value:
+    // var y = mean + (mult * v2);
 
-        return x;
-    }
+    return x;
+  }
 }
 
-registerProcessor("Piece", Piece);
+registerProcessor('Piece', Piece);

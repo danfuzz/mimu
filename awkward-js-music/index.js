@@ -8,21 +8,21 @@ import { Harmonics } from '../lib/Harmonics.js';
 import { MusicControl } from '../lib/MusicControl.js';
 import { Oscilloscope } from '../lib/Oscilloscope.js';
 
-var mc = new MusicControl('./Piece.js');
-mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
-mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
+const mc = new MusicControl('./Piece.js');
+mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
+mc.harmonics = new Harmonics(document.querySelector('#harmCell'));
 
-document.querySelector("#playPause").onclick = function() {
-    mc.playPause();
+document.querySelector('#playPause').onclick = function () {
+  mc.playPause();
 };
 
 const gen = '<TODO FIX ME>';
 
-var waveRadios =
+const waveRadios =
     document.querySelectorAll("input[name='waveform']");
-for (var i = 0; i < waveRadios.length; i++) {
-    var r = waveRadios[i];
-    r.onclick = function() {
-        gen.waveform = this.value;
-    };
+for (let i = 0; i < waveRadios.length; i++) {
+  const r = waveRadios[i];
+  r.onclick = function () {
+    gen.waveform = this.value;
+  };
 }
