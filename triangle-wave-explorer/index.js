@@ -4,18 +4,10 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-"use strict";
-
- requirejs.config({
-    paths: {
-        lib: "../lib"
-    }
-});
-
-requirejs(
-["lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
-    "lib/SliderWidget"],
-function(Harmonics, MusicControl, Oscilloscope, SliderWidget) {
+import { Harmonics } from '../lib/Harmonics.js';
+import { MusicControl } from '../lib/MusicControl.js';
+import { Oscilloscope } from '../lib/Oscilloscope.js';
+import { SliderWidget } from '../lib/SliderWidget.js';
 
 var mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
@@ -70,7 +62,4 @@ new SliderWidget(document.querySelector("#amp"), {
     precision:      2,
     target:         gen,
     targetProperty: "amp"
-});
-
-
 });

@@ -4,17 +4,9 @@
  * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
  */
 
-"use strict";
-
- requirejs.config({
-    paths: {
-        lib: "../lib"
-    }
-});
-
-requirejs(
-["lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Harmonics, MusicControl, Oscilloscope) {
+import { Harmonics } from '../lib/Harmonics.js';
+import { MusicControl } from '../lib/MusicControl.js';
+import { Oscilloscope } from '../lib/Oscilloscope.js';
 
 var mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
@@ -34,5 +26,3 @@ for (var i = 0; i < waveRadios.length; i++) {
         gen.waveform = this.value;
     };
 }
-
-});
