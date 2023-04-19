@@ -3,7 +3,15 @@ const extendsList = [
 ];
 
 const env = {
+  browser: true,
   es2020: true
+};
+
+const globals = {
+  sampleRate:        'readonly',
+  currentFrame:      'readonly',
+  currentTime:       'readonly',
+  registerProcessor: 'readonly'
 };
 
 const parserOptions = {
@@ -98,6 +106,7 @@ module.exports = {
   root: true,
   extends: extendsList,
   env,
+  globals,
   parserOptions,
   rules
 };
