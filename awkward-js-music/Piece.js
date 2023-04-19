@@ -98,7 +98,7 @@ class Piece extends AudioGenerator {
       // decay to near-0. De-click is over if the sample is close enough
       // to 0.
 
-      var samp = this._lastSamp * 0.99;
+      const samp = this._lastSamp * 0.99;
 
       this._declick = (samp < -0.000001) || (samp > 0.000001);
       this._lastSamp = samp;
@@ -131,11 +131,11 @@ class Piece extends AudioGenerator {
 
     const sa = this._waveform(this._idx / this._wla) * 0.5;
     const sb = this._waveform(this._idx / this._wlb) * 0.25;
-    var samp = vol * (sa + sb);
+    const rawSamp = vol * (sa + sb);
 
     // This quantizes the sample, recreating the "shimmer" effect of the
     // original awk code.
-    samp = Math.trunc(samp * 64) / 64;
+    const samp = Math.trunc(rawSamp * 64) / 64;
 
     this._idx++;
     this._lastSamp = samp;
