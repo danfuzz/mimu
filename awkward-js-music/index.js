@@ -24,6 +24,8 @@ document.querySelector("#playPause").onclick = function() {
     mc.playPause();
 };
 
+const gen = '<TODO FIX ME>';
+
 var waveRadios =
     document.querySelectorAll("input[name='waveform']");
 for (var i = 0; i < waveRadios.length; i++) {
