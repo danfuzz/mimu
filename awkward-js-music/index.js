@@ -4,6 +4,7 @@
 import { Harmonics } from '../lib/Harmonics.js';
 import { MusicControl } from '../lib/MusicControl.js';
 import { Oscilloscope } from '../lib/Oscilloscope.js';
+import { PieceParams } from './PieceParams.js';
 
 const mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
@@ -13,10 +14,14 @@ document.querySelector('#playPause').onclick = function () {
   mc.playPause();
 };
 
+const PARAMS = PieceParams.PARAMS;
+
 const waveRadios = document.querySelectorAll("input[name='waveform']");
-for (let i = 0; i < waveRadios.length; i++) {
-  const r = waveRadios[i];
-  r.onclick = function () {
+for (const radio of waveRadios) {
+  if (radio.value === PARAMS.waveform) {
+    radio.checked = true;
+  }
+  radio.onclick = function () {
     mc.sendGenerator('waveform', this.value);
   };
 }

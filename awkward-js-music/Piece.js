@@ -2,19 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { AudioGenerator } from '../lib/AudioGenerator.js';
+import { PieceParams } from './PieceParams.js';
 
 /**
  * The AWK Music composition.
  */
 class Piece extends AudioGenerator {
+  /** Which waveform to use. This is the function, not the name. */
+  #waveform;
+
   /**
    * Decay rate of notes, in particular, the number of samples it takes a note
    * to reduce in volume by 10%. As defined, it is 0.1sec.
    */
   #decayRate = sampleRate / 10;
-
-  /** Which waveform to use. This is the function, not the name. */
-  #waveform = Piece.triangleWave;
 
   /** Wavelength of the primary note. */
   #wla = this.#randomWl();
@@ -39,6 +40,10 @@ class Piece extends AudioGenerator {
    */
   constructor(options) {
     super(options);
+
+    for (const [key, value] of Object.entries(PieceParams.PARAMS)) {
+      this[key] = value;
+    }
   }
 
   /**
