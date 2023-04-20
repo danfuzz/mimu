@@ -17,39 +17,35 @@ document.querySelector('#playPause').onclick = function () {
 const gen = '<TODO FIX ME>';
 
 new SliderWidget(document.querySelector('#inAmp'), {
-  minValue:       0,
-  maxValue:       10,
-  increment:      0.1,
-  precision:      1,
-  target:         gen,
-  targetProperty: 'inAmp'
+  minValue:  0,
+  maxValue:  10,
+  increment: 0.1,
+  precision: 1,
+  updater:   (v) => mc.sendGenerator('inAmp', v)
 });
 
 new SliderWidget(document.querySelector('#f0'), {
-  minValue:       20,
-  maxValue:       8000,
-  increment:      1,
-  precision:      0,
-  target:         gen,
-  targetProperty: 'f0'
+  minValue:  20,
+  maxValue:  8000,
+  increment: 1,
+  precision: 0,
+  updater:   (v) => mc.sendGenerator('f0', v)
 });
 
 new SliderWidget(document.querySelector('#q'), {
-  minValue:       0,
-  maxValue:       500,
-  increment:      0.01,
-  precision:      2,
-  target:         gen,
-  targetProperty: 'q'
+  minValue:  0,
+  maxValue:  500,
+  increment: 0.01,
+  precision: 2,
+  updater:   (v) => mc.sendGenerator('q', v)
 });
 
 new SliderWidget(document.querySelector('#amp'), {
-  minValue:       0,
-  maxValue:       10,
-  increment:      0.1,
-  precision:      1,
-  target:         gen,
-  targetProperty: 'amp'
+  minValue:  0,
+  maxValue:  10,
+  increment: 0.1,
+  precision: 1,
+  updater:   (v) => mc.sendGenerator('amp', v)
 });
 
 const filterRadios =
@@ -57,6 +53,6 @@ const filterRadios =
 for (let i = 0; i < filterRadios.length; i++) {
   const r = filterRadios[i];
   r.onclick = function () {
-    gen.filterType = this.value;
+    mc.sendGenerator('filterType', this.value);
   };
 }
