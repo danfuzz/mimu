@@ -56,7 +56,5 @@ for (const radio of filterRadios) {
   if (radio.value === PARAMS.filterType) {
     radio.checked = true;
   }
-  radio.onclick = function () {
-    mc.sendGenerator('filterType', this.value);
-  };
+  radio.onclick = () => mc.sendGenerator('filterType', radio.value);
 }

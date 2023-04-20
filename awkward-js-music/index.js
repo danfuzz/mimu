@@ -19,7 +19,5 @@ for (const radio of waveRadios) {
   if (radio.value === PARAMS.waveform) {
     radio.checked = true;
   }
-  radio.onclick = function () {
-    mc.sendGenerator('waveform', this.value);
-  };
+  radio.onclick = () => mc.sendGenerator('waveform', radio.value);
 }
