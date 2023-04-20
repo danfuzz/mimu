@@ -13,13 +13,11 @@ document.querySelector('#playPause').onclick = function () {
   mc.playPause();
 };
 
-const gen = '<TODO FIX ME>';
-
 const waveRadios =
     document.querySelectorAll("input[name='waveform']");
 for (let i = 0; i < waveRadios.length; i++) {
   const r = waveRadios[i];
   r.onclick = function () {
-    gen.waveform = this.value;
+    mc.sendGenerator('waveform', this.value);
   };
 }
