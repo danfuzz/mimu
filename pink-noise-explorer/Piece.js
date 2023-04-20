@@ -106,9 +106,7 @@ class Piece extends AudioGenerator {
     this.#calcFilter();
   }
 
-  /**
-   * Performs one iteration of generation, returning a single sample.
-   */
+  /** @override */
   _impl_nextSample() {
     const poles = this.#poles;
     const multipliers = this.#multipliers;

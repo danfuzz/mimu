@@ -192,9 +192,7 @@ class Piece extends AudioGenerator {
     this.#needCalc = true;
   }
 
-  /**
-   * Performs one iteration of generation, returning a single sample.
-   */
+  /** @override */
   _impl_nextSample() {
     let idx = this.#idx;
     let samp = 0;

@@ -86,9 +86,7 @@ class Piece extends AudioGenerator {
       Math.pow(0.8705506, Math.trunc(Math.random() * 10));
   }
 
-  /**
-   * Performs one iteration of generation, returning a single sample.
-   */
+  /** @override */
   _impl_nextSample() {
     if (this.#declick) {
       // We're "de-clicking." This just means we gracefully (but promptly)
