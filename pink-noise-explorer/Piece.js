@@ -55,6 +55,13 @@ class Piece extends AudioGenerator {
   }
 
   /**
+   * Gets the output amplitude.
+   */
+  get amp() {
+    return this.#amp;
+  }
+
+  /**
    * Sets the output amplitude.
    */
   set amp(value) {
@@ -63,10 +70,10 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Gets the output amplitude.
+   * Gets the alpha.
    */
-  get amp() {
-    return this.#amp;
+  get alpha() {
+    return this.#alpha;
   }
 
   /**
@@ -85,10 +92,10 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Gets the alpha.
+   * Gets the count of poles.
    */
-  get alpha() {
-    return this.#alpha;
+  get poles() {
+    return this.#poles;
   }
 
   /**
@@ -100,10 +107,29 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Gets the count of poles.
+   * Performs one iteration of generation, returning a single sample.
    */
-  get poles() {
-    return this.#poles;
+  _impl_nextSample() {
+    const poles = this.#poles;
+    const multipliers = this.#multipliers;
+    const values = this.#values;
+    let at = this.#at;
+    let x = Piece.#randomGaussian();
+
+    for (let i = 0; i < poles; i++) {
+      x -= multipliers[i] * values[(at + i) % poles];
+    }
+
+    at = (at + poles + 1) % poles;
+    values[at] = x;
+    this.#at = at;
+
+    // Scale by the indicated amp. The additional `0.2` multiplier is to
+    // get most samples to be in the range -1 to 1. After that, clamp to
+    // the valid range -1 to 1.
+    x *= this.#ampAdjusted;
+
+    return Math.min(Math.max(x, -1), 1);
   }
 
   /**
@@ -143,32 +169,6 @@ class Piece extends AudioGenerator {
         this._impl_nextSample();
       }
     }
-  }
-
-  /**
-   * Performs one iteration of generation, returning a single sample.
-   */
-  _impl_nextSample() {
-    const poles = this.#poles;
-    const multipliers = this.#multipliers;
-    const values = this.#values;
-    let at = this.#at;
-    let x = Piece.#randomGaussian();
-
-    for (let i = 0; i < poles; i++) {
-      x -= multipliers[i] * values[(at + i) % poles];
-    }
-
-    at = (at + poles + 1) % poles;
-    values[at] = x;
-    this.#at = at;
-
-    // Scale by the indicated amp. The additional `0.2` multiplier is to
-    // get most samples to be in the range -1 to 1. After that, clamp to
-    // the valid range -1 to 1.
-    x *= this.#ampAdjusted;
-
-    return Math.min(Math.max(x, -1), 1);
   }
 
 

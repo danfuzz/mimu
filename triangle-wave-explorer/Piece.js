@@ -119,13 +119,6 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Sets the output amplitude.
-   */
-  set amp(value) {
-    this.#amp = value;
-  }
-
-  /**
    * Gets the output amplitude.
    */
   get amp() {
@@ -133,10 +126,24 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Sets the note frequency.
+   * Sets the output amplitude.
    */
-  set freq(freq) {
-    this.#freq = freq;
+  set amp(value) {
+    this.#amp = value;
+  }
+
+  /**
+   * Gets the amping bias.
+   */
+  get ampBias() {
+    return this.#ampBias;
+  }
+
+  /**
+   * Sets the amping bias.
+   */
+  set ampBias(value) {
+    this.#ampBias = value;
     this.#needCalc = true;
   }
 
@@ -148,18 +155,18 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Sets the upward bias.
+   * Sets the note frequency.
    */
-  set upBias(value) {
-    this.#upBias = value;
+  set freq(freq) {
+    this.#freq = freq;
     this.#needCalc = true;
   }
 
   /**
    * Gets the upward bias.
    */
-  get upBias() {
-    return this.#upBias;
+  get posBias() {
+    return this.#posBias;
   }
 
   /**
@@ -173,23 +180,16 @@ class Piece extends AudioGenerator {
   /**
    * Gets the upward bias.
    */
-  get posBias() {
-    return this.#posBias;
+  get upBias() {
+    return this.#upBias;
   }
 
   /**
-   * Sets the amping bias.
+   * Sets the upward bias.
    */
-  set ampBias(value) {
-    this.#ampBias = value;
+  set upBias(value) {
+    this.#upBias = value;
     this.#needCalc = true;
-  }
-
-  /**
-   * Gets the amping bias.
-   */
-  get ampBias() {
-    return this.#ampBias;
   }
 
   /**
