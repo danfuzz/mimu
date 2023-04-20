@@ -50,9 +50,10 @@
         get it all happy again in the not-too-distant future.
     </p>
 
-    <p>As of this writing, the per-demo controls do not seem to work when using
-        Safari. This is because Safari doesn't seem to pass messages from the
-        main browser thread to the <code>AudioWorkletProcessor</code> which
+    <p>As of this writing, the per-demo controls do not seem to work
+        consistently when using Safari. This is because Safari &mdash;
+        sometimes! &mdash; doesn't seem to promptly pass messages from the main
+        browser thread to the <code>AudioWorkletProcessor</code> which
         generates the raw samples. It is unclear why this is(n't) happening.
     </p>
 
