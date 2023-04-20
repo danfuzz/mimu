@@ -14,7 +14,7 @@ BEGIN {
         wlb = wla;
         wla = wl();
 
-        if (wla === wlb) {
+        if (wla == wlb) {
             wla *= 2;
         }
 
@@ -52,7 +52,7 @@ BEGIN {
         }
 
         c = int(c);
-        while (c !== 128) {
+        while (c != 128) {
             (c < 128) ? c++ : c--;
             printf("%c", c);
         }
