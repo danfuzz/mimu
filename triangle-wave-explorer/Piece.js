@@ -193,6 +193,46 @@ class Piece extends AudioGenerator {
   }
 
   /**
+   * Performs one iteration of generation, returning a single sample.
+   */
+  _impl_nextSample() {
+    let idx = this.#idx;
+    let samp = 0;
+
+    // Produce a sum of `OVERSAMPLE` "subsamples." These are simply
+    // averaged to produce the final sample. It's a naive technique, but
+    // also efficient and good enough for the purpose here.
+    for (let i = 0; i < OVERSAMPLE; i++) {
+      if (idx < this.#idxB) {
+        // Ramp from `0` to `1`.
+        samp += idx / this.#widthA;
+      } else if (idx < this.#idxC) {
+        // Ramp from `1` to `0`.
+        samp += ((idx - this.#idxB) / this.#widthB) * -1 + 1;
+      } else if (idx < this.#idxD) {
+        // Ramp from `0` to `-1`.
+        samp += ((idx - this.#idxC) / this.#widthC) * -1;
+      } else {
+        // Ramp from `-1` to `0`.
+        samp += ((idx - this.#idxD) / this.#widthD) - 1;
+      }
+
+      idx += this.#idxRate;
+
+      if (idx > 1) {
+        idx %= 1;
+        if (this.#needCalc) {
+          this.#calcDerived();
+          this.#needCalc = false;
+        }
+      }
+    }
+
+    this.#idx = idx;
+    return samp / OVERSAMPLE * this.#amp;
+  }
+
+  /**
    * Calculates all the derived parameters.
    */
   #calcDerived() {
@@ -255,46 +295,6 @@ class Piece extends AudioGenerator {
     this.#idxB = widthA;
     this.#idxC = this.#idxB + widthB;
     this.#idxD = this.#idxC + widthC;
-  }
-
-  /**
-   * Performs one iteration of generation, returning a single sample.
-   */
-  _impl_nextSample() {
-    let idx = this.#idx;
-    let samp = 0;
-
-    // Produce a sum of `OVERSAMPLE` "subsamples." These are simply
-    // averaged to produce the final sample. It's a naive technique, but
-    // also efficient and good enough for the purpose here.
-    for (let i = 0; i < OVERSAMPLE; i++) {
-      if (idx < this.#idxB) {
-        // Ramp from `0` to `1`.
-        samp += idx / this.#widthA;
-      } else if (idx < this.#idxC) {
-        // Ramp from `1` to `0`.
-        samp += ((idx - this.#idxB) / this.#widthB) * -1 + 1;
-      } else if (idx < this.#idxD) {
-        // Ramp from `0` to `-1`.
-        samp += ((idx - this.#idxC) / this.#widthC) * -1;
-      } else {
-        // Ramp from `-1` to `0`.
-        samp += ((idx - this.#idxD) / this.#widthD) - 1;
-      }
-
-      idx += this.#idxRate;
-
-      if (idx > 1) {
-        idx %= 1;
-        if (this.#needCalc) {
-          this.#calcDerived();
-          this.#needCalc = false;
-        }
-      }
-    }
-
-    this.#idx = idx;
-    return samp / OVERSAMPLE * this.#amp;
   }
 }
 
