@@ -22,8 +22,8 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  */
 class Piece extends AudioGenerator {
   /**
-     * Contructs an instance.
-     */
+   * Contructs an instance.
+   */
   constructor(options) {
     super(options);
 
@@ -61,23 +61,23 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Sets the output amplitude.
-     */
+   * Sets the output amplitude.
+   */
   set amp(value) {
     this._amp = value;
     this._calcAmp();
   }
 
   /**
-     * Gets the output amplitude.
-     */
+   * Gets the output amplitude.
+   */
   get amp() {
     return this._amp;
   }
 
   /**
-     * Sets the alpha.
-     */
+   * Sets the alpha.
+   */
   set alpha(value) {
     if (value < 0) {
       value = 0;
@@ -91,40 +91,40 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Gets the alpha.
-     */
+   * Gets the alpha.
+   */
   get alpha() {
     return this._alpha;
   }
 
   /**
-     * Sets the count of poles.
-     */
+   * Sets the count of poles.
+   */
   set poles(value) {
     this._poles = value;
     this._calcFilter();
   }
 
   /**
-     * Gets the count of poles.
-     */
+   * Gets the count of poles.
+   */
   get poles() {
     return this._poles;
   }
 
   /**
-     * Calculates derived parameters for amplitude. This formula was derived
-     * empirically and is probably off.
-     */
+   * Calculates derived parameters for amplitude. This formula was derived
+   * empirically and is probably off.
+   */
   _calcAmp() {
     this._ampAdjusted = this._amp *
             (Math.log(1.05 + (2 - this._alpha)) / 4.5);
   }
 
   /**
-     * Calculates the derived filter parameters, and initializes the `values`
-     * array if not already done.
-     */
+   * Calculates the derived filter parameters, and initializes the `values`
+   * array if not already done.
+   */
   _calcFilter() {
     const poles = this._poles;
     const alpha = this._alpha;
@@ -152,8 +152,8 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Performs one iteration of generation, returning a single sample.
-     */
+   * Performs one iteration of generation, returning a single sample.
+   */
   _impl_nextSample() {
     const poles = this._poles;
     const multipliers = this._multipliers;
@@ -178,8 +178,8 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Gets a gaussian-distribution random number using the "polar" method.
-     */
+   * Gets a gaussian-distribution random number using the "polar" method.
+   */
   static _randomGaussian() {
     // In a general implementation, these could be arguments.
     const mean = 0;

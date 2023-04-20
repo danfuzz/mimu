@@ -11,14 +11,14 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  */
 class Piece extends AudioGenerator {
   /**
-     * Decay rate of notes, in particular, the number of samples it takes a note
-     * to reduce in volume by 10%. As defined, it is 0.1sec.
-     */
+   * Decay rate of notes, in particular, the number of samples it takes a note
+   * to reduce in volume by 10%. As defined, it is 0.1sec.
+   */
   #decayRate = sampleRate / 10;
 
   /**
-     * Contructs an instance.
-     */
+   * Contructs an instance.
+   */
   constructor(options) {
     super(options);
 
@@ -45,8 +45,8 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Sets the waveform type.
-     */
+   * Sets the waveform type.
+   */
   set waveform(value) {
     switch (value) {
       case 'sine': {
@@ -69,9 +69,9 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Picks a random wavelength within the harmonic confines of the piece.
-     * The result is the number of samples in a single cycle of the note.
-     */
+   * Picks a random wavelength within the harmonic confines of the piece.
+   * The result is the number of samples in a single cycle of the note.
+   */
   _randomWl() {
     // What do all those numbers mean?
     //
@@ -90,8 +90,8 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Performs one iteration of generation, returning a single sample.
-     */
+   * Performs one iteration of generation, returning a single sample.
+   */
   _impl_nextSample() {
     if (this._declick) {
       // We're "de-clicking." This just means we gracefully (but promptly)

@@ -16,8 +16,8 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  */
 class Piece extends AudioGenerator {
   /**
-     * Contructs an instance.
-     */
+   * Contructs an instance.
+   */
   constructor(options) {
     super(options);
 
@@ -75,36 +75,36 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Sets the input amplitude.
-     */
+   * Sets the input amplitude.
+   */
   set inAmp(value) {
     this._inAmp = value;
   }
 
   /**
-     * Gets the input amplitude.
-     */
+   * Gets the input amplitude.
+   */
   get inAmp() {
     return this._inAmp;
   }
 
   /**
-     * Sets the output amplitude.
-     */
+   * Sets the output amplitude.
+   */
   set amp(value) {
     this._amp = value;
   }
 
   /**
-     * Gets the output amplitude.
-     */
+   * Gets the output amplitude.
+   */
   get amp() {
     return this._amp;
   }
 
   /**
-     * Sets the filter type.
-     */
+   * Sets the filter type.
+   */
   set filterType(value) {
     switch (value) {
       case 'low-pass':
@@ -124,30 +124,30 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Gets the filter type.
-     */
+   * Gets the filter type.
+   */
   get filterType() {
     return this._filterType;
   }
 
   /**
-     * Sets the center frequency.
-     */
+   * Sets the center frequency.
+   */
   set f0(value) {
     this._f0 = value;
     this._calcFilter();
   }
 
   /**
-     * Gets the center frequency.
-     */
+   * Gets the center frequency.
+   */
   get f0() {
     return this._f0;
   }
 
   /**
-     * Sets Q (the filter quality).
-     */
+   * Sets Q (the filter quality).
+   */
   set q(value) {
     if (value <= 0.0001) {
       value = 0.0001;
@@ -158,15 +158,15 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Gets Q (the filter quality).
-     */
+   * Gets Q (the filter quality).
+   */
   get q() {
     return this._q;
   }
 
   /**
-     * Calculates the derived filter parameters.
-     */
+   * Calculates the derived filter parameters.
+   */
   _calcFilter() {
     const w0 = 2 * Math.PI * this._f0 / sampleRate;
     const alpha = Math.sin(w0) / (this._q * 2);
@@ -227,8 +227,8 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Performs one iteration of generation, returning a single sample.
-     */
+   * Performs one iteration of generation, returning a single sample.
+   */
   _impl_nextSample() {
     const x1 = this._x1;
     const x2 = this._x2;

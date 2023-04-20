@@ -45,8 +45,8 @@ const OVERSAMPLE = 4;
  */
 class Piece extends AudioGenerator {
   /**
-     * Contructs an instance.
-     */
+   * Contructs an instance.
+   */
   constructor(options) {
     super(options);
 
@@ -125,82 +125,82 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Sets the output amplitude.
-     */
+   * Sets the output amplitude.
+   */
   set amp(value) {
     this._amp = value;
   }
 
   /**
-     * Gets the output amplitude.
-     */
+   * Gets the output amplitude.
+   */
   get amp() {
     return this._amp;
   }
 
   /**
-     * Sets the note frequency.
-     */
+   * Sets the note frequency.
+   */
   set freq(freq) {
     this._freq = freq;
     this._needCalc = true;
   }
 
   /**
-     * Gets the note frequency.
-     */
+   * Gets the note frequency.
+   */
   get freq() {
     return this._freq;
   }
 
   /**
-     * Sets the upward bias.
-     */
+   * Sets the upward bias.
+   */
   set upBias(value) {
     this._upBias = value;
     this._needCalc = true;
   }
 
   /**
-     * Gets the upward bias.
-     */
+   * Gets the upward bias.
+   */
   get upBias() {
     return this._upBias;
   }
 
   /**
-     * Sets the positive bias.
-     */
+   * Sets the positive bias.
+   */
   set posBias(value) {
     this._posBias = value;
     this._needCalc = true;
   }
 
   /**
-     * Gets the upward bias.
-     */
+   * Gets the upward bias.
+   */
   get posBias() {
     return this._posBias;
   }
 
   /**
-     * Sets the amping bias.
-     */
+   * Sets the amping bias.
+   */
   set ampBias(value) {
     this._ampBias = value;
     this._needCalc = true;
   }
 
   /**
-     * Gets the amping bias.
-     */
+   * Gets the amping bias.
+   */
   get ampBias() {
     return this._ampBias;
   }
 
   /**
-     * Calculates all the derived parameters.
-     */
+   * Calculates all the derived parameters.
+   */
   _calcDerived() {
     this._idxRate = this._freq / this._sampleRate;
 
@@ -264,8 +264,8 @@ class Piece extends AudioGenerator {
   }
 
   /**
-     * Performs one iteration of generation, returning a single sample.
-     */
+   * Performs one iteration of generation, returning a single sample.
+   */
   _impl_nextSample() {
     let idx = this._idx;
     let samp = 0;
