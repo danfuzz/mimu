@@ -17,19 +17,17 @@ document.querySelector('#playPause').onclick = function () {
 const gen = '<TODO FIX ME>';
 
 new SliderWidget(document.querySelector('#alpha'), {
-  minValue:       0,
-  maxValue:       2,
-  increment:      0.02,
-  precision:      2,
-  target:         gen,
-  targetProperty: 'alpha'
+  minValue:  0,
+  maxValue:  2,
+  increment: 0.02,
+  precision: 2,
+  updater:   (v) => mc.sendGenerator('alpha', v)
 });
 
 new SliderWidget(document.querySelector('#amp'), {
-  minValue:       0,
-  maxValue:       1,
-  increment:      0.02,
-  precision:      2,
-  target:         gen,
-  targetProperty: 'amp'
+  minValue:  0,
+  maxValue:  1,
+  increment: 0.02,
+  precision: 2,
+  updater:   (v) => mc.sendGenerator('amp', v)
 });

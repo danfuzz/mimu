@@ -17,46 +17,41 @@ document.querySelector('#playPause').onclick = function () {
 const gen = '<TODO FIX ME>';
 
 new SliderWidget(document.querySelector('#upBias'), {
-  minValue:       -1,
-  maxValue:       1,
-  increment:      0.005,
-  precision:      3,
-  target:         gen,
-  targetProperty: 'upBias'
+  minValue:  -1,
+  maxValue:  1,
+  increment: 0.005,
+  precision: 3,
+  updater:   (v) => mc.sendGenerator('upBias', v)
 });
 
 new SliderWidget(document.querySelector('#posBias'), {
-  minValue:       -1,
-  maxValue:       1,
-  increment:      0.005,
-  precision:      3,
-  target:         gen,
-  targetProperty: 'posBias'
+  minValue:  -1,
+  maxValue:  1,
+  increment: 0.005,
+  precision: 3,
+  updater:   (v) => mc.sendGenerator('posBias', v)
 });
 
 new SliderWidget(document.querySelector('#ampBias'), {
-  minValue:       -1,
-  maxValue:       1,
-  increment:      0.005,
-  precision:      3,
-  target:         gen,
-  targetProperty: 'ampBias'
+  minValue:  -1,
+  maxValue:  1,
+  increment: 0.005,
+  precision: 3,
+  updater:   (v) => mc.sendGenerator('ampBias', v)
 });
 
 new SliderWidget(document.querySelector('#freq'), {
-  minValue:       20,
-  maxValue:       8000,
-  increment:      1,
-  precision:      0,
-  target:         gen,
-  targetProperty: 'freq'
+  minValue:  20,
+  maxValue:  8000,
+  increment: 1,
+  precision: 0,
+  updater:   (v) => mc.sendGenerator('freq', v)
 });
 
 new SliderWidget(document.querySelector('#amp'), {
-  minValue:       0,
-  maxValue:       1,
-  increment:      0.01,
-  precision:      2,
-  target:         gen,
-  targetProperty: 'amp'
+  minValue:  0,
+  maxValue:  1,
+  increment: 0.01,
+  precision: 2,
+  updater:   (v) => mc.sendGenerator('amp', v)
 });
