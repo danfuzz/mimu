@@ -112,8 +112,7 @@ class Piece extends AudioGenerator {
         this.#wla *= 2;
       }
 
-      this.#dur =
-                Math.trunc((Math.random() * 10 + 5) * sampleRate / 4);
+      this.#dur = Math.trunc((Math.random() * 10 + 5) * sampleRate / 4);
       this.#idx = 0;
       this.#declick = true;
       return this.#lastSamp;
