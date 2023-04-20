@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { AudioGenerator } from '../lib/AudioGenerator.js';
+import { PieceParams } from './PieceParams.js';
 
 /**
  * Pink noise generator, with adjustable alpha.
@@ -19,16 +20,16 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  */
 class Piece extends AudioGenerator {
   /** Alpha. 1.0 is "normal" pink noise. */
-  #alpha = 1.0;
+  #alpha;
 
   /** Number of poles. */
-  #poles = 5;
+  #poles;
 
   /**
    * Amplitude of the noise. This is only an approximation, in that
    * pink noise inherently has no real limit on range.
    */
-  #amp = 0.5;
+  #amp;
 
   // Derived values
 
@@ -49,6 +50,10 @@ class Piece extends AudioGenerator {
    */
   constructor(options) {
     super(options);
+
+    for (const [key, value] of Object.entries(PieceParams.PARAMS)) {
+      this[key] = value;
+    }
 
     this.#calcFilter();
     this.#calcAmp();

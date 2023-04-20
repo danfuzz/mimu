@@ -5,6 +5,7 @@ import { Harmonics } from '../lib/Harmonics.js';
 import { MusicControl } from '../lib/MusicControl.js';
 import { Oscilloscope } from '../lib/Oscilloscope.js';
 import { SliderWidget } from '../lib/SliderWidget.js';
+import { PieceParams } from './PieceParams.js';
 
 const mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
@@ -14,12 +15,15 @@ document.querySelector('#playPause').onclick = function () {
   mc.playPause();
 };
 
+const PARAMS = PieceParams.PARAMS;
+
 new SliderWidget(document.querySelector('#alpha'), {
   minValue:  0,
   maxValue:  2,
   increment: 0.02,
   precision: 2,
-  updater:   (v) => mc.sendGenerator('alpha', v)
+  updater:   (v) => mc.sendGenerator('alpha', v),
+  value:     PARAMS.alpha
 });
 
 new SliderWidget(document.querySelector('#amp'), {
@@ -27,5 +31,6 @@ new SliderWidget(document.querySelector('#amp'), {
   maxValue:  1,
   increment: 0.02,
   precision: 2,
-  updater:   (v) => mc.sendGenerator('amp', v)
+  updater:   (v) => mc.sendGenerator('amp', v),
+  value:     PARAMS.amp
 });
