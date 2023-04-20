@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { AudioGenerator } from '../lib/AudioGenerator.js';
+import { PieceParams } from './PieceParams.js';
 
 /**
  * How many "subsamples" to produce per actual sample output. This is done
@@ -48,19 +49,19 @@ class Piece extends AudioGenerator {
    * Frequency of the note (Hz, that is, cycles per second). 440 is
    * Middle A.
    */
-  #freq = 440.0;
+  #freq;
 
   /** Output amplitude. */
-  #amp = 0.75;
+  #amp;
 
   /** Upward bias. */
-  #upBias = 0.0;
+  #upBias;
 
   /** Positive bias. */
-  #posBias = 0.0;
+  #posBias;
 
   /** Amping bias. */
-  #ampBias = 0.0;
+  #ampBias;
 
   // Derived parameters
 
@@ -114,6 +115,10 @@ class Piece extends AudioGenerator {
    */
   constructor(options) {
     super(options);
+
+    for (const [key, value] of Object.entries(PieceParams.PARAMS)) {
+      this[key] = value;
+    }
 
     this.#calcDerived();
   }
