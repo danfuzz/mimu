@@ -171,6 +171,11 @@ class Piece extends AudioGenerator {
     return Math.min(Math.max(x, -1), 1);
   }
 
+
+  //
+  // Static members
+  //
+
   /**
    * Gets a gaussian-distribution random number using the "polar" method.
    */

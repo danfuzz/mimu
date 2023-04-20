@@ -139,6 +139,11 @@ class Piece extends AudioGenerator {
     return samp;
   }
 
+
+  //
+  // Static members.
+  //
+
   /** Sine wave function, period 1. */
   static sineWave(n) {
     return Math.sin(n * (Math.PI * 2));
