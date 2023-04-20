@@ -1,53 +1,34 @@
-/*
- * Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
- * Licensed AS IS and WITHOUT WARRANTY under the Apache License,
- * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
- */
+// Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).
+// SPDX-License-Identifier: Apache-2.0
 
-"use strict";
+import { Harmonics } from '../lib/Harmonics.js';
+import { MusicControl } from '../lib/MusicControl.js';
+import { Oscilloscope } from '../lib/Oscilloscope.js';
+import { SliderWidget } from '../lib/SliderWidget.js';
+import { PieceParams } from './PieceParams.js';
 
- requirejs.config({
-    paths: {
-        lib: "../lib"
-    }
+const mc = new MusicControl('./Piece.js');
+mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
+mc.harmonics = new Harmonics(document.querySelector('#harmCell'));
+
+document.querySelector('#playPause').onclick = () => mc.playPause();
+
+const PARAMS = PieceParams.PARAMS;
+
+new SliderWidget(document.querySelector('#alpha'), {
+  minValue:  0,
+  maxValue:  2,
+  increment: 0.02,
+  precision: 2,
+  updater:   (v) => mc.sendGenerator('alpha', v),
+  value:     PARAMS.alpha
 });
 
-requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope",
-    "lib/SliderWidget"],
-function(Piece, Harmonics, MusicControl, Oscilloscope, SliderWidget) {
-
-// The overall audio context instance. Unfortunately, the name
-// `AudioContext` isn't fully standardized and is prefixed in some
-// browsers. Ideally, the expression would just be `new AudioContext()`
-// per se.
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-var gen = new Piece(audioCtx.sampleRate);
-var mc = new MusicControl(audioCtx, gen);
-mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
-mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
-
-document.querySelector("#playPause").onclick = function() {
-    mc.playPause();
-};
-
-new SliderWidget(document.querySelector("#alpha"), {
-    minValue:       0,
-    maxValue:       2,
-    increment:      0.02,
-    precision:      2,
-    target:         gen,
-    targetProperty: "alpha"
-});
-
-new SliderWidget(document.querySelector("#amp"), {
-    minValue:       0,
-    maxValue:       1,
-    increment:      0.02,
-    precision:      2,
-    target:         gen,
-    targetProperty: "amp"
-});
-
+new SliderWidget(document.querySelector('#amp'), {
+  minValue:  0,
+  maxValue:  1,
+  increment: 0.02,
+  precision: 2,
+  updater:   (v) => mc.sendGenerator('amp', v),
+  value:     PARAMS.amp
 });

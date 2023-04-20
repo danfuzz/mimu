@@ -28,6 +28,3 @@ by Robert Bristow-Johnson.
 The basic script audio routing code was originally based on example code from
 Mozilla, though it has evolved significantly in the mean time. See
 <http://mdn.github.io/script-processor-node/>.
-
-The RequireJS module system implementation is by The Dojo Foundation, available
-under the new BSD and MIT licenses. See <http://requirejs.org>.

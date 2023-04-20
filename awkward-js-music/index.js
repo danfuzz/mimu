@@ -1,43 +1,23 @@
-/*
- * Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
- * Licensed AS IS and WITHOUT WARRANTY under the Apache License,
- * Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
- */
+// Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).
+// SPDX-License-Identifier: Apache-2.0
 
-"use strict";
+import { Harmonics } from '../lib/Harmonics.js';
+import { MusicControl } from '../lib/MusicControl.js';
+import { Oscilloscope } from '../lib/Oscilloscope.js';
+import { PieceParams } from './PieceParams.js';
 
- requirejs.config({
-    paths: {
-        lib: "../lib"
-    }
-});
+const mc = new MusicControl('./Piece.js');
+mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
+mc.harmonics = new Harmonics(document.querySelector('#harmCell'));
 
-requirejs(
-["Piece", "lib/Harmonics", "lib/MusicControl", "lib/Oscilloscope"],
-function(Piece, Harmonics, MusicControl, Oscilloscope) {
+document.querySelector('#playPause').onclick = () => mc.playPause();
 
-// The overall audio context instance. Unfortunately, the name
-// `AudioContext` isn't fully standardized and is prefixed in some
-// browsers. Ideally, the expression would just be `new AudioContext()`
-// per se.
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const PARAMS = PieceParams.PARAMS;
 
-var gen = new Piece(audioCtx.sampleRate);
-var mc = new MusicControl(audioCtx, gen);
-mc.oscilloscope = new Oscilloscope(document.querySelector("#oscCell"));
-mc.harmonics = new Harmonics(document.querySelector("#harmCell"));
-
-document.querySelector("#playPause").onclick = function() {
-    mc.playPause();
-};
-
-var waveRadios =
-    document.querySelectorAll("input[name='waveform']");
-for (var i = 0; i < waveRadios.length; i++) {
-    var r = waveRadios[i];
-    r.onclick = function() {
-        gen.waveform = this.value;
-    };
+const waveRadios = document.querySelectorAll("input[name='waveform']");
+for (const radio of waveRadios) {
+  if (radio.value === PARAMS.waveform) {
+    radio.checked = true;
+  }
+  radio.onclick = () => mc.sendGenerator('waveform', radio.value);
 }
-
-});

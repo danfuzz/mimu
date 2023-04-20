@@ -35,32 +35,32 @@
     <p><a href="https://github.com/danfuzz/mimu">See the source</a>. If you're
         specifically looking for the Web Audio code, find it in the
         <a href="https://github.com/danfuzz/mimu/tree/master/lib/MusicControl.js">
-        MusicControl class</a>.
+        <code>MusicControl</code> class</a>.
     </p>
 
     <h3>Items of note</h3>
 
-    <p>This code uses the <code>ScriptProcessorNode</code> class, which is
-        slated to be deprecated in a future version of Web Audio, but for
-        which no replacement is yet implemented in any production web browser
-        (as of late 2015). Hooray!
+    <p>As of this writing, the per-demo controls do not seem to work
+        consistently when using Safari. This is because Safari &mdash;
+        sometimes! &mdash; doesn't seem to promptly pass messages from the main
+        browser thread to the <code>AudioWorkletProcessor</code> which
+        generates the raw samples. It is unclear why this is(n't) happening.
     </p>
 
-    <p>This code uses the new (as of 2015) JavaScript <code>class</code>
-        definition syntax. As of this writing, this means that some browsers
-        &mdash; notably Firefox and Safari (the latter inconsistently) &mdash;
-        will not be able to run the demos successfully.
+    <p>The original version of this code was written in 2015, using browser and
+        JavaScript features which were still new and/or experimental at the
+        time. As such, this project inevitably suffered code rot and stopped
+        working sometime around 2019. In 2023, I did a chunk of work to get
+        things working again. That said, I never 100% cleaned up the code to be
+        up to arguably-modern standards.
     </p>
 
     <h3>One final word</h3>
     <p align="center">Enjoy!</p>
 
     <hr>
-    <p>Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
-        Licensed AS IS and WITHOUT WARRANTY under the Apache License,
-        Version 2.0. Details:
-        <a href="http://www.apache.org/licenses/LICENSE-2.0">
-        http://www.apache.org/licenses/LICENSE-2.0</a>
+    <p>Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).
+    SPDX-License-Identifier: Apache-2.0
     </p>
 
     <p><a href="http://milk.com/home/danfuzz/">Dan Bornstein</a> /

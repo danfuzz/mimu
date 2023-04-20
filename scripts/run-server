@@ -1,8 +1,7 @@
 #!/bin/bash
 #
-# Copyright 2015 the Mimu Authors (Dan Bornstein et alia).
-# Licensed AS IS and WITHOUT WARRANTY under the Apache License,
-# Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
+# Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).
+# SPDX-License-Identifier: Apache-2.0
 #
 
 #
@@ -20,5 +19,5 @@ baseDir="${cmdDir%/*}" # Parent of `cmdDir`; often useful.
 # The main program
 #
 
-cd "${cmdDir}"
-npx http-server . --port=8080
+npx http-server "${baseDir}" --tls --port=8443 \
+    --cert="${cmdDir}/localhost-cert.pem" --key="${cmdDir}/localhost-key.pem"
