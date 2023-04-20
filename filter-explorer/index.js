@@ -14,8 +14,6 @@ document.querySelector('#playPause').onclick = function () {
   mc.playPause();
 };
 
-const gen = '<TODO FIX ME>';
-
 new SliderWidget(document.querySelector('#inAmp'), {
   minValue:  0,
   maxValue:  10,
@@ -48,8 +46,7 @@ new SliderWidget(document.querySelector('#amp'), {
   updater:   (v) => mc.sendGenerator('amp', v)
 });
 
-const filterRadios =
-    document.querySelectorAll("input[name='filterType']");
+const filterRadios = document.querySelectorAll("input[name='filterType']");
 for (let i = 0; i < filterRadios.length; i++) {
   const r = filterRadios[i];
   r.onclick = function () {

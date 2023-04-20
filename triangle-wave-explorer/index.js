@@ -14,8 +14,6 @@ document.querySelector('#playPause').onclick = function () {
   mc.playPause();
 };
 
-const gen = '<TODO FIX ME>';
-
 new SliderWidget(document.querySelector('#upBias'), {
   minValue:  -1,
   maxValue:  1,
