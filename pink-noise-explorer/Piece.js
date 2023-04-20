@@ -18,58 +18,55 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  * introduction to the technique used.
  */
 class Piece extends AudioGenerator {
+  /** Alpha. 1.0 is "normal" pink noise. */
+  #alpha = 1.0;
+
+  /** Number of poles. */
+  #poles = 5;
+
+  /**
+   * Amplitude of the noise. This is only an approximation, in that
+   * pink noise inherently has no real limit on range.
+   */
+  #amp = 0.5;
+
+  // Derived values
+
+  /** Amp including adjustment multiplier for the given alpha. */
+  #ampAdjusted = 0;
+
+  /** Multipliers for the IIR filter. One per pole. */
+  #multipliers = [];
+
+  /** Circular history of recently-generated values. One per pole. */
+  #values = [];
+
+  /** Notional start index of the `values` array. */
+  #at = 0;
+
   /**
    * Contructs an instance.
    */
   constructor(options) {
     super(options);
 
-    // Base parameters
-
-    /** Alpha. 1.0 is "normal" pink noise. */
-    this._alpha = 1.0;
-
-    /** Number of poles. */
-    this._poles = 5;
-
-    /**
-         * Amplitude of the noise. This is only an approximation, in that
-         * pink noise inherently has no real limit on range.
-         */
-    this._amp = 0.5;
-
-    // Derived values
-
-    /** Amp including adjustment multiplier for the given alpha. */
-    this._ampAdjusted = 0;
-
-    /** Multipliers for the IIR filter. One per pole. */
-    this._multipliers = [];
-
-    /** Circular history of recently-generated values. One per pole. */
-    this._values = [];
-
-    /** Notional start index of the `values` array. */
-    this._at = 0;
-
-    // Final setup.
-    this._calcFilter();
-    this._calcAmp();
+    this.#calcFilter();
+    this.#calcAmp();
   }
 
   /**
    * Sets the output amplitude.
    */
   set amp(value) {
-    this._amp = value;
-    this._calcAmp();
+    this.#amp = value;
+    this.#calcAmp();
   }
 
   /**
    * Gets the output amplitude.
    */
   get amp() {
-    return this._amp;
+    return this.#amp;
   }
 
   /**
@@ -82,64 +79,64 @@ class Piece extends AudioGenerator {
       value = 2;
     }
 
-    this._alpha = value;
-    this._calcFilter();
-    this._calcAmp();
+    this.#alpha = value;
+    this.#calcFilter();
+    this.#calcAmp();
   }
 
   /**
    * Gets the alpha.
    */
   get alpha() {
-    return this._alpha;
+    return this.#alpha;
   }
 
   /**
    * Sets the count of poles.
    */
   set poles(value) {
-    this._poles = value;
-    this._calcFilter();
+    this.#poles = value;
+    this.#calcFilter();
   }
 
   /**
    * Gets the count of poles.
    */
   get poles() {
-    return this._poles;
+    return this.#poles;
   }
 
   /**
    * Calculates derived parameters for amplitude. This formula was derived
    * empirically and is probably off.
    */
-  _calcAmp() {
-    this._ampAdjusted = this._amp *
-            (Math.log(1.05 + (2 - this._alpha)) / 4.5);
+  #calcAmp() {
+    this.#ampAdjusted = this.#amp *
+            (Math.log(1.05 + (2 - this.#alpha)) / 4.5);
   }
 
   /**
    * Calculates the derived filter parameters, and initializes the `values`
    * array if not already done.
    */
-  _calcFilter() {
-    const poles = this._poles;
-    const alpha = this._alpha;
+  #calcFilter() {
+    const poles = this.#poles;
+    const alpha = this.#alpha;
 
-    this._multipliers = new Float64Array(poles);
-    this._at = 0;
+    this.#multipliers = new Float64Array(poles);
+    this.#at = 0;
 
     let a = 1;
     for (let i = 0; i < poles; i++) {
       a = (i - (alpha / 2)) * a / (i + 1);
-      this._multipliers[i] = a;
+      this.#multipliers[i] = a;
     }
 
     // Set up the historical `values` array, if this is the first time
-    // `_calcFilter()` is called *or* if the number of poles has changed.
+    // `#calcFilter()` is called *or* if the number of poles has changed.
     // Otherwise, we "let it ride" to avoid a discontinuity of the waveform.
-    if (!(this._values && (this._values.length === poles))) {
-      this._values = new Float64Array(poles);
+    if (!(this.#values && (this.#values.length === poles))) {
+      this.#values = new Float64Array(poles);
 
       // Fill history with random values.
       for (let i = 0; i < (5 * poles); i++) {
@@ -152,11 +149,11 @@ class Piece extends AudioGenerator {
    * Performs one iteration of generation, returning a single sample.
    */
   _impl_nextSample() {
-    const poles = this._poles;
-    const multipliers = this._multipliers;
-    const values = this._values;
-    let at = this._at;
-    let x = Piece._randomGaussian();
+    const poles = this.#poles;
+    const multipliers = this.#multipliers;
+    const values = this.#values;
+    let at = this.#at;
+    let x = Piece.#randomGaussian();
 
     for (let i = 0; i < poles; i++) {
       x -= multipliers[i] * values[(at + i) % poles];
@@ -164,12 +161,12 @@ class Piece extends AudioGenerator {
 
     at = (at + poles + 1) % poles;
     values[at] = x;
-    this._at = at;
+    this.#at = at;
 
     // Scale by the indicated amp. The additional `0.2` multiplier is to
     // get most samples to be in the range -1 to 1. After that, clamp to
     // the valid range -1 to 1.
-    x *= this._ampAdjusted;
+    x *= this.#ampAdjusted;
 
     return Math.min(Math.max(x, -1), 1);
   }
@@ -177,7 +174,7 @@ class Piece extends AudioGenerator {
   /**
    * Gets a gaussian-distribution random number using the "polar" method.
    */
-  static _randomGaussian() {
+  static #randomGaussian() {
     // In a general implementation, these could be arguments.
     const mean = 0;
     const variance = 1;

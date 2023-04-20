@@ -41,173 +41,170 @@ const OVERSAMPLE = 4;
  *   dominates.
  */
 class Piece extends AudioGenerator {
+  /** Sample rate (samples per second). */
+  #sampleRate = sampleRate * OVERSAMPLE;
+
+  /**
+   * Frequency of the note (Hz, that is, cycles per second). 440 is
+   * Middle A.
+   */
+  #freq = 440.0;
+
+  /** Output amplitude. */
+  #amp = 0.75;
+
+  /** Upward bias. */
+  #upBias = 0.0;
+
+  /** Positive bias. */
+  #posBias = 0.0;
+
+  /** Amping bias. */
+  #ampBias = 0.0;
+
+  // Derived parameters
+
+  /**
+   * How "fast" to index through a single cycle, given the current
+   * note frequency and sample rate.
+   */
+  #idxRate = 0;
+
+  /**
+   * Width of segment A. This is also the index at the start of segment
+   * B (but we also include that separately for clarity).
+   */
+  #widthA = 0;
+
+  /** Width of segment B. */
+  #widthB = 0;
+
+  /** Width of segment C. */
+  #widthC = 0;
+
+  /** Width of segment D. */
+  #widthD = 0;
+
+  /** Index at the start of segment B. */
+  #idxB = 0;
+
+  /** Index at the start of segment C. */
+  #idxC = 0;
+
+  /** Index at the start of segment D. */
+  #idxD = 0;
+
+  // Continuous variables
+
+  /**
+   * Whether the derived parameters are in need of a refresh. We
+   * service this at the start of each waveform cycle (upward
+   * zero-crossing).
+   */
+  #needCalc = true;
+
+  /**
+   * Current index into a single cycle of the waveform. Ranges from `0`
+   * to `1`.
+   */
+  #idx = 0;
+
   /**
    * Contructs an instance.
    */
   constructor(options) {
     super(options);
 
-    // Base parameters
-
-    /** Sample rate (samples per second). */
-    this._sampleRate = sampleRate * OVERSAMPLE;
-
-    /**
-         * Frequency of the note (Hz, that is, cycles per second). 440 is
-         * Middle A.
-         */
-    this._freq = 440.0;
-
-    /** Output amplitude. */
-    this._amp = 0.75;
-
-    /** Upward bias. */
-    this._upBias = 0.0;
-
-    /** Positive bias. */
-    this._posBias = 0.0;
-
-    /** Amping bias. */
-    this._ampBias = 0.0;
-
-    // Derived parameters
-
-    /**
-         * How "fast" to index through a single cycle, given the current
-         * note frequency and sample rate.
-         */
-    this._idxRate = 0;
-
-    /**
-         * Width of segment A. This is also the index at the start of segment
-         * B (but we also include that separately for clarity).
-         */
-    this._widthA = 0;
-
-    /** Width of segment B. */
-    this._widthB = 0;
-
-    /** Width of segment C. */
-    this._widthC = 0;
-
-    /** Width of segment D. */
-    this._widthD = 0;
-
-    /** Index at the start of segment B. */
-    this._idxB = 0;
-
-    /** Index at the start of segment C. */
-    this._idxC = 0;
-
-    /** Index at the start of segment D. */
-    this._idxD = 0;
-
-    // Continuous variables
-
-    /**
-         * Whether the derived parameters are in need of a refresh. We
-         * service this at the start of each waveform cycle (upward
-         * zero-crossing).
-         */
-    this._needCalc = true;
-
-    /**
-         * Current index into a single cycle of the waveform. Ranges from `0`
-         * to `1`.
-         */
-    this._idx = 0;
-
-    // Final setup.
-    this._calcDerived();
+    this.#calcDerived();
   }
 
   /**
    * Sets the output amplitude.
    */
   set amp(value) {
-    this._amp = value;
+    this.#amp = value;
   }
 
   /**
    * Gets the output amplitude.
    */
   get amp() {
-    return this._amp;
+    return this.#amp;
   }
 
   /**
    * Sets the note frequency.
    */
   set freq(freq) {
-    this._freq = freq;
-    this._needCalc = true;
+    this.#freq = freq;
+    this.#needCalc = true;
   }
 
   /**
    * Gets the note frequency.
    */
   get freq() {
-    return this._freq;
+    return this.#freq;
   }
 
   /**
    * Sets the upward bias.
    */
   set upBias(value) {
-    this._upBias = value;
-    this._needCalc = true;
+    this.#upBias = value;
+    this.#needCalc = true;
   }
 
   /**
    * Gets the upward bias.
    */
   get upBias() {
-    return this._upBias;
+    return this.#upBias;
   }
 
   /**
    * Sets the positive bias.
    */
   set posBias(value) {
-    this._posBias = value;
-    this._needCalc = true;
+    this.#posBias = value;
+    this.#needCalc = true;
   }
 
   /**
    * Gets the upward bias.
    */
   get posBias() {
-    return this._posBias;
+    return this.#posBias;
   }
 
   /**
    * Sets the amping bias.
    */
   set ampBias(value) {
-    this._ampBias = value;
-    this._needCalc = true;
+    this.#ampBias = value;
+    this.#needCalc = true;
   }
 
   /**
    * Gets the amping bias.
    */
   get ampBias() {
-    return this._ampBias;
+    return this.#ampBias;
   }
 
   /**
    * Calculates all the derived parameters.
    */
-  _calcDerived() {
-    this._idxRate = this._freq / this._sampleRate;
+  #calcDerived() {
+    this.#idxRate = this.#freq / this.#sampleRate;
 
     // Clamp the biases to prevent NaN results at the extremes.
-    if      (this._upBias  < -0.999) { this._upBias  = -0.999; }
-    else if (this._upBias  >  0.999) { this._upBias  =  0.999; }
-    if      (this._posBias < -0.999) { this._posBias = -0.999; }
-    else if (this._posBias >  0.999) { this._posBias =  0.999; }
-    if      (this._ampBias < -0.999) { this._ampBias = -0.999; }
-    else if (this._ampBias >  0.999) { this._ampBias =  0.999; }
+    if      (this.#upBias  < -0.999) { this.#upBias  = -0.999; }
+    else if (this.#upBias  >  0.999) { this.#upBias  =  0.999; }
+    if      (this.#posBias < -0.999) { this.#posBias = -0.999; }
+    else if (this.#posBias >  0.999) { this.#posBias =  0.999; }
+    if      (this.#ampBias < -0.999) { this.#ampBias = -0.999; }
+    else if (this.#ampBias >  0.999) { this.#ampBias =  0.999; }
 
     // Start with even segment sizes, and then apply each bias.
     let widthA = 1;
@@ -215,20 +212,20 @@ class Piece extends AudioGenerator {
     let widthC = 1;
     let widthD = 1;
 
-    widthA *= this._upBias + 1;
-    widthB *= 1 - this._upBias;
-    widthC *= 1 - this._upBias;
-    widthD *= this._upBias + 1;
+    widthA *= this.#upBias + 1;
+    widthB *= 1 - this.#upBias;
+    widthC *= 1 - this.#upBias;
+    widthD *= this.#upBias + 1;
 
-    widthA *= this._posBias + 1;
-    widthB *= this._posBias + 1;
-    widthC *= 1 - this._posBias;
-    widthD *= 1 - this._posBias;
+    widthA *= this.#posBias + 1;
+    widthB *= this.#posBias + 1;
+    widthC *= 1 - this.#posBias;
+    widthD *= 1 - this.#posBias;
 
-    widthA *= this._ampBias + 1;
-    widthB *= 1 - this._ampBias;
-    widthC *= this._ampBias + 1;
-    widthD *= 1 - this._ampBias;
+    widthA *= this.#ampBias + 1;
+    widthB *= 1 - this.#ampBias;
+    widthC *= this.#ampBias + 1;
+    widthD *= 1 - this.#ampBias;
 
     // Scale the widths so that the total is 1. Note that we can't just
     // start with segment sizes of 0.25 each and *not* perform a correction
@@ -251,53 +248,53 @@ class Piece extends AudioGenerator {
       break;
     }
 
-    this._widthA = widthA;
-    this._widthB = widthB;
-    this._widthC = widthC;
-    this._widthD = widthD;
-    this._idxB = widthA;
-    this._idxC = this._idxB + widthB;
-    this._idxD = this._idxC + widthC;
+    this.#widthA = widthA;
+    this.#widthB = widthB;
+    this.#widthC = widthC;
+    this.#widthD = widthD;
+    this.#idxB = widthA;
+    this.#idxC = this.#idxB + widthB;
+    this.#idxD = this.#idxC + widthC;
   }
 
   /**
    * Performs one iteration of generation, returning a single sample.
    */
   _impl_nextSample() {
-    let idx = this._idx;
+    let idx = this.#idx;
     let samp = 0;
 
     // Produce a sum of `OVERSAMPLE` "subsamples." These are simply
     // averaged to produce the final sample. It's a naive technique, but
     // also efficient and good enough for the purpose here.
     for (let i = 0; i < OVERSAMPLE; i++) {
-      if (idx < this._idxB) {
+      if (idx < this.#idxB) {
         // Ramp from `0` to `1`.
-        samp += idx / this._widthA;
-      } else if (idx < this._idxC) {
+        samp += idx / this.#widthA;
+      } else if (idx < this.#idxC) {
         // Ramp from `1` to `0`.
-        samp += ((idx - this._idxB) / this._widthB) * -1 + 1;
-      } else if (idx < this._idxD) {
+        samp += ((idx - this.#idxB) / this.#widthB) * -1 + 1;
+      } else if (idx < this.#idxD) {
         // Ramp from `0` to `-1`.
-        samp += ((idx - this._idxC) / this._widthC) * -1;
+        samp += ((idx - this.#idxC) / this.#widthC) * -1;
       } else {
         // Ramp from `-1` to `0`.
-        samp += ((idx - this._idxD) / this._widthD) - 1;
+        samp += ((idx - this.#idxD) / this.#widthD) - 1;
       }
 
-      idx += this._idxRate;
+      idx += this.#idxRate;
 
       if (idx > 1) {
         idx %= 1;
-        if (this._needCalc) {
-          this._calcDerived();
-          this._needCalc = false;
+        if (this.#needCalc) {
+          this.#calcDerived();
+          this.#needCalc = false;
         }
       }
     }
 
-    this._idx = idx;
-    return samp / OVERSAMPLE * this._amp;
+    this.#idx = idx;
+    return samp / OVERSAMPLE * this.#amp;
   }
 }
 

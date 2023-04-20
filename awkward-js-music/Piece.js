@@ -13,32 +13,32 @@ class Piece extends AudioGenerator {
    */
   #decayRate = sampleRate / 10;
 
+  /** Which waveform to use. This is the function, not the name. */
+  #waveform = Piece.triangleWave;
+
+  /** Wavelength of the primary note. */
+  #wla = this.#randomWl();
+
+  /** Wavelength of the secondary note. */
+  #wlb = 0;
+
+  /** Index of (number of samples into) the current note-pair. */
+  #idx = 0;
+
+  /** Duration (total number of samples) for the current note-pair. */
+  #dur = 0;
+
+  /** Most recently-generated sample. Used for de-clicking. */
+  #lastSamp = 0;
+
+  /** Whether we are currently de-clicking. */
+  #declick = false;
+
   /**
    * Contructs an instance.
    */
   constructor(options) {
     super(options);
-
-    /** Which waveform to use. This is the function, not the name. */
-    this._waveform = Piece.triangleWave;
-
-    /** Wavelength of the primary note. */
-    this._wla = this._randomWl();
-
-    /** Wavelength of the secondary note. */
-    this._wlb = 0;
-
-    /** Index of (number of samples into) the current note-pair. */
-    this._idx = 0;
-
-    /** Duration (total number of samples) for the current note-pair. */
-    this._dur = 0;
-
-    /** Most recently-generated sample. Used for de-clicking. */
-    this._lastSamp = 0;
-
-    /** Whether we are currently de-clicking. */
-    this._declick = false;
   }
 
   /**
@@ -47,19 +47,19 @@ class Piece extends AudioGenerator {
   set waveform(value) {
     switch (value) {
       case 'sine': {
-        this._waveform = Piece.sineWave;
+        this.#waveform = Piece.sineWave;
         break;
       }
       case 'triangle': {
-        this._waveform = Piece.triangleWave;
+        this.#waveform = Piece.triangleWave;
         break;
       }
       case 'sawtooth': {
-        this._waveform = Piece.sawtoothWave;
+        this.#waveform = Piece.sawtoothWave;
         break;
       }
       case 'square': {
-        this._waveform = Piece.squareWave;
+        this.#waveform = Piece.squareWave;
         break;
       }
     }
@@ -69,7 +69,7 @@ class Piece extends AudioGenerator {
    * Picks a random wavelength within the harmonic confines of the piece.
    * The result is the number of samples in a single cycle of the note.
    */
-  _randomWl() {
+  #randomWl() {
     // What do all those numbers mean?
     //
     // `160` below sets the base (lowest) note to be 160Hz, which is
@@ -83,59 +83,59 @@ class Piece extends AudioGenerator {
     // `10` is the number of choices of note. That is, we pick amongst
     // the notes of two octaves.
     return (sampleRate / 160) *
-            Math.pow(0.8705506, Math.trunc(Math.random() * 10));
+      Math.pow(0.8705506, Math.trunc(Math.random() * 10));
   }
 
   /**
    * Performs one iteration of generation, returning a single sample.
    */
   _impl_nextSample() {
-    if (this._declick) {
+    if (this.#declick) {
       // We're "de-clicking." This just means we gracefully (but promptly)
       // decay to near-0. De-click is over if the sample is close enough
       // to 0.
 
-      const samp = this._lastSamp * 0.99;
+      const samp = this.#lastSamp * 0.99;
 
-      this._declick = (samp < -0.000001) || (samp > 0.000001);
-      this._lastSamp = samp;
+      this.#declick = (samp < -0.000001) || (samp > 0.000001);
+      this.#lastSamp = samp;
       return samp;
     }
 
-    if (this._idx >= this._dur) {
+    if (this.#idx >= this.#dur) {
       // We hit the duration of the current note-pair. Pick a new note,
       // and indicate we're now de-clicking.
-      this._wlb = this._wla;
-      this._wla = this._randomWl();
+      this.#wlb = this.#wla;
+      this.#wla = this.#randomWl();
 
-      if (this._wla === this._wlb) {
+      if (this.#wla === this.#wlb) {
         // If we happen to pick the same note, instead go down an
         // octave.
-        this._wla *= 2;
+        this.#wla *= 2;
       }
 
-      this._dur =
+      this.#dur =
                 Math.trunc((Math.random() * 10 + 5) * sampleRate / 4);
-      this._idx = 0;
-      this._declick = true;
-      return this._lastSamp;
+      this.#idx = 0;
+      this.#declick = true;
+      return this.#lastSamp;
     }
 
     // See definition of `decayRate` above. We add a little bit so that
     // notes never fully decay; aesthetically, this prevents the occasional
     // jarring moment of total silence.
-    const vol = Math.pow(0.9, this._idx / this.#decayRate) * 0.95 + 0.05;
+    const vol = Math.pow(0.9, this.#idx / this.#decayRate) * 0.95 + 0.05;
 
-    const sa = this._waveform(this._idx / this._wla) * 0.5;
-    const sb = this._waveform(this._idx / this._wlb) * 0.25;
+    const sa = this.#waveform(this.#idx / this.#wla) * 0.5;
+    const sb = this.#waveform(this.#idx / this.#wlb) * 0.25;
     const rawSamp = vol * (sa + sb);
 
     // This quantizes the sample, recreating the "shimmer" effect of the
     // original awk code.
     const samp = Math.trunc(rawSamp * 64) / 64;
 
-    this._idx++;
-    this._lastSamp = samp;
+    this.#idx++;
+    this.#lastSamp = samp;
     return samp;
   }
 
