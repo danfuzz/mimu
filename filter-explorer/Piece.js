@@ -16,8 +16,7 @@ class Piece extends AudioGenerator {
   #inAmp = 1.0;
 
   /**
-   * Filter type. Must be one of:
-   * `"low-pass" "high-pass" "band-pass" "notch"`
+   * Filter type. Must be one of: `low-pass` `high-pass` `band-pass` `notch`.
    */
   #filterType = 'band-pass';
 
@@ -32,9 +31,7 @@ class Piece extends AudioGenerator {
 
   // Derived values
 
-  /**
-   * Previous input sample. (Subscripts are taken as negative indices.)
-   */
+  /** Previous input sample. (Subscripts are taken as negative indices.) */
   #x1 = 0;
 
   /** Second-previous input sample. */
@@ -72,17 +69,10 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Sets the input amplitude.
+   * Gets the output amplitude.
    */
-  set inAmp(value) {
-    this.#inAmp = value;
-  }
-
-  /**
-   * Gets the input amplitude.
-   */
-  get inAmp() {
-    return this.#inAmp;
+  get amp() {
+    return this.#amp;
   }
 
   /**
@@ -93,10 +83,25 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Gets the output amplitude.
+   * Gets the center frequency.
    */
-  get amp() {
-    return this.#amp;
+  get f0() {
+    return this.#f0;
+  }
+
+  /**
+   * Sets the center frequency.
+   */
+  set f0(value) {
+    this.#f0 = value;
+    this.#calcFilter();
+  }
+
+  /**
+   * Gets the filter type.
+   */
+  get filterType() {
+    return this.#filterType;
   }
 
   /**
@@ -121,25 +126,24 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Gets the filter type.
+   * Gets the input amplitude.
    */
-  get filterType() {
-    return this.#filterType;
+  get inAmp() {
+    return this.#inAmp;
   }
 
   /**
-   * Sets the center frequency.
+   * Sets the input amplitude.
    */
-  set f0(value) {
-    this.#f0 = value;
-    this.#calcFilter();
+  set inAmp(value) {
+    this.#inAmp = value;
   }
 
   /**
-   * Gets the center frequency.
+   * Gets Q (the filter quality).
    */
-  get f0() {
-    return this.#f0;
+  get q() {
+    return this.#q;
   }
 
   /**
@@ -155,10 +159,24 @@ class Piece extends AudioGenerator {
   }
 
   /**
-   * Gets Q (the filter quality).
+   * Performs one iteration of generation, returning a single sample.
    */
-  get q() {
-    return this.#q;
+  _impl_nextSample() {
+    const x1 = this.#x1;
+    const x2 = this.#x2;
+    const y1 = this.#y1;
+    const y2 = this.#y2;
+
+    const x0 = ((Math.random() * 2) - 1) * this.#inAmp;  // Input sample.
+    const y0 = (this.#x0Co * x0) + (this.#x1Co * x1) + (this.#x2Co * x2) +
+            (this.#y1Co * y1) + (this.#y2Co * y2);
+
+    this.#x2 = this.#x1;
+    this.#x1 = x0;
+    this.#y2 = this.#y1;
+    this.#y1 = y0;
+
+    return Math.max(Math.min(y0 * this.#amp, 1), -1);
   }
 
   /**
@@ -221,27 +239,6 @@ class Piece extends AudioGenerator {
     this.#x2Co = b2 / a0;
     this.#y1Co = -a1 / a0;
     this.#y2Co = -a2 / a0;
-  }
-
-  /**
-   * Performs one iteration of generation, returning a single sample.
-   */
-  _impl_nextSample() {
-    const x1 = this.#x1;
-    const x2 = this.#x2;
-    const y1 = this.#y1;
-    const y2 = this.#y2;
-
-    const x0 = ((Math.random() * 2) - 1) * this.#inAmp;  // Input sample.
-    const y0 = (this.#x0Co * x0) + (this.#x1Co * x1) + (this.#x2Co * x2) +
-            (this.#y1Co * y1) + (this.#y2Co * y2);
-
-    this.#x2 = this.#x1;
-    this.#x1 = x0;
-    this.#y2 = this.#y1;
-    this.#y1 = y0;
-
-    return Math.max(Math.min(y0 * this.#amp, 1), -1);
   }
 }
 
