@@ -5,30 +5,17 @@ This product was written by the Mimu Authors, including Dan Bornstein and
 possibly others. See the associated file [AUTHORS.md](AUTHORS.md)
 for details.
 
-Mimu is licensed under the Apache License, version 2.0. The full
+This project is licensed under the Apache License, version 2.0. The full
 text of the license is reproduced below.
 
-Copyright Header
-----------------
-
-Instead of the usual highly-verbose file header recommended in the Appendix
-to the License, this project uses the following briefer file header:
+**Note:** Instead of the usual highly-verbose file header recommended
+in the Appendix to the License, this project uses the following briefer
+file header (or footer in documentation):
 
 ```
-Copyright 2015-? the Mimu Authors (Dan Bornstein et alia).
-Licensed AS IS and WITHOUT WARRANTY under the Apache License,
-Version 2.0. Details: <http://www.apache.org/licenses/LICENSE-2.0>
+Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).
+SPDX-License-Identifier: Apache-2.0
 ```
-
-The rationale for using this header is as follows:
-
-* The long header is annoyingly long. This header conveys the essentials.
-* The years are listed as a range, since the copyright is really for the
-  collection and not for each file individually.
-* Comment prefix aside, the same exact header text can be used for every file.
-  This makes it easy to check a file for correctness, and there is no concern
-  about inadvertently putting the wrong year on a particular file.
-* Although it does require an annual update, this is easily scripted.
 
 - - - - - - - - - -
 
