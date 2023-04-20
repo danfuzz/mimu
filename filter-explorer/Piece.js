@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { AudioGenerator } from '../lib/AudioGenerator.js';
+import { PieceParams } from './PieceParams.js';
 
 /**
  * Filter generator, with adjustable type, center frequency, and Q. What it
@@ -11,23 +12,23 @@ import { AudioGenerator } from '../lib/AudioGenerator.js';
  * Robert Bristow-Johnson in
  * <http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt>.
  */
-class Piece extends AudioGenerator {
+export class Piece extends AudioGenerator {
   /** Input amplitude. */
-  #inAmp = 1.0;
+  #inAmp;
 
   /**
    * Filter type. Must be one of: `low-pass` `high-pass` `band-pass` `notch`.
    */
-  #filterType = 'band-pass';
+  #filterType;
 
   /** Center frequency. */
-  #f0 = 440;
+  #f0;
 
   /** Q (filter quality). */
-  #q = 10.0;
+  #q;
 
   /** Amplitude of the output. */
-  #amp = 0.5;
+  #amp;
 
   // Derived values
 
@@ -44,26 +45,29 @@ class Piece extends AudioGenerator {
   #y2 = 0;
 
   /** Filter coefficient applied to `x0`. */
-  #x0Co = 0;
+  #x0Co;
 
   /** Filter coefficient applied to `x1`. */
-  #x1Co = 0;
+  #x1Co;
 
   /** Filter coefficient applied to `x2`. */
-  #x2Co = 0;
+  #x2Co;
 
   /** Filter coefficient applied to `y1`. */
-  #y1Co = 0;
+  #y1Co;
 
   /** Filter coefficient applied to `y2`. */
-  #y2Co = 0;
-
+  #y2Co;
 
   /**
    * Contructs an instance.
    */
   constructor(options) {
     super(options);
+
+    for (const [key, value] of Object.entries(PieceParams.PARAMS)) {
+      this[key] = value;
+    }
 
     this.#calcFilter();
   }
@@ -167,7 +171,7 @@ class Piece extends AudioGenerator {
 
     const x0 = ((Math.random() * 2) - 1) * this.#inAmp;  // Input sample.
     const y0 = (this.#x0Co * x0) + (this.#x1Co * x1) + (this.#x2Co * x2) +
-            (this.#y1Co * y1) + (this.#y2Co * y2);
+      (this.#y1Co * y1) + (this.#y2Co * y2);
 
     this.#x2 = this.#x1;
     this.#x1 = x0;

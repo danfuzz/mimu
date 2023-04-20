@@ -5,6 +5,7 @@ import { Harmonics } from '../lib/Harmonics.js';
 import { MusicControl } from '../lib/MusicControl.js';
 import { Oscilloscope } from '../lib/Oscilloscope.js';
 import { SliderWidget } from '../lib/SliderWidget.js';
+import { PieceParams } from './PieceParams.js';
 
 const mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
@@ -14,12 +15,15 @@ document.querySelector('#playPause').onclick = function () {
   mc.playPause();
 };
 
+const PARAMS = PieceParams.PARAMS;
+
 new SliderWidget(document.querySelector('#inAmp'), {
   minValue:  0,
   maxValue:  10,
   increment: 0.1,
   precision: 1,
-  updater:   (v) => mc.sendGenerator('inAmp', v)
+  updater:   (v) => mc.sendGenerator('inAmp', v),
+  value:     PARAMS.inAmp
 });
 
 new SliderWidget(document.querySelector('#f0'), {
@@ -27,7 +31,8 @@ new SliderWidget(document.querySelector('#f0'), {
   maxValue:  8000,
   increment: 1,
   precision: 0,
-  updater:   (v) => mc.sendGenerator('f0', v)
+  updater:   (v) => mc.sendGenerator('f0', v),
+  value:     PARAMS.f0
 });
 
 new SliderWidget(document.querySelector('#q'), {
@@ -35,7 +40,8 @@ new SliderWidget(document.querySelector('#q'), {
   maxValue:  500,
   increment: 0.01,
   precision: 2,
-  updater:   (v) => mc.sendGenerator('q', v)
+  updater:   (v) => mc.sendGenerator('q', v),
+  value:     PARAMS.q
 });
 
 new SliderWidget(document.querySelector('#amp'), {
@@ -43,13 +49,16 @@ new SliderWidget(document.querySelector('#amp'), {
   maxValue:  10,
   increment: 0.1,
   precision: 1,
-  updater:   (v) => mc.sendGenerator('amp', v)
+  updater:   (v) => mc.sendGenerator('amp', v),
+  value:     PARAMS.amp
 });
 
 const filterRadios = document.querySelectorAll("input[name='filterType']");
-for (let i = 0; i < filterRadios.length; i++) {
-  const r = filterRadios[i];
-  r.onclick = function () {
+for (const radio of filterRadios) {
+  if (radio.value === PARAMS.filterType) {
+    radio.checked = true;
+  }
+  radio.onclick = function () {
     mc.sendGenerator('filterType', this.value);
   };
 }
