@@ -75,44 +75,44 @@ export class Piece extends AudioGenerator {
     this.#calcFilter();
   }
 
-  /**
-   * Gets the output amplitude.
-   */
+  /** @returns {number} The output amplitude. */
   get amp() {
     return this.#amp;
   }
 
   /**
    * Sets the output amplitude.
+   *
+   * @param {number} value The output amplitude.
    */
   set amp(value) {
     this.#amp = value;
   }
 
-  /**
-   * Gets the center frequency.
-   */
+  /** @returns {number} The center frequency. */
   get f0() {
     return this.#f0;
   }
 
   /**
    * Sets the center frequency.
+   *
+   * @param {number} value The center frequency.
    */
   set f0(value) {
     this.#f0 = value;
     this.#calcFilter();
   }
 
-  /**
-   * Gets the filter type.
-   */
+  /** @returns {string} The filter type. */
   get filterType() {
     return this.#filterType;
   }
 
   /**
    * Sets the filter type.
+   *
+   * @param {string} value The filter type.
    */
   set filterType(value) {
     switch (value) {
@@ -132,29 +132,29 @@ export class Piece extends AudioGenerator {
     this.#calcFilter();
   }
 
-  /**
-   * Gets the input amplitude.
-   */
+  /** @returns {number} The input amplitude. */
   get inAmp() {
     return this.#inAmp;
   }
 
   /**
    * Sets the input amplitude.
+   *
+   * @param {number} value The input amplitude.
    */
   set inAmp(value) {
     this.#inAmp = value;
   }
 
-  /**
-   * Gets Q (the filter quality).
-   */
+  /** @returns {number} Q (the filter quality). */
   get q() {
     return this.#q;
   }
 
   /**
    * Sets Q (the filter quality).
+   *
+   * @param {number} value Q (the filter quality).
    */
   set q(value) {
     if (value <= 0.0001) {
