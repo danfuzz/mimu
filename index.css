@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@import url('https://fonts.googleapis.com/css?family=Amaranth:400,700,400italic,700italic');
-@import url('https://fonts.googleapis.com/css?family=Rosario:400,400italic,700italic,700');
-@import url('https://fonts.googleapis.com/css?family=Cousine:400,400i');
+@import url('https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,400;0,700;1,400;1,700&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
     background-color: #ddeeff;
     color: #222244;
-    font-family: Rosario, sans-serif;
+    font-family: Aleo, serif;
     font-weight: normal;
     font-size: 14pt;
     line-height: 150%;
@@ -21,7 +19,7 @@ body {
 }
 
 code {
-    font-family: Cousine, monospace;
+    font-family: Roboto mono, monospace;
 }
 
 h1, h2, h3 {
