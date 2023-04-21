@@ -135,6 +135,13 @@ const jsdocRules = {
   ],
   'jsdoc/require-property': [
     'off'
+  ],
+  'jsdoc/tag-lines': [
+    'warn',
+    'any',
+    {
+      startLines: 1
+    }
   ]
 };
 
