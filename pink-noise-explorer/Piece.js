@@ -62,30 +62,30 @@ class Piece extends AudioGenerator {
     this.#calcAmp();
   }
 
-  /**
-   * Gets the output amplitude.
-   */
+  /** @returns {number} The output amplitude. */
   get amp() {
     return this.#amp;
   }
 
   /**
    * Sets the output amplitude.
+   *
+   * @param {number} value The output amplitude.
    */
   set amp(value) {
     this.#amp = value;
     this.#calcAmp();
   }
 
-  /**
-   * Gets the alpha.
-   */
+  /** @returns {number} The alpha. */
   get alpha() {
     return this.#alpha;
   }
 
   /**
    * Sets the alpha.
+   *
+   * @param {number} value The alpha.
    */
   set alpha(value) {
     if (value < 0) {
@@ -99,15 +99,15 @@ class Piece extends AudioGenerator {
     this.#calcAmp();
   }
 
-  /**
-   * Gets the count of poles.
-   */
+  /** @returns {number} The count of poles. */
   get poles() {
     return this.#poles;
   }
 
   /**
    * Sets the count of poles.
+   *
+   * @param {number} value The count of poles.
    */
   set poles(value) {
     this.#poles = value;
@@ -143,8 +143,7 @@ class Piece extends AudioGenerator {
    * empirically and is probably off.
    */
   #calcAmp() {
-    this.#ampAdjusted = this.#amp *
-            (Math.log(1.05 + (2 - this.#alpha)) / 4.5);
+    this.#ampAdjusted = this.#amp * (Math.log(1.05 + (2 - this.#alpha)) / 4.5);
   }
 
   /**
@@ -184,10 +183,12 @@ class Piece extends AudioGenerator {
 
   /**
    * Gets a gaussian-distribution random number using the "polar" method.
+   *
+   * @returns {number} A gaussian-distribution random number.
    */
   static #randomGaussian() {
     // In a general implementation, these could be arguments.
-    const mean = 0;
+    const mean     = 0;
     const variance = 1;
 
     // This loop picks random candidate points until we find one that falls
@@ -197,14 +198,13 @@ class Piece extends AudioGenerator {
     do {
       v1       = (Math.random() * 2) - 1;  // Generate two uniform random...
       const v2 = (Math.random() * 2) - 1;  // ...numbers in the range -1..1.
-      s = (v1 * v1) + (v2 * v2);         // Distance^2 from origin.
+      s = (v1 * v1) + (v2 * v2);           // Distance^2 from origin.
     } while ((s > 1) || (s === 0));
 
     const mult = Math.sqrt(variance) * Math.sqrt(-2 * Math.log(s) / s);
     const x = mean + (mult * v1);
 
-    // If we want a second random value:
-    // var y = mean + (mult * v2);
+    // If we want a second random value: `const y = mean + (mult * v2);`
 
     return x;
   }
