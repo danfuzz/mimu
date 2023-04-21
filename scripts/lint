@@ -19,4 +19,34 @@ baseDir="${cmdDir%/*}" # Parent of `cmdDir`; often useful.
 # The main program
 #
 
-npx eslint "${baseDir}"
+# Wacky arrangement so that we can do nontrivial scripting with `npx -c`.
+if [[ ${NPX_CALLBACK} != '1' ]]; then
+    export NPX_CALLBACK=1
+
+    if (( $# == 0 )); then
+        export NPX_CALLBACK_ARGS=''
+    else
+        args="$(printf ' %q' "$@")"
+        export NPX_CALLBACK_ARGS="${args:1}" # Drop the initial space.
+    fi
+    exec npx --package=eslint --package=eslint-plugin-jsdoc -c "$0"
+fi
+
+# At this point, we are running under `npx`. Extract the originally-passed
+# arguments, and then pass them through to the ultimate command.
+
+eval "args=(${NPX_CALLBACK_ARGS})"
+
+if (( ${#args[@]} == 0 )); then
+    # Default to linting the whole project.
+    args=('.')
+fi
+
+npxBinPath="$(tr <<<"${PATH}" ':' '\n' | grep 'npx.*/node_modules')"
+if [[ ! (${npxBinPath} =~ ^.*/node_modules/) ]]; then
+    echo 1>&2 "${cmdName}:" 'Could not find npx-related `$PATH`.'
+    exit 1
+fi
+nodeModules="${BASH_REMATCH[0]}"
+
+exec eslint --resolve-plugins-relative-to="${nodeModules}" "${args[@]}"

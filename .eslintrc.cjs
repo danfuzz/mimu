@@ -1,5 +1,10 @@
+const plugins = [
+  'jsdoc'
+];
+
 const extendsList = [
-  'eslint:recommended'
+  'eslint:recommended',
+  'plugin:jsdoc/recommended'
 ];
 
 const env = {
@@ -104,6 +109,7 @@ const rules = {
 
 module.exports = {
   root: true,
+  plugins,
   extends: extendsList,
   env,
   globals,
