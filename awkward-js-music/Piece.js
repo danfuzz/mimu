@@ -51,6 +51,8 @@ class Piece extends AudioGenerator {
 
   /**
    * Sets the waveform type.
+   *
+   * @param {string} value The type.
    */
   set waveform(value) {
     switch (value) {
@@ -76,6 +78,8 @@ class Piece extends AudioGenerator {
   /**
    * Picks a random wavelength within the harmonic confines of the piece.
    * The result is the number of samples in a single cycle of the note.
+   *
+   * @returns {number} A random wavelength.
    */
   #randomWl() {
     // What do all those numbers mean?
@@ -149,12 +153,22 @@ class Piece extends AudioGenerator {
   // Static members.
   //
 
-  /** Sine wave function, period 1. */
+  /**
+   * Sine wave function, period 1.
+   *
+   * @param {number} n Function parameter.
+   * @returns {number} Function result.
+   */
   static sineWave(n) {
     return Math.sin(n * (Math.PI * 2));
   }
 
-  /** Triangle wave function, period 1. Doesn't expect negative input. */
+  /**
+   * Triangle wave function, period 1. Doesn't expect negative input.
+   *
+   * @param {number} n Function parameter.
+   * @returns {number} Function result.
+   */
   static triangleWave(n) {
     // `+ 0.25` makes it so that `triangleWave(0) === 0`.
     let x = (n + 0.25) % 1;
@@ -166,14 +180,24 @@ class Piece extends AudioGenerator {
     }
   }
 
-  /** Sawtooth wave function, period 1. Doesn't expect negative input. */
+  /**
+   * Sawtooth wave function, period 1. Doesn't expect negative input.
+   *
+   * @param {number} n Function parameter.
+   * @returns {number} Function result.
+   */
   static sawtoothWave(n) {
     // `+ 0.5` makes it so that `sawtoothWave(0) === 0`
     const x = (n + 0.5) % 1;
     return (x * 2) - 1;
   }
 
-  /** Square wave function, period 1. Doesn't expect negative input. */
+  /**
+   * Square wave function, period 1. Doesn't expect negative input.
+   *
+   * @param {number} n Function parameter.
+   * @returns {number} Function result.
+   */
   static squareWave(n) {
     const x = n % 1;
     return (x < 0.5) ? -1 : 1;
