@@ -24,7 +24,7 @@ const parserOptions = {
   ecmaVersion: '2022'
 };
 
-const rules = {
+const mainRules = {
   'array-bracket-spacing': 'error',
   'arrow-parens': 'error',
   'consistent-return': 'error',
@@ -107,6 +107,37 @@ const rules = {
   'symbol-description': 'error'
 };
 
+// Handy links:
+//
+// * JSDoc plugin for ESLint: <https://github.com/gajus/eslint-plugin-jsdoc>
+// * JSDoc: <https://jsdoc.app/>
+// * The Closure type system:
+//   <https://github.com/google/closure-compiler/wiki/Types-in-the-Closure-Type-System>
+const jsdocRules = {
+  'jsdoc/no-multi-asterisks': [
+    'error',
+    {
+      allowWhitespace: true
+    }
+  ],
+  'jsdoc/require-jsdoc': [
+    'warn',
+    {
+      require: {
+        ArrowFunctionExpression: false,
+        ClassDeclaration: true,
+        ClassExpression: false,
+        FunctionDeclaration: false,
+        FunctionExpression: false,
+        MethodDefinition: true
+      }
+    }
+  ],
+  'jsdoc/require-property': [
+    'off'
+  ]
+};
+
 module.exports = {
   root: true,
   plugins,
@@ -114,5 +145,5 @@ module.exports = {
   env,
   globals,
   parserOptions,
-  rules
+  rules: { ...mainRules, ...jsdocRules }
 };
