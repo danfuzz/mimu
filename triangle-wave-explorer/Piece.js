@@ -205,9 +205,9 @@ class Piece extends AudioGenerator {
     let idx = this.#idx;
     let samp = 0;
 
-    // Produce a sum of `OVERSAMPLE` "subsamples." These are simply
-    // averaged to produce the final sample. It's a naive technique, but
-    // also efficient and good enough for the purpose here.
+    // Produce a sum of `OVERSAMPLE` "subsamples." These are simply averaged to
+    // produce the final sample. It's a naive technique, but also sufficiently
+    // efficient and hence good enough for the purpose here.
     for (let i = 0; i < OVERSAMPLE; i++) {
       if (idx < this.#idxB) {
         // Ramp from `0` to `1`.
