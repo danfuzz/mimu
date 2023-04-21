@@ -273,10 +273,10 @@ class Piece extends AudioGenerator {
     widthC *= this.#ampBias + 1;
     widthD *= 1 - this.#ampBias;
 
-    // Scale the widths so that the total is 1. Note that we can't just
-    // start with segment sizes of 0.25 each and *not* perform a correction
-    // like this, because errors can build up during the math above which
-    // would make the total width be something other than 1.
+    // Scale the widths so that the total is 1. Note that we can't just start
+    // with segment sizes of 0.25 each and *not* perform a correction like this,
+    // because errors can build up during the math above which would make the
+    // total width be something other than 1.
     for (;;) {
       const widthScale = 1 / (widthA + widthB + widthC + widthD);
       widthA *= widthScale;
