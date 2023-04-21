@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).
+# SPDX-License-Identifier: Apache-2.0
+#
+
+#
+# Runs a web server on localhost port 8080, serving the app's content.
+#
+
+# Figure out the symlink-resolved program name and directory.
+cmdName="$(readlink -f "$0")" || exit "$?"
+cmdDir="${cmdName%/*}"
+cmdName="${cmdName##*/}"
+baseDir="${cmdDir%/*}" # Parent of `cmdDir`; often useful.
+
+
+#
+# The main program
+#
+
+npx eslint "${baseDir}"
