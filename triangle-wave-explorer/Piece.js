@@ -284,9 +284,8 @@ class Piece extends AudioGenerator {
       widthC *= widthScale;
       widthD *= widthScale;
 
-      // If any width is under 0.005, clamp it. This prevents us from
-      // ever eliding over a zero crossing, making for a little bit
-      // nicer display.
+      // If any width is under 0.005, clamp it. This prevents us from ever
+      // eliding over a zero crossing, making for a little bit nicer display.
       if (widthA < 0.005) { widthA = 0.005; continue; }
       if (widthB < 0.005) { widthB = 0.005; continue; }
       if (widthC < 0.005) { widthC = 0.005; continue; }
