@@ -29,17 +29,16 @@ const OVERSAMPLE = 4;
  *
  * * upward bias &mdash; Balance between upward-sloping and downward-sloping
  *   portions of a wave. `0` means upward and downward slopes are equal. `-1`
- *   means *downward slope totally dominates. `1` means that upward slope
- *   totally dominates.
+ *   means downward slope totally dominates. `1` means that upward slope totally
+ *   dominates.
  * * positive bias &mdash; Balance between positive-value and negative-value
  *   portions of a wave. `0` means positive and negative values are equally
- *   represented. `-1` means negative values totally dominate. `1` means
- *   that positive values totally dominate.
- * * amping bias &mdash; Balance between directional movement away from
- *   (amping) and toward zero (de-amping) in a wave. `0` means both directions
- *   of movement are equally represented. `-1` means movement towards zero
- *   totally dominates. `1` means that movement away from zero totally
- *   dominates.
+ *   represented. `-1` means negative values totally dominate. `1` means that
+ *   positive values totally dominate.
+ * * amping bias &mdash; Balance between directional movement away from (amping)
+ *   and toward zero (de-amping) in a wave. `0` means both directions of
+ *   movement are equally represented. `-1` means movement towards zero totally
+ *   dominates. `1` means that movement away from zero totally dominates.
  */
 class Piece extends AudioGenerator {
   /** Sample rate (samples per second). */
