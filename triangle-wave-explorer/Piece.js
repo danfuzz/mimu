@@ -126,74 +126,74 @@ class Piece extends AudioGenerator {
     this.#calcDerived();
   }
 
-  /**
-   * Gets the output amplitude.
-   */
+  /** @returns {number} The output amplitude. */
   get amp() {
     return this.#amp;
   }
 
   /**
    * Sets the output amplitude.
+   *
+   * @param {number} value The output amplitude.
    */
   set amp(value) {
     this.#amp = value;
   }
 
-  /**
-   * Gets the amping bias.
-   */
+  /** @returns {number} The amping bias. */
   get ampBias() {
     return this.#ampBias;
   }
 
   /**
    * Sets the amping bias.
+   *
+   * @param {number} value The amping bias.
    */
   set ampBias(value) {
     this.#ampBias = value;
     this.#needCalc = true;
   }
 
-  /**
-   * Gets the note frequency.
-   */
+  /** @returns {number} The note frequency, in Hz. */
   get freq() {
     return this.#freq;
   }
 
   /**
    * Sets the note frequency.
+   *
+   * @param {number} freq The note frequency, in Hz.
    */
   set freq(freq) {
     this.#freq = freq;
     this.#needCalc = true;
   }
 
-  /**
-   * Gets the upward bias.
-   */
+  /** @returns {number} The positive bias. */
   get posBias() {
     return this.#posBias;
   }
 
   /**
    * Sets the positive bias.
+   *
+   * @param {number} value The positive bias.
    */
   set posBias(value) {
     this.#posBias = value;
     this.#needCalc = true;
   }
 
-  /**
-   * Gets the upward bias.
-   */
+  /** @returns {number} The upward bias. */
   get upBias() {
     return this.#upBias;
   }
 
   /**
    * Sets the upward bias.
+   *
+   * @param {number} value The upward bias.
    */
   set upBias(value) {
     this.#upBias = value;
