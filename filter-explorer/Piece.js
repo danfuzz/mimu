@@ -61,6 +61,9 @@ export class Piece extends AudioGenerator {
 
   /**
    * Contructs an instance.
+   *
+   * @param {object} options Options, as defined by the `AudioWorkletProcessor`
+   *   API.
    */
   constructor(options) {
     super(options);
