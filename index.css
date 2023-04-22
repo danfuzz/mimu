@@ -117,9 +117,15 @@ button {
     color: #00ff00;
 }
 
+#controlTable {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
 #controlTable td {
     font-size: 12pt;
     font-family: var(--font-family-body-sans);
+    margin-bottom: 0.5em;
 }
 
 #controlTable input[type="radio"] {
@@ -132,8 +138,14 @@ button {
     font-size: 20pt;
   }
 
+  #controlTable {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+  }
+
   #controlTable td {
     font-size: 10pt;
+    margin-bottom: 0.25em;
   }
 
   #controlTable input[type="radio"] {
