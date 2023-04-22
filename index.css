@@ -62,11 +62,6 @@ hr {
     padding-bottom: 5pt;
 }
 
-#controlTable td {
-    font-size: 12pt;
-    font-family: var(--font-family-body-sans);
-}
-
 table.footer {
     font-family: var(--font-family-body-sans);
     font-size: 12pt;
@@ -101,18 +96,38 @@ table.footer {
   h3 {
     font-size: 14pt;
   }
-
-  #controlTable td {
-    font-size: 10pt;
-  }
 }
 
 /*
  * The following are all used on the demo pages but not the main index.
  */
 
+/* The big "play" button. */
+button {
+    font-family: var(--font-family-body-sans);
+    font-weight: bold;
+    font-size: 30pt;
+    padding: 2pt 15pt 6pt 15pt;
+    border-radius: 5pt;
+}
+
 /* Nodes of this class are generated programmatically. */
 .soundDisplay {
     background-color: black;
     color: #00ff00;
+}
+
+#controlTable td {
+    font-size: 12pt;
+    font-family: var(--font-family-body-sans);
+}
+
+@media only screen and ((pointer: coarse) or (width <= 500) or (height <= 500)) {
+  button {
+    font-size: 20pt;
+  }
+
+  #controlTable td {
+    font-size: 10pt;
+  }
 }
