@@ -13,11 +13,6 @@ button {
     border-radius: 5pt;
 }
 
-.soundDisplay {
-    background-color: black;
-    color: #00ff00;
-}
-
 #oscTable {
     margin-top: 1em;
     margin-bottom: 1em;

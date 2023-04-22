@@ -62,9 +62,14 @@ hr {
     padding-bottom: 5pt;
 }
 
+#controlTable td {
+    font-size: 12pt;
+    font-family: var(--font-family-body-sans);
+}
+
 table.footer {
     font-family: var(--font-family-body-sans);
-    font-size: 10pt;
+    font-size: 12pt;
     border-top-style: solid;
     border-top-color: #888;
     margin-top: 3em;
@@ -76,4 +81,38 @@ table.footer {
 .footer td + td {
     text-align: right;
     vertical-align: top;
+}
+
+@media only screen and ((pointer: coarse) or (width <= 500) or (height <= 500)) {
+  body {
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+
+  h1 {
+    font-size: 18pt;
+  }
+
+  h2 {
+    font-size: 16pt;
+  }
+
+  h3 {
+    font-size: 14pt;
+  }
+
+  #controlTable td {
+    font-size: 10pt;
+  }
+}
+
+/*
+ * The following are all used on the demo pages but not the main index.
+ */
+
+/* Nodes of this class are generated programmatically. */
+.soundDisplay {
+    background-color: black;
+    color: #00ff00;
 }
