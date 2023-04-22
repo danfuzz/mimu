@@ -122,6 +122,11 @@ button {
     font-family: var(--font-family-body-sans);
 }
 
+#controlTable input[type="radio"] {
+    margin-left: 3em;
+    margin-right: 0.5em;
+}
+
 @media only screen and ((pointer: coarse) or (width <= 500) or (height <= 500)) {
   button {
     font-size: 20pt;
@@ -129,5 +134,10 @@ button {
 
   #controlTable td {
     font-size: 10pt;
+  }
+
+  #controlTable input[type="radio"] {
+      margin-left: 1em;
+      margin-right: 0.25em;
   }
 }

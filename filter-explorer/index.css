@@ -55,11 +55,6 @@
     padding-bottom: 1em;
 }
 
-#controlTable input[type="radio"] {
-    margin-left: 3em;
-    margin-right: 0.5em;
-}
-
 #controlTable td:first-child {
     text-align: left;
 }
