@@ -3,12 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,400;0,700;1,400;1,700&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Redressed&family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  --font-family-body:       Aleo, serif;
+  --font-family-body-serif: Aleo, serif;
+  --font-family-body-sans:  Raleway, sans-serif;
+  --font-family-heading:    Amaranth, sans-serif;
+  --font-family-cursive:    Redressed, sans-serif;
+  --font-family-mono:       Roboto Mono, monospace;
+}
 
 body {
     background-color: #ddeeff;
     color: #222244;
-    font-family: Aleo, serif;
+    font-family: var(--font-family-body);
     font-weight: normal;
     font-size: 14pt;
     line-height: 150%;
@@ -18,12 +27,13 @@ body {
     margin-right: 5em;
 }
 
-code {
-    font-family: Roboto mono, monospace;
+code, tt {
+    font-family: var(--font-family-mono);
+    font-size: 95%;
 }
 
-h1, h2, h3 {
-    font-family: Amaranth, sans-serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
     text-align: center;
 }
 
@@ -53,7 +63,7 @@ hr {
 }
 
 table.footer {
-    font-family: Raleway, sans-serif;
+    font-family: var(--font-family-body-sans);
     font-size: 10pt;
     border-top-style: solid;
     border-top-color: #888;
