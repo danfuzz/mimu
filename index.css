@@ -155,25 +155,25 @@ table.harmonics td {
     height: 20vw;
 }
 
-#controlTable {
+table.control {
     margin-top: 2em;
     margin-bottom: 2em;
     width: 100%;
 }
 
-#controlTable td {
+table.control td {
     font-size: 12pt;
     font-family: var(--font-family-body-sans);
     margin-bottom: 0.5em;
 }
 
-#controlTable td:first-child {
+table.control td:first-child {
     width: 20%;
     text-align: right;
     line-height: 90%
 }
 
-#controlTable td:first-child + td {
+table.control td:first-child + td {
     width: 60%;
     padding-left: 1em;
     padding-right: 1em;
@@ -181,13 +181,13 @@ table.harmonics td {
     line-height: 90%
 }
 
-#controlTable td:first-child + td + td {
+table.control td:first-child + td + td {
     width: 20%;
     text-align: left;
     line-height: 90%
 }
 
-#controlTable input[type="radio"] {
+table.control input[type="radio"] {
     margin-left: 3em;
     margin-right: 0.5em;
 }
