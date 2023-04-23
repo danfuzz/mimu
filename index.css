@@ -168,8 +168,9 @@ table.harmonics td {
 }
 
 #controlTable td:first-child {
-    text-align: left;
     width: 20%;
+    text-align: right;
+    line-height: 90%
 }
 
 #controlTable td:first-child + td {
@@ -177,11 +178,13 @@ table.harmonics td {
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;
+    line-height: 90%
 }
 
 #controlTable td:first-child + td + td {
-    text-align: right;
     width: 20%;
+    text-align: left;
+    line-height: 90%
 }
 
 #controlTable input[type="radio"] {
