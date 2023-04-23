@@ -170,13 +170,13 @@ table.control td {
     margin-bottom: 0.5em;
 }
 
-table.control td:first-child {
+table.control tr td:nth-child(1) {
     width: 20%;
     text-align: right;
     line-height: 90%
 }
 
-table.control td:first-child + td {
+table.control tr td:nth-child(2) {
     width: 60%;
     padding-left: 1em;
     padding-right: 1em;
@@ -184,7 +184,7 @@ table.control td:first-child + td {
     line-height: 90%
 }
 
-table.control td:first-child + td + td {
+table.control tr td:nth-child(3) {
     width: 20%;
     text-align: left;
     line-height: 90%
