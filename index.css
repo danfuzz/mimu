@@ -134,7 +134,6 @@ table.oscilloscope {
 }
 
 table.oscilloscope td {
-    width: 100vw;
     height: 40vw;
 }
 
@@ -153,7 +152,6 @@ table.harmonics {
 }
 
 table.harmonics td {
-    width: 100vw;
     height: 20vw;
 }
 
