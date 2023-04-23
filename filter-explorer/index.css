@@ -43,10 +43,6 @@
     height: 30vw;
 }
 
-#controlTable td {
-    padding-bottom: 1em;
-}
-
 #controlTable td:first-child {
     text-align: left;
 }

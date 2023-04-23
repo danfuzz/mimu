@@ -43,14 +43,6 @@
     height: 30vw;
 }
 
-#controlTable td {
-    padding-bottom: 1em;
-}
-
-#controlTable input {
-    width: 100%;
-}
-
 #controlTable td:first-child {
     text-align: left;
 }
