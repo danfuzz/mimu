@@ -108,7 +108,11 @@ button {
     font-weight: bold;
     font-size: 30pt;
     padding: 2pt 15pt 6pt 15pt;
-    border-radius: 5pt;
+    border-radius: 10pt;
+}
+
+button:active {
+    background-color: #555;
 }
 
 /* Nodes of this class are generated programmatically. */
