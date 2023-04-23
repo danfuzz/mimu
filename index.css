@@ -212,22 +212,22 @@ table.control input[type="radio"] {
     font-size: 20pt;
   }
 
-  #controlTable {
+  table.control {
       margin-top: 0.5em;
       margin-bottom: 0.5em;
   }
 
-  #controlTable td {
+  table.control td {
     font-size: 10pt;
     margin-bottom: 0.25em;
   }
 
-  #controlTable td:first-child + td {
+  table.control td:first-child + td {
       padding-left: 0.3em;
       padding-right: 0.3em;
   }
 
-  #controlTable input[type="radio"] {
+  table.control input[type="radio"] {
       margin-left: 1em;
       margin-right: 0.25em;
   }
