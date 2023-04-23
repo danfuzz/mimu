@@ -167,13 +167,13 @@ table.control {
 table.control td {
     font-size: 12pt;
     font-family: var(--font-family-body-sans);
+    line-height: 90%;
     margin-bottom: 0.5em;
 }
 
 table.control tr td:nth-child(1) {
     width: 20%;
     text-align: right;
-    line-height: 90%
 }
 
 table.control tr td:nth-child(2) {
@@ -181,13 +181,11 @@ table.control tr td:nth-child(2) {
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;
-    line-height: 90%
 }
 
 table.control tr td:nth-child(3) {
     width: 20%;
     text-align: left;
-    line-height: 90%
 }
 
 table.control input[type="radio"] {
