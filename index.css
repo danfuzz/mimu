@@ -115,6 +115,8 @@ button {
 .soundDisplay {
     background-color: black;
     color: #00ff00;
+    font-family: var(--font-family-body-sans);
+    font-weight: bold;
 }
 
 #controlTable {
