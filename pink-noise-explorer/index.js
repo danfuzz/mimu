@@ -8,8 +8,8 @@ import { SliderWidget } from '../lib/SliderWidget.js';
 import { PieceParams } from './PieceParams.js';
 
 const mc = new MusicControl('./Piece.js');
-mc.oscilloscope = new Oscilloscope(document.querySelector('#oscCell'));
-mc.harmonics = new Harmonics(document.querySelector('#harmCell'));
+mc.oscilloscope = new Oscilloscope(document.querySelector('table.oscilloscope td'));
+mc.harmonics = new Harmonics(document.querySelector('table.harmonics td'));
 
 document.querySelector('#playPause').onclick = () => mc.playPause();
 

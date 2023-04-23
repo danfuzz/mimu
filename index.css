@@ -133,7 +133,7 @@ table.oscilloscope {
     background-color: black;
 }
 
-#oscCell {
+table.oscilloscope td {
     width: 100vw;
     height: 40vw;
 }
@@ -152,7 +152,7 @@ table.harmonics {
     background-color: black;
 }
 
-#harmCell {
+table.harmonics td {
     width: 100vw;
     height: 20vw;
 }
