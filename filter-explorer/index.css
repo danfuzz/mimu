@@ -43,21 +43,6 @@
     height: 30vw;
 }
 
-#controlTable td:first-child {
-    text-align: left;
-}
-
-#controlTable td:first-child + td {
-    width: 60%;
-    padding-left: 1em;
-    padding-right: 1em;
-    text-align: center;
-}
-
-#controlTable td:first-child + td + td {
-    text-align: right;
-}
-
 .sliderCell {
     width: 100%;
     height: 28pt;

@@ -129,6 +129,23 @@ button {
     margin-bottom: 0.5em;
 }
 
+#controlTable td:first-child {
+    text-align: left;
+    width: 20%;
+}
+
+#controlTable td:first-child + td {
+    width: 60%;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+}
+
+#controlTable td:first-child + td + td {
+    text-align: right;
+    width: 20%;
+}
+
 #controlTable input[type="radio"] {
     margin-left: 3em;
     margin-right: 0.5em;
@@ -147,6 +164,11 @@ button {
   #controlTable td {
     font-size: 10pt;
     margin-bottom: 0.25em;
+  }
+
+  #controlTable td:first-child + td {
+      padding-left: 0.3em;
+      padding-right: 0.3em;
   }
 
   #controlTable input[type="radio"] {
