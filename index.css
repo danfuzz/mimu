@@ -102,8 +102,7 @@ table.footer {
  * The following are all used on the demo pages but not the main index.
  */
 
-/* The big "play" button. */
-button {
+button.playPause {
     font-family: var(--font-family-body-sans);
     font-weight: bold;
     font-size: 30pt;
@@ -111,7 +110,7 @@ button {
     border-radius: 10pt;
 }
 
-button:active {
+button.playPause:active {
     background-color: #555;
 }
 
@@ -212,7 +211,7 @@ table.control input[type="radio"] {
 }
 
 @media only screen and ((pointer: coarse) or (width <= 500) or (height <= 500)) {
-  button {
+  button.playPause {
     font-size: 20pt;
   }
 

@@ -10,7 +10,7 @@ const mc = new MusicControl('./Piece.js');
 mc.oscilloscope = new Oscilloscope(document.querySelector('table.oscilloscope td'));
 mc.harmonics = new Harmonics(document.querySelector('table.harmonics td'));
 
-document.querySelector('#playPause').onclick = () => mc.playPause();
+document.querySelector('button.playPause').onclick = () => mc.playPause();
 
 const PARAMS = PieceParams.PARAMS;
 
