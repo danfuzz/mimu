@@ -181,6 +181,7 @@ table.control tr td:nth-child(2) {
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;
+    line-height: 150%;
 }
 
 table.control tr td:nth-child(3) {
