@@ -119,6 +119,34 @@ button {
     font-weight: bold;
 }
 
+#oscTable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 5pt;
+    border-radius: 20pt;
+    padding: 5pt;
+    background-color: black;
+}
+
+#harmTable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 5pt;
+    border-radius: 20pt;
+    padding: 5pt;
+    background-color: black;
+}
+
 #controlTable {
     margin-top: 2em;
     margin-bottom: 2em;
