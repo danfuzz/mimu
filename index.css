@@ -163,7 +163,7 @@ button {
     height: 28pt;
     background-color: #eeeeee;
     color: black;
-    font-size: 18pt;
+    font-size: 10pt;
     font-family: var(--font-family-body-sans);
     font-weight: bold;
 }
