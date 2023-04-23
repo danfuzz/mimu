@@ -51,7 +51,7 @@ new SliderWidget(document.querySelector('#amp'), {
   value:     PARAMS.amp
 });
 
-const filterRadios = document.querySelectorAll("input[name='filterType']");
+const filterRadios = document.querySelectorAll('input[name="filterType"]');
 for (const radio of filterRadios) {
   if (radio.value === PARAMS.filterType) {
     radio.checked = true;

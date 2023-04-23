@@ -14,7 +14,7 @@ document.querySelector('button.playPause').onclick = () => mc.playPause();
 
 const PARAMS = PieceParams.PARAMS;
 
-const waveRadios = document.querySelectorAll("input[name='waveform']");
+const waveRadios = document.querySelectorAll('input[name="waveform"]');
 for (const radio of waveRadios) {
   if (radio.value === PARAMS.waveform) {
     radio.checked = true;
