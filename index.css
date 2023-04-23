@@ -65,6 +65,7 @@ hr {
 table.footer {
     font-family: var(--font-family-body-sans);
     font-size: 12pt;
+    line-height: 100%;
     border-top-style: solid;
     border-top-color: #888;
     margin-top: 3em;
@@ -73,7 +74,7 @@ table.footer {
     width: 100%;
 }
 
-.footer td + td {
+.footer td:nth-child(2) {
     text-align: right;
     vertical-align: top;
 }
