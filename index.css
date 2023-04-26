@@ -79,7 +79,7 @@ table.footer {
     vertical-align: top;
 }
 
-@media only screen and ((pointer: coarse) or (width <= 500) or (height <= 500)) {
+@media only screen and (pointer: coarse) and (hover: none) {
   body {
     margin-top: 0.5em;
     margin-left: 0.5em;
@@ -210,7 +210,7 @@ table.control input[type="radio"] {
     font-weight: bold;
 }
 
-@media only screen and ((pointer: coarse) or (width <= 500) or (height <= 500)) {
+@media only screen and (pointer: coarse) and (hover: none) {
   button.playPause {
     font-size: 20pt;
   }
