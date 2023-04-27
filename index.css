@@ -52,8 +52,13 @@ h3 {
   font-size: 24pt;
 }
 
+p.header {
+  text-align: center;
+}
+
 .demoList li {
   font-size: 18pt;
+  font-weight: normal;
   padding-left: 1em;
   padding-top: 5pt;
   padding-bottom: 5pt;
