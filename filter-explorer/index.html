@@ -1,192 +1,195 @@
 <!doctype html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="../index.css" type="text/css"/>
-    <script type="module" src="index.js"></script>
-    <title>Filter Explorer</title>
-  </head>
 
-  <body>
-    <h1>Filter Explorer</h1>
-    <h2>a JavaScript music demo</h2>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="../index.css" type="text/css"/>
+  <script type="module" src="index.js"></script>
+  <title>Filter Explorer</title>
+</head>
 
-    <p align="center">Press the button to play the waveform, and adjust the
-        controls to alter its shape.
-    </p>
+<body>
 
-    <p align="center"><button class="playPause">Play / Pause</button></p>
+<h1>Filter Explorer</h1>
+<h2>a JavaScript music demo</h2>
 
-    <table class="oscilloscope">
-        <tr><td></td></tr>
-    </table>
+<p align="center">Press the button to play the waveform, and adjust the
+    controls to alter its shape.
+</p>
 
-    <table class="harmonics">
-        <tr><td></td></tr>
-    </table>
+<p align="center"><button class="playPause">Play / Pause</button></p>
 
-    <table class="control">
-        <tr>
-            <td>Filter Type</td>
-            <td>
-              <nobr>
-                <label>
-                  <input type="radio" name="filterType" value="low-pass"/>
-                  low-pass
-                </label>
-              </nobr>
-              <nobr>
-                <label>
-                  <input type="radio" name="filterType" value="high-pass"/>
-                  high-pass
-                </label>
-              </nobr>
-              <nobr>
-                <label>
-                  <input type="radio" name="filterType" value="band-pass"/>
-                  band-pass
-                </label>
-              </nobr>
-              <nobr>
-                <label>
-                  <input type="radio" name="filterType" value="notch"/>
-                  notch
-                </label>
-              </nobr>
-            </td>
-        </tr>
-        <tr>
-            <td>Low Input Amp</td>
-            <td id="inAmp" class="sliderCell"></td>
-            <td>High Input Amp</td>
-        </tr>
-        <tr>
-            <td>Low Center <i>f<sub>0</sub></i></td>
-            <td id="f0" class="sliderCell"></td>
-            <td>High Center <i>f<sub>0</sub></i></td>
-        </tr>
-        <tr>
-            <td>Low <i>Q</i></td>
-            <td id="q" class="sliderCell"></td>
-            <td>High <i>Q</i></td>
-        </tr>
-        <tr>
-            <td>Low Amplitude</td>
-            <td id="amp" class="sliderCell"></td>
-            <td>High Amplitude</td>
-        </tr>
-    </table>
+<table class="oscilloscope">
+    <tr><td></td></tr>
+</table>
 
-    <h3>What is this?</h3>
+<table class="harmonics">
+    <tr><td></td></tr>
+</table>
 
-    <p>This is an audio generator tool to explore the timbral quality imparted
-        by applying one of several filters to an incoming signal. The top box
-        is an oscilloscope view which visualizes the waveform, and the bottom
-        box is a harmonic spectrum view.
-    </p>
-
-    <p>This tool generates white noise at an adjustable amplitude, and allows
-        you to adjust the type and parameters of the filter, as well the
-        overall output amplitude (volume). The filter parameters are:
-    </p>
-
-    <ul>
-        <li><i>f<sub>0</sub></i> (center frequency) &mdash; <i>f<sub>0</sub></i>
-            is the frequency at which the filter is most active and at which
-            the frequency response of the filter "pivots."
-        </li>
-        <li><i>Q</i> (quality) &mdash; <i>Q</i> is a measure of how steep the
-            dropoff is of the frequency response curve around
-            <i>f<sub>0</sub></i>. A low <i>Q</i> means that the
-            frequency curve ramps gently down, such that the filter encompasses
-            a relatively wider portion of the spectrum. A high <i>Q</i> means
-            that the frequency curve ramps steeply down, such that the
-            filter encompasses a relatively narrower portion of the
-            spectrum. <i>Q</i> must be a positive (non-zero) value.
-        </li>
-        <li>type &mdash; There are four basic types of filter. In each
-            case, the filter performs a transformation from its input harmonic
-            spectrum, with a "pivot" at <i>f<sub>0</sub></i>. The filter
-            type indicates the general shape of the transformation:
-            <ul>
-                <li>low-pass &mdash; The filter passes (allows) frequencies
-                    lower than <i>f<sub>0</sub></i> and rejects (squelches)
-                    frequencies above <i>f<sub>0</sub></i>.
-                </li>
-                <li>high-pass &mdash; The filter passes frequencies
-                    higher than <i>f<sub>0</sub></i> and rejects
-                    frequencies below <i>f<sub>0</sub></i>.
-                </li>
-                <li>band-pass &mdash; The filter passes frequencies
-                    near <i>f<sub>0</sub></i> and rejects frequencies
-                    away from <i>f<sub>0</sub></i>.
-                </li>
-                <li>notch (band-reject) &mdash; The filter passes
-                    frequencies away from <i>f<sub>0</sub></i> and rejects
-                    frequencies near <i>f<sub>0</sub></i>.
-                </li>
-            </ul>
-        </li>
-    </ul>
-
-    <p><a href="https://github.com/danfuzz/mimu/tree/main/filter-explorer">
-        See the source</a>.
-    </p>
-
-    <h3>Items of note</h3>
-
-    <p>Because <i>Q</i> is not allowed to be zero, when you adjust its
-        slider all the way down, you instead get a small but positive value.
-    </p>
-
-    <p>There is no upper limit to <i>Q</i>, but this demo limits it to
-        500. This more or less covers the useful range for sound synthesis.
-    </p>
-
-    <p>At higher <i>Q</i> the filter becomes significantly "resonant." That is,
-        even if you cut off the input (by setting the amplitude to zero), you
-        will still see output with energy at <i>f<sub>0</sub></i>. It will
-        eventually decay.
-    </p>
-
-    <p>It can be hard to tell what a notch filter is doing at higher <i>Q</i>,
-        both audibly and in terms of the spectrum. When using a notch filter,
-        you'll probably have better results with <i>Q</i> under 5.
-    </p>
-
-    <p>It's easy to pick filter parameters which will "blow out" the output
-        out of the valid-for-audio range of -1 to 1. The straightforward way
-        to correct for this is simply to lower either the input or output
-        amplitude. If you don't, the main thing you will notice is that you
-        end up with extra peaks in the output harmonics, which correspond to
-        the "shelves" caused by the cutoff of the waveform at either extreme of
-        instantaneous amplitude.
-    </p>
-
-    <p>The filters implemented in this demo are two-pole infinite impulse
-        response (IIR) filter. The "infinite" in the name means that filter
-        output at any given point in time depends on <i>all</i> of the
-        input that the filter has ever received. This is in contrast to a
-        finite impulse response (FIR) filter, which only depends on a
-        limited rolling window of previous input to the filter. (In digital
-        filters, this window is generally one sample per pole.)
-    </p>
-
-    <p>The four basic types of filter demonstrated here aren't the only kinds of
-        filter. There are many others. Roughly speaking, though, one can think
-        of any filter as a combination of the types described here.
-    </p>
-
-    <table class="footer">
-      <tr>
+<table class="control">
+    <tr>
+        <td>Filter Type</td>
         <td>
-          Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
-          SPDX-License-Identifier: Apache-2.0
+          <nobr>
+            <label>
+              <input type="radio" name="filterType" value="low-pass"/>
+              low-pass
+            </label>
+          </nobr>
+          <nobr>
+            <label>
+              <input type="radio" name="filterType" value="high-pass"/>
+              high-pass
+            </label>
+          </nobr>
+          <nobr>
+            <label>
+              <input type="radio" name="filterType" value="band-pass"/>
+              band-pass
+            </label>
+          </nobr>
+          <nobr>
+            <label>
+              <input type="radio" name="filterType" value="notch"/>
+              notch
+            </label>
+          </nobr>
         </td>
-        <td>
-          <a href="http://milk.com/">milk.com</a> / <a href="../">mimu</a>
-        </td>
-      </tr>
-    </table>
-  </body>
+    </tr>
+    <tr>
+        <td>Low Input Amp</td>
+        <td id="inAmp" class="sliderCell"></td>
+        <td>High Input Amp</td>
+    </tr>
+    <tr>
+        <td>Low Center <i>f<sub>0</sub></i></td>
+        <td id="f0" class="sliderCell"></td>
+        <td>High Center <i>f<sub>0</sub></i></td>
+    </tr>
+    <tr>
+        <td>Low <i>Q</i></td>
+        <td id="q" class="sliderCell"></td>
+        <td>High <i>Q</i></td>
+    </tr>
+    <tr>
+        <td>Low Amplitude</td>
+        <td id="amp" class="sliderCell"></td>
+        <td>High Amplitude</td>
+    </tr>
+</table>
+
+<h3>What is this?</h3>
+
+<p>This is an audio generator tool to explore the timbral quality imparted
+    by applying one of several filters to an incoming signal. The top box
+    is an oscilloscope view which visualizes the waveform, and the bottom
+    box is a harmonic spectrum view.
+</p>
+
+<p>This tool generates white noise at an adjustable amplitude, and allows
+    you to adjust the type and parameters of the filter, as well the
+    overall output amplitude (volume). The filter parameters are:
+</p>
+
+<ul>
+    <li><i>f<sub>0</sub></i> (center frequency) &mdash; <i>f<sub>0</sub></i>
+        is the frequency at which the filter is most active and at which
+        the frequency response of the filter "pivots."
+    </li>
+    <li><i>Q</i> (quality) &mdash; <i>Q</i> is a measure of how steep the
+        dropoff is of the frequency response curve around
+        <i>f<sub>0</sub></i>. A low <i>Q</i> means that the
+        frequency curve ramps gently down, such that the filter encompasses
+        a relatively wider portion of the spectrum. A high <i>Q</i> means
+        that the frequency curve ramps steeply down, such that the
+        filter encompasses a relatively narrower portion of the
+        spectrum. <i>Q</i> must be a positive (non-zero) value.
+    </li>
+    <li>type &mdash; There are four basic types of filter. In each
+        case, the filter performs a transformation from its input harmonic
+        spectrum, with a "pivot" at <i>f<sub>0</sub></i>. The filter
+        type indicates the general shape of the transformation:
+        <ul>
+            <li>low-pass &mdash; The filter passes (allows) frequencies
+                lower than <i>f<sub>0</sub></i> and rejects (squelches)
+                frequencies above <i>f<sub>0</sub></i>.
+            </li>
+            <li>high-pass &mdash; The filter passes frequencies
+                higher than <i>f<sub>0</sub></i> and rejects
+                frequencies below <i>f<sub>0</sub></i>.
+            </li>
+            <li>band-pass &mdash; The filter passes frequencies
+                near <i>f<sub>0</sub></i> and rejects frequencies
+                away from <i>f<sub>0</sub></i>.
+            </li>
+            <li>notch (band-reject) &mdash; The filter passes
+                frequencies away from <i>f<sub>0</sub></i> and rejects
+                frequencies near <i>f<sub>0</sub></i>.
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<p><a href="https://github.com/danfuzz/mimu/tree/main/filter-explorer">
+    See the source</a>.
+</p>
+
+<h3>Items of note</h3>
+
+<p>Because <i>Q</i> is not allowed to be zero, when you adjust its
+    slider all the way down, you instead get a small but positive value.
+</p>
+
+<p>There is no upper limit to <i>Q</i>, but this demo limits it to
+    500. This more or less covers the useful range for sound synthesis.
+</p>
+
+<p>At higher <i>Q</i> the filter becomes significantly "resonant." That is,
+    even if you cut off the input (by setting the amplitude to zero), you
+    will still see output with energy at <i>f<sub>0</sub></i>. It will
+    eventually decay.
+</p>
+
+<p>It can be hard to tell what a notch filter is doing at higher <i>Q</i>,
+    both audibly and in terms of the spectrum. When using a notch filter,
+    you'll probably have better results with <i>Q</i> under 5.
+</p>
+
+<p>It's easy to pick filter parameters which will "blow out" the output
+    out of the valid-for-audio range of -1 to 1. The straightforward way
+    to correct for this is simply to lower either the input or output
+    amplitude. If you don't, the main thing you will notice is that you
+    end up with extra peaks in the output harmonics, which correspond to
+    the "shelves" caused by the cutoff of the waveform at either extreme of
+    instantaneous amplitude.
+</p>
+
+<p>The filters implemented in this demo are two-pole infinite impulse
+    response (IIR) filter. The "infinite" in the name means that filter
+    output at any given point in time depends on <i>all</i> of the
+    input that the filter has ever received. This is in contrast to a
+    finite impulse response (FIR) filter, which only depends on a
+    limited rolling window of previous input to the filter. (In digital
+    filters, this window is generally one sample per pole.)
+</p>
+
+<p>The four basic types of filter demonstrated here aren't the only kinds of
+    filter. There are many others. Roughly speaking, though, one can think
+    of any filter as a combination of the types described here.
+</p>
+
+<table class="footer">
+  <tr>
+    <td>
+      Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
+      SPDX-License-Identifier: Apache-2.0
+    </td>
+    <td>
+      <a href="http://milk.com/">milk.com</a> / <a href="../">mimu</a>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>

@@ -1,130 +1,133 @@
 <!doctype html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="../index.css" type="text/css"/>
-    <script type="module" src="index.js"></script>
-    <title>Triangle Wave Explorer</title>
-  </head>
 
-  <body>
-    <h1>Triangle Wave Explorer</h1>
-    <h2>a JavaScript music demo</h2>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="../index.css" type="text/css"/>
+  <script type="module" src="index.js"></script>
+  <title>Triangle Wave Explorer</title>
+</head>
 
-    <p align="center">Press the button to play the waveform, and adjust the
-        controls to alter its shape.
-    </p>
+<body>
 
-    <p align="center"><button class="playPause">Play / Pause</button></p>
+<h1>Triangle Wave Explorer</h1>
+<h2>a JavaScript music demo</h2>
 
-    <table class="oscilloscope">
-        <tr><td></td></tr>
-    </table>
+<p align="center">Press the button to play the waveform, and adjust the
+    controls to alter its shape.
+</p>
 
-    <table class="harmonics">
-        <tr><td></td></tr>
-    </table>
+<p align="center"><button class="playPause">Play / Pause</button></p>
 
-    <table class="control">
-        <tr>
-            <td>Downward Bias</td>
-            <td id="upBias" class="sliderCell"></td>
-            <td>Upward Bias</td>
-        </tr>
-        <tr>
-            <td>Negative Bias</td>
-            <td id="posBias" class="sliderCell"></td>
-            <td>Positive Bias</td>
-        </tr>
-        <tr>
-            <td>De&auml;mping Bias</td>
-            <td id="ampBias" class="sliderCell"></td>
-            <td>Amping Bias</td>
-        </tr>
-        <tr>
-            <td>Low Pitch</td>
-            <td id="freq" class="sliderCell"></td>
-            <td>High Pitch</td>
-        </tr>
-        <tr>
-            <td>Low Amplitude</td>
-            <td id="amp" class="sliderCell"></td>
-            <td>High Amplitude</td>
-        </tr>
-    </table>
+<table class="oscilloscope">
+    <tr><td></td></tr>
+</table>
 
-    <h3>What is this?</h3>
+<table class="harmonics">
+    <tr><td></td></tr>
+</table>
 
-    <p>This is an audio generator tool to explore the timbral quality of the
-        triangle wave family of waveforms, including both symmetric and
-        asymmetric variants. The top box is an oscilloscope view
-        which visualizes the waveform, and the bottom box is a harmonic
-        spectrum view.
-    </p>
+<table class="control">
+    <tr>
+        <td>Downward Bias</td>
+        <td id="upBias" class="sliderCell"></td>
+        <td>Upward Bias</td>
+    </tr>
+    <tr>
+        <td>Negative Bias</td>
+        <td id="posBias" class="sliderCell"></td>
+        <td>Positive Bias</td>
+    </tr>
+    <tr>
+        <td>De&auml;mping Bias</td>
+        <td id="ampBias" class="sliderCell"></td>
+        <td>Amping Bias</td>
+    </tr>
+    <tr>
+        <td>Low Pitch</td>
+        <td id="freq" class="sliderCell"></td>
+        <td>High Pitch</td>
+    </tr>
+    <tr>
+        <td>Low Amplitude</td>
+        <td id="amp" class="sliderCell"></td>
+        <td>High Amplitude</td>
+    </tr>
+</table>
 
-    <p>Three different symmetries of the wave are parameterized and can be
-        controlled to "bias" the wave away from symmetrical. These symmetries
-        / biases are:
+<h3>What is this?</h3>
 
-        <ul>
-            <li>downward&ndash;upward bias &mdash; In a symmetric triangle wave,
-                there is equal representation in the portions of the waveform
-                which have an upward (positive) slope and those which have a
-                downward (negative) slope. A negative bias skews representation
-                towards the downward-sloping portion. A positive bias on this
-                control skews representation towards the upward-sloping portion
-                of the waveform. At the extremes of this bias, the
-                waveform becomes a sawtooth wave.
-            </li>
-            <li>negative&ndash;positive bias &mdash; In a symmetric triangle
-                wave, there is equal representation of positive and negative
-                values. A negative bias on this control skews representation
-                towards negative values. A positive bias on this control skews
-                representation towards positive values.
-            </li>
-            <li>de&auml;mping&ndash;amping bias &mdash; In a symmetric triangle
-                wave, there is equal representation of value movement away from
-                zero (amping up) and value movement towards zero (de&auml;mping
-                or amping down). A negative bias on this control skews
-                representation towards de&auml;mping. A positive bias on this
-                control skews representation towards amping up.
-            </li>
-        </ul>
-    </p>
+<p>This is an audio generator tool to explore the timbral quality of the
+    triangle wave family of waveforms, including both symmetric and
+    asymmetric variants. The top box is an oscilloscope view
+    which visualizes the waveform, and the bottom box is a harmonic
+    spectrum view.
+</p>
 
-    <p>In addition, you can change the pitch (frequency) and total amplitude of
-        the note being played. Adjusting these can help discern the various
-        patterns of the displays.
-    </p>
+<p>Three different symmetries of the wave are parameterized and can be
+    controlled to "bias" the wave away from symmetrical. These symmetries
+    / biases are:
 
-    <p><a href="https://github.com/danfuzz/mimu/tree/main/triangle-wave-explorer">
-        See the source</a>.
-    </p>
+    <ul>
+        <li>downward&ndash;upward bias &mdash; In a symmetric triangle wave,
+            there is equal representation in the portions of the waveform
+            which have an upward (positive) slope and those which have a
+            downward (negative) slope. A negative bias skews representation
+            towards the downward-sloping portion. A positive bias on this
+            control skews representation towards the upward-sloping portion
+            of the waveform. At the extremes of this bias, the
+            waveform becomes a sawtooth wave.
+        </li>
+        <li>negative&ndash;positive bias &mdash; In a symmetric triangle
+            wave, there is equal representation of positive and negative
+            values. A negative bias on this control skews representation
+            towards negative values. A positive bias on this control skews
+            representation towards positive values.
+        </li>
+        <li>de&auml;mping&ndash;amping bias &mdash; In a symmetric triangle
+            wave, there is equal representation of value movement away from
+            zero (amping up) and value movement towards zero (de&auml;mping
+            or amping down). A negative bias on this control skews
+            representation towards de&auml;mping. A positive bias on this
+            control skews representation towards amping up.
+        </li>
+    </ul>
+</p>
 
-    <h3>Items of note</h3>
+<p>In addition, you can change the pitch (frequency) and total amplitude of
+    the note being played. Adjusting these can help discern the various
+    patterns of the displays.
+</p>
 
-    <p>At many frequencies, you can observe harmonics that are not even
-        multiples of the fundamental frequency. For example, if you ramp up
-        the pitch slowly, you can see these harmonics "bounce off the wall."
-        These are <i>aliasing artifacts</i> which are produced because the
-        period (single cycle) of the waveform isn't a whole number of samples.
-        The demo code reduces &mdash; but does not eliminate &mdash; this effect
-        by oversampling, that is, by producing samples at a higher rate than the
-        output sample rate. In this case, those samples are simply averaged
-        together, a tactic which serious audio engineers would probably scoff at
-        but which is both effective and efficient for the current use case.
-    </p>
+<p><a href="https://github.com/danfuzz/mimu/tree/main/triangle-wave-explorer">
+    See the source</a>.
+</p>
 
-    <table class="footer">
-      <tr>
-        <td>
-          Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
-          SPDX-License-Identifier: Apache-2.0
-        </td>
-        <td>
-          <a href="http://milk.com/">milk.com</a> / <a href="../">mimu</a>
-        </td>
-      </tr>
-    </table>
-  </body>
+<h3>Items of note</h3>
+
+<p>At many frequencies, you can observe harmonics that are not even
+    multiples of the fundamental frequency. For example, if you ramp up
+    the pitch slowly, you can see these harmonics "bounce off the wall."
+    These are <i>aliasing artifacts</i> which are produced because the
+    period (single cycle) of the waveform isn't a whole number of samples.
+    The demo code reduces &mdash; but does not eliminate &mdash; this effect
+    by oversampling, that is, by producing samples at a higher rate than the
+    output sample rate. In this case, those samples are simply averaged
+    together, a tactic which serious audio engineers would probably scoff at
+    but which is both effective and efficient for the current use case.
+</p>
+
+<table class="footer">
+  <tr>
+    <td>
+      Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
+      SPDX-License-Identifier: Apache-2.0
+    </td>
+    <td>
+      <a href="http://milk.com/">milk.com</a> / <a href="../">mimu</a>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>

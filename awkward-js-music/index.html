@@ -1,129 +1,132 @@
 <!doctype html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="../index.css" type="text/css"/>
-    <script type="module" src="index.js"></script>
-    <title>AWKward JS Music</title>
-  </head>
 
-  <body>
-    <h1>AWKward JS Music</h1>
-    <h2>a JavaScript music demo</h2>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="../index.css" type="text/css"/>
+  <script type="module" src="index.js"></script>
+  <title>AWKward JS Music</title>
+</head>
 
-    <p align="center">Press the button and bliss out on languid semiharmonic
-        ambient tones.
-    </p>
+<body>
 
-    <p align="center"><button class="playPause">Play / Pause</button></p>
+<h1>AWKward JS Music</h1>
+<h2>a JavaScript music demo</h2>
 
-    <table class="oscilloscope">
-        <tr><td></td></tr>
-    </table>
+<p align="center">Press the button and bliss out on languid semiharmonic
+    ambient tones.
+</p>
 
-    <table class="harmonics">
-        <tr><td></td></tr>
-    </table>
+<p align="center"><button class="playPause">Play / Pause</button></p>
 
-    <table class="control">
-        <tr>
-            <td>Waveform</td>
-            <td>
-                <nobr>
-                  <label>
-                    <input type="radio" name="waveform" value="sine"/>
-                    sine
-                  </label>
-                </nobr>
-                <nobr>
-                  <label>
-                    <input type="radio" name="waveform" value="triangle"/>
-                    triangle
-                  </label>
-                </nobr>
-                <nobr>
-                  <label>
-                    <input type="radio" name="waveform" value="sawtooth"/>
-                    sawtooth
-                  </label>
-                </nobr>
-                <nobr>
-                  <label>
-                    <input type="radio" name="waveform" value="square"/>
-                    square
-                  </label>
-                </nobr>
-            </td>
-            <td></td>
-        </tr>
-    </table>
+<table class="oscilloscope">
+    <tr><td></td></tr>
+</table>
 
-    <h3>What is this?</h3>
+<table class="harmonics">
+    <tr><td></td></tr>
+</table>
 
-    <p>This is a rough translation (close but not 100% faithful) from AWK
-        to JavaScript of the musical composition
-        <a href="http://kmkeen.com/awk-music/">AWK Music</a> by Kyle Keen,
-        with bonus waveform selection and visualization (oscilloscope above
-        and harmonic spectrum below).
-    </p>
-
-    <h3>Items of note</h3>
-
-    <p>The basic audio element of this demo is a pair of simple waves of
-        different frequencies, which are played in unison. You can pick
-        among a few options for the basic waveform:
-
-        <ul>
-            <li>sine &mdash; Sine waves are, harmonically, the simplest
-                possible waveforms. They generally have a "pure" sound to
-                human ears, which might remind you of a kalimba (finger piano).
-            </li>
-            <li>triangle &mdash; Triangle waves are simple geometrically, yet
-                harmonically rich and mellow to human ears. The sound might
-                remind you of a marimba (wooden xylophone). This is the default
-                waveform choice, as this is the choice made by Keen in his
-                original composition.
-            </li>
-            <li>sawtooth &mdash; Sawtooth waves tend to sound buzzy and a bit
-                harsh to human ears. The sound might remind you of a reed
-                instrument such as an oboe or clarinet.
-            </li>
-            <li>square &mdash; Square waves also have a buzziness about them.
-                The sound might remind you a little bit of a recorder
-                (woodwind).
-            </li>
-        </ul>
-    </p>
-
-    <p>The notes played by this demo are picked randomly from two octaves in an
-        equal-tempered pentatonic scale. This is not a scale that is often
-        encountered in Western music, however it happens to make for note
-        pairs and transitions that are pleasing to human ears.
-    </p>
-
-    <p>The waveform is intentionally level-quantized to simulate low bit-depth.
-        You can see this quantization in the oscilloscope as "stair steps" which
-        are most visible in gently-sloping portions of the waveform. (That is,
-        the stair steps are <i>not</i> a visual artifact from the oscilloscope
-        rendering, but rather an accurate reflection of the waveform
-        being generated.) In terms of the sound you hear, this quantization
-        causes a quiet high-pitched "shimmering" effect.
-    </p>
-
-    <p><a href="https://github.com/danfuzz/mimu/tree/main/awkward-js-music">
-        See the source</a>.
-    </p>
-
-    <table class="footer">
-      <tr>
+<table class="control">
+    <tr>
+        <td>Waveform</td>
         <td>
-          Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
-          SPDX-License-Identifier: Apache-2.0
+            <nobr>
+              <label>
+                <input type="radio" name="waveform" value="sine"/>
+                sine
+              </label>
+            </nobr>
+            <nobr>
+              <label>
+                <input type="radio" name="waveform" value="triangle"/>
+                triangle
+              </label>
+            </nobr>
+            <nobr>
+              <label>
+                <input type="radio" name="waveform" value="sawtooth"/>
+                sawtooth
+              </label>
+            </nobr>
+            <nobr>
+              <label>
+                <input type="radio" name="waveform" value="square"/>
+                square
+              </label>
+            </nobr>
         </td>
-        <td>
-          <a href="http://milk.com/">milk.com</a> / <a href="../">mimu</a>
-        </td>
-      </tr>
-    </table>
-  </body>
+        <td></td>
+    </tr>
+</table>
+
+<h3>What is this?</h3>
+
+<p>This is a rough translation (close but not 100% faithful) from AWK
+    to JavaScript of the musical composition
+    <a href="http://kmkeen.com/awk-music/">AWK Music</a> by Kyle Keen,
+    with bonus waveform selection and visualization (oscilloscope above
+    and harmonic spectrum below).
+</p>
+
+<h3>Items of note</h3>
+
+<p>The basic audio element of this demo is a pair of simple waves of
+    different frequencies, which are played in unison. You can pick
+    among a few options for the basic waveform:
+
+    <ul>
+        <li>sine &mdash; Sine waves are, harmonically, the simplest
+            possible waveforms. They generally have a "pure" sound to
+            human ears, which might remind you of a kalimba (finger piano).
+        </li>
+        <li>triangle &mdash; Triangle waves are simple geometrically, yet
+            harmonically rich and mellow to human ears. The sound might
+            remind you of a marimba (wooden xylophone). This is the default
+            waveform choice, as this is the choice made by Keen in his
+            original composition.
+        </li>
+        <li>sawtooth &mdash; Sawtooth waves tend to sound buzzy and a bit
+            harsh to human ears. The sound might remind you of a reed
+            instrument such as an oboe or clarinet.
+        </li>
+        <li>square &mdash; Square waves also have a buzziness about them.
+            The sound might remind you a little bit of a recorder
+            (woodwind).
+        </li>
+    </ul>
+</p>
+
+<p>The notes played by this demo are picked randomly from two octaves in an
+    equal-tempered pentatonic scale. This is not a scale that is often
+    encountered in Western music, however it happens to make for note
+    pairs and transitions that are pleasing to human ears.
+</p>
+
+<p>The waveform is intentionally level-quantized to simulate low bit-depth.
+    You can see this quantization in the oscilloscope as "stair steps" which
+    are most visible in gently-sloping portions of the waveform. (That is,
+    the stair steps are <i>not</i> a visual artifact from the oscilloscope
+    rendering, but rather an accurate reflection of the waveform
+    being generated.) In terms of the sound you hear, this quantization
+    causes a quiet high-pitched "shimmering" effect.
+</p>
+
+<p><a href="https://github.com/danfuzz/mimu/tree/main/awkward-js-music">
+    See the source</a>.
+</p>
+
+<table class="footer">
+  <tr>
+    <td>
+      Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
+      SPDX-License-Identifier: Apache-2.0
+    </td>
+    <td>
+      <a href="http://milk.com/">milk.com</a> / <a href="../">mimu</a>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>
