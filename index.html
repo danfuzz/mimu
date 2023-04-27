@@ -1,75 +1,78 @@
 <!doctype html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="index.css" type="text/css"/>
-    <title>Mimu</title>
-  </head>
 
-  <body>
-    <h1>Mimu</h1>
-    <h2>Milk Music: Demos and Library</h2>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="index.css" type="text/css"/>
+  <title>Mimu</title>
+</head>
 
-    <h3>The Demos</h3>
+<body>
 
-    <ul class="demoList">
-        <li><a href="./awkward-js-music/">AWKward JS Music</a></li>
-        <li><a href="./filter-explorer/">Filter Explorer</a></li>
-        <li><a href="./pink-noise-explorer/">Pink Noise Explorer</a></li>
-        <li><a href="./triangle-wave-explorer/">Triangle Wave Explorer</a></li>
-    </ul>
+<h1>Mimu</h1>
+<h2>Milk Music: Demos and Library</h2>
 
-    <h3>What is this?</h3>
+<h3>The Demos</h3>
 
-    <p>This is a small collection of programmatically-generated music / audio
-        demos. All of the audio processing of these demos takes place inside
-        the web browser; there is no server code involved at all.
-    </p>
+<ul class="demoList">
+    <li><a href="./awkward-js-music/">AWKward JS Music</a></li>
+    <li><a href="./filter-explorer/">Filter Explorer</a></li>
+    <li><a href="./pink-noise-explorer/">Pink Noise Explorer</a></li>
+    <li><a href="./triangle-wave-explorer/">Triangle Wave Explorer</a></li>
+</ul>
 
-    <p>The code here is meant to serve as straightforward examples
-        of how to do script-based audio generation and analysis using the
-        JavaScript <a href="http://www.w3.org/TR/webaudio/">Web Audio API</a>.
-        Most of the code is in library form, ready for importation into other
-        projects. Please use it!
-    </p>
+<h3>What is this?</h3>
 
-    <p><a href="https://github.com/danfuzz/mimu">See the source</a>. If you're
-        specifically looking for the Web Audio code, find it in the
-        <a href="https://github.com/danfuzz/mimu/tree/main/lib/MusicControl.js">
-        <code>MusicControl</code> class</a>.
-    </p>
+<p>This is a small collection of programmatically-generated music / audio
+    demos. All of the audio processing of these demos takes place inside
+    the web browser; there is no server code involved at all.
+</p>
 
-    <h3>Items of note</h3>
+<p>The code here is meant to serve as straightforward examples
+    of how to do script-based audio generation and analysis using the
+    JavaScript <a href="http://www.w3.org/TR/webaudio/">Web Audio API</a>.
+    Most of the code is in library form, ready for importation into other
+    projects. Please use it!
+</p>
 
-    <p>As of this writing, the per-demo controls do not seem to work
-        consistently when using Safari. This is because Safari &mdash;
-        sometimes! &mdash; doesn't seem to promptly pass messages from the main
-        browser thread to the <code>AudioWorkletProcessor</code> which
-        generates the raw samples. It is unclear why this is(n't) happening.
-    </p>
+<p><a href="https://github.com/danfuzz/mimu">See the source</a>. If you're
+    specifically looking for the Web Audio code, find it in the
+    <a href="https://github.com/danfuzz/mimu/tree/main/lib/MusicControl.js">
+    <code>MusicControl</code> class</a>.
+</p>
 
-    <p>The original version of this code was written in 2015, using browser and
-        JavaScript features which were still new and/or experimental at the
-        time. As such, this project inevitably suffered code rot, and it had
-        stopped working sometime around 2019. In 2023, I did a chunk of work to
-        get things working again. That said, I have yet to fully clean up the
-        code such that it is up to arguably-modern standards.
-    </p>
+<h3>Items of note</h3>
 
-    <h3>One final word</h3>
-    <p align="center">Enjoy!</p>
+<p>As of this writing, the per-demo controls do not seem to work
+    consistently when using Safari. This is because Safari &mdash;
+    sometimes! &mdash; doesn't seem to promptly pass messages from the main
+    browser thread to the <code>AudioWorkletProcessor</code> which
+    generates the raw samples. It is unclear why this is(n't) happening.
+</p>
 
-    <table class="footer">
-      <tr>
-        <td>
-          Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
-          SPDX-License-Identifier: Apache-2.0
-        </td>
-        <td>
-          <a href="http://milk.com/">milk.com</a>
-        </td>
-      </tr>
-    </table>
+<p>The original version of this code was written in 2015, using browser and
+    JavaScript features which were still new and/or experimental at the
+    time. As such, this project inevitably suffered code rot, and it had
+    stopped working sometime around 2019. In 2023, I did a chunk of work to
+    get things working again. That said, I have yet to fully clean up the
+    code such that it is up to arguably-modern standards.
+</p>
 
-  </body>
+<h3>One final word</h3>
+
+<p style="text-align: center">Enjoy!</p>
+
+<table class="footer">
+  <tr>
+    <td>
+      Copyright 2015-2023 the Mimu Authors (Dan Bornstein et alia).<br>
+      SPDX-License-Identifier: Apache-2.0
+    </td>
+    <td>
+      <a href="http://milk.com/">milk.com</a>
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>
