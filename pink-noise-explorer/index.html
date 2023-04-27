@@ -31,73 +31,81 @@
 </table>
 
 <table class="control">
-    <tr>
-        <td>Low <i>&alpha;</i></td>
-        <td id="alpha" class="sliderCell"></td>
-        <td>High <i>&alpha;</i></td>
-    </tr>
-    <tr>
-        <td>Low Amplitude</td>
-        <td id="amp" class="sliderCell"></td>
-        <td>High Amplitude</td>
-    </tr>
+  <tr>
+    <td>Low <i>&alpha;</i></td>
+    <td id="alpha" class="sliderCell"></td>
+    <td>High <i>&alpha;</i></td>
+  </tr>
+  <tr>
+    <td>Low Amplitude</td>
+    <td id="amp" class="sliderCell"></td>
+    <td>High Amplitude</td>
+  </tr>
 </table>
 
 <h3>What is this?</h3>
 
-<p>This is an audio generator tool to explore the timbral quality of the
-    pink noise family of waveforms. The top box is an oscilloscope view
-    which visualizes the waveform, and the bottom box is a harmonic
-    spectrum view.
+<p>
+  This is an audio generator tool to explore the timbral quality of the
+  pink noise family of waveforms. The top box is an oscilloscope view
+  which visualizes the waveform, and the bottom box is a harmonic
+  spectrum view.
 </p>
 
-<p>Pink noise is characterized as having a harmonic curve where amplitude
-    slopes down from low to high frequencies. More technically, pink noise
-    is parameterized on a variable <i>&alpha;</i> (alpha); at a given
-    frequency <i>f</i>, the amplitude is 1/<i>f<sup> &alpha;</sup></i>.
-    <i>&alpha;</i> can range from 0 to 2 (inclusive).
+<p>
+  Pink noise is characterized as having a harmonic curve where amplitude
+  slopes down from low to high frequencies. More technically, pink noise
+  is parameterized on a variable <i>&alpha;</i> (alpha); at a given
+  frequency <i>f</i>, the amplitude is 1/<i>f<sup> &alpha;</sup></i>.
+  <i>&alpha;</i> can range from 0 to 2 (inclusive).
 </p>
 
-<p>For "normal" pink noise &mdash; what is sometimes imprecisely just
-    called "pink noise" per se &mdash; <i>&alpha;</i> is 1, which means
-    that there is equal energy across all octaves. At the extreme of
-    <i>&alpha;</i> = 0, the generated noise is actually white noise, that is,
-    equal energy at all frequencies. At the other extreme of
-    <i>&alpha;</i> = 2, the generated noise is brown noise, which is an
-    integration over white noise; the waveform's instantaneous amplitude
-    takes the form of brownian motion.
+<p>
+  For "normal" pink noise &mdash; what is sometimes imprecisely just
+  called "pink noise" per se &mdash; <i>&alpha;</i> is 1, which means
+  that there is equal energy across all octaves. At the extreme of
+  <i>&alpha;</i> = 0, the generated noise is actually white noise, that is,
+  equal energy at all frequencies. At the other extreme of
+  <i>&alpha;</i> = 2, the generated noise is brown noise, which is an
+  integration over white noise; the waveform's instantaneous amplitude
+  takes the form of brownian motion.
 </p>
 
-<p>This tool allows you to adjust <i>&alpha;</i> as well as the overall
-    amplitude of the sound.
+<p>
+  This tool allows you to adjust <i>&alpha;</i> as well as the overall
+  amplitude of the sound.
 </p>
 
-<p><a href="https://github.com/danfuzz/mimu/tree/main/pink-noise-explorer">
-    See the source</a>.
+<p>
+  <a href="https://github.com/danfuzz/mimu/tree/main/pink-noise-explorer">
+  See the source</a>.
 </p>
 
 <h3>Items of note</h3>
 
-<p>At higher <i>&alpha;</i>, there is relatively high energy in the
-    very-low frequency range. This can cause the waveform to wander
-    significantly out of the valid-for-audio range -1 to 1. This demo
-    adjusts for that implicitly: As you raise <i>&alpha;</i>, the overall
-    amplitude is adjusted downward. It's not a perfect adjustment, though,
-    so you might find that you need to manually adjust amplitude up or
-    down, depending on what you're aiming for.
+<p>
+  At higher <i>&alpha;</i>, there is relatively high energy in the
+  very-low frequency range. This can cause the waveform to wander
+  significantly out of the valid-for-audio range -1 to 1. This demo
+  adjusts for that implicitly: As you raise <i>&alpha;</i>, the overall
+  amplitude is adjusted downward. It's not a perfect adjustment, though,
+  so you might find that you need to manually adjust amplitude up or
+  down, depending on what you're aiming for.
 </p>
 
-<p>True brown noise (<i>&alpha;</i> = 2) is not actually fruitful when
-    turned into an audio waveform, but it can still fun to look at.
-    However, don't be surprised if you end up looking at an empty
-    display when the waveform strays far out of range (per the previous
-    note).
+<p>
+  True brown noise (<i>&alpha;</i> = 2) is not actually fruitful when
+  turned into an audio waveform, but it can still fun to look at.
+  However, don't be surprised if you end up looking at an empty
+  display when the waveform strays far out of range (per the previous
+  note).
 </p>
 
-<p>The noise is generated in this demo by using an IIR (infinite impulse
-    response) filter with five poles. The result is not mathematically
-    100% accurate, however this is generally considered close enough for
-    most audio applications.
+<p>
+  The noise is generated in this demo by using an IIR (infinite impulse
+  response) filter with five poles. The result is not mathematically
+  100% accurate, however this is generally considered close enough for
+  most audio applications.
 </p>
 
 <table class="footer">
