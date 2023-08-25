@@ -8,10 +8,10 @@ import { PieceParams } from './PieceParams.js';
  * Pink noise generator, with adjustable alpha.
  *
  * This code is based on the `PinkNoise` class by Sampo Niskane, at
- * <http://sampo.kapsi.fi/PinkNoise/>.
+ * <https://sampo.kapsi.fi/PinkNoise/>.
  *
  * The gaussian random function is based on the one found at
- * <http://blog.yjl.im/2010/09/simulating-normal-random-variable-using.html>.
+ * <https://blog.yjl.im/2010/09/simulating-normal-random-variable-using.html>.
  * That code is itself based on _A First Course of Probability_ by
  * Sheldon Ross (6th edition, page 464), and one can find other variants of
  * this code scattered around the net as well. See the Wikipedia page

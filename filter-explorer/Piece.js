@@ -10,7 +10,7 @@ import { PieceParams } from './PieceParams.js';
  *
  * The filters implemented herein are two-pole IIR filters, as described by
  * Robert Bristow-Johnson in
- * <http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt>.
+ * <https://www.musicdsp.org/files/Audio-EQ-Cookbook.txt>.
  */
 export class Piece extends AudioGenerator {
   /** Input amplitude. */
