@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Redressed&family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Nobile:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Redressed&family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --font-family-body:       Aleo, serif;
   --font-family-body-serif: Aleo, serif;
   --font-family-body-sans:  Raleway, sans-serif;
-  --font-family-heading:    Amaranth, sans-serif;
+  --font-family-heading:    Nobile, sans-serif;
   --font-family-cursive:    Redressed, sans-serif;
   --font-family-mono:       Roboto Mono, monospace;
 }
@@ -25,6 +25,12 @@ body {
   margin-top: 2em;
   margin-left: 5em;
   margin-right: 5em;
+}
+
+:link, :visited {
+  color:                   #22b;
+  text-decoration:         underline dotted #aae;
+  text-underline-position: under;
 }
 
 code, tt, pre {
