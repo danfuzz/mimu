@@ -29,7 +29,9 @@ body {
 
 :link, :visited {
   color:                   #22b;
-  text-decoration:         underline dotted #aae;
+  text-decoration-color:   #aae;
+  text-decoration-line:    underline;
+  text-decoration-style:   dotted;
   text-underline-position: under;
 }
 
