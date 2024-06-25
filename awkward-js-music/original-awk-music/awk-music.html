@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="../index.css" type="text/css"/>
+  <title>AWK Music: Sox and OSX are anagrams.</title>
+  <link rel="stylesheet" href="main.css" type="text/css"/>
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+  <div id="content">
+  <div id="heading"><h1><a href="index.html">AWK Music</a></h1></div>
+  <div id="subheading">Sox and OSX are anagrams.</div>
+  <br>
+
+  <br>
+  <div class="p_c_entry">
+  <div class="post"><div class="paragraph">
+  <p>Originally posted on <a href="https://www.reddit.com/r/linux/comments/dtect/">reddit</a>
+  </p>
+  </div></div>
+  <div class="comm">
+  <div class="comment">
+  <span class="nick">Michael</span>
+  <span class="date">(2020-06-05-18-42-24-116)</span>
+  <div class="body"><p>Hi. Thank you for inspiration. After reading your post I have written several scripts on sed --- a more esoteric language than awk --- with the similar purpose and with similar means.
+  </p>
+  <p>(I have little idea of the concept of "music" though, so it was twice as challenging for me.)
+  </p>
+  <p>Well, it's not so nice sounds but, anyway, have a look:
+     - https://github.com/Circiter/music-in-sed -- an attempt to implement a kind of "piano" synthesizer (it takes a sequence of notes and plays them),
+     - https://github.com/Circiter/cw-in-sed -- a utility to play Morse-code of a text message,
+     - https://github.com/Circiter/r2d2-in-sed -- r2d2 "voice" synthesizer.
+  </p></div>
+  </div>
+  <br><br>
+  </div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><blockquote>
+  <h2>"I've enjoyed this sound so much that I just left the script running for the last 3 hours." -- <a href="https://www.reddit.com/r/linux/comments/dtect/composing_music_in_awk/c12tg2y">eleven357</a></h2>
+  </blockquote></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p>Listen to a <a href="https://web.archive.org/web/20230602174644/http://kmkeen.com/tmp/awkbient.mp3">sample MP3</a>
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p>Copy and paste into your terminal and run.  It can keep playing pseudo random tones forever, though it might loop after a few decades.
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><div class="paragraph">
+  <pre><code>awk 'function wl() {
+          rate=64000;
+          return (rate/160)*(0.87055^(int(rand()*10)))};
+      BEGIN {
+          srand();
+          wla=wl();
+          while(1) {
+              wlb=wla;
+              wla=wl();
+              if (wla==wlb)
+                  {wla*=2;};
+              d=(rand()*10+5)*rate/4;
+              a=b=0; c=128;
+              ca=40/wla; cb=20/wlb;
+              de=rate/10; di=0;
+              for (i=0;i&lt;d;i++) {
+                  a++; b++; di++; c+=ca+cb;
+                  if (a&gt;wla)
+                      {a=0; ca*=-1};
+                  if (b&gt;wlb)
+                      {b=0; cb*=-1};
+                  if (di&gt;de)
+                      {di=0; ca*=0.9; cb*=0.9};
+                  printf("%c",c)};
+              c=int(c);
+              while(c!=128) {
+                  c&lt;128?c++:c--;
+                  printf("%c",c)};};}' &gt; /dev/dsp
+  </code></pre>
+  </div></div>
+  <div class="comm">
+  <div class="comment">
+  <span class="nick">Anonymous</span>
+  <span class="date">(2016-03-07-13-37-02-334)</span>
+  <div class="body"><p>Very nice sounds indeed.
+  </p></div>
+  </div>
+  <br><br>
+  </div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><div class="paragraph">
+  <p><strong>Some notes on running it:</strong>  It should chime about once a second.  If the speed is messed up, vary the <code>rate</code> variable on the second line.  No clue what it depends on, but values seem to range between 4000 and 256000.  Forcing a bitrate with <code>pv</code> might help.  If it spits out an error about <code>/dev/dsp</code>, edit the last line.  Replace <code>&gt; /dev/dsp</code> with <code>| aplay -r 64000</code> and try it again.  If you are on OSX, use <code>| sox -t raw -r 64k -c 1 -e unsigned -b 8 - -d</code> after installing Sox.  If it stutters (though you'll need to be on a low end pentium 2), use <code>mawk</code> instead of <code>gawk</code>.  It'll run about four times faster.  You can also get rid of all the trailing slashes to make a scary looking one-liner.
+  </p>
+  </div></div>
+  <div class="comm">
+  <div class="comment">
+  <span class="nick">h</span>
+  <span class="date">(2019-12-23-03-17-18-126)</span>
+  <div class="body"><p>k
+  </p></div>
+  </div>
+  <br><br>
+  </div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><div class="paragraph">
+  <p>One day I sat down to learn Awk, a language with a reputation for terse but powerful <a href="https://web.archive.org/web/20230602174644/http://www.pement.org/awk/awk1line.txt">one liners</a>.  It was a pleasant surprise to find an entire "conventional" language underneath with loops, branching and math operations common to all imperative languages.  Kernighan was a primary author, so it is no surprise it has a very C like syntax.  Unlike C it is completely untyped.  There are positional variables (<code>$1</code>) similar to what is found in shells.  Regex can be used anywhere.  Everything fits together perfectly for maximum convenience while processing text.
+  </p>
+  </div></div>
+  <div class="comm">
+  <div class="comment">
+  <span class="nick"></span>
+  <span class="date">(2013-01-25-05-41-50-869)</span>
+  <div class="body"><p>Kernighan didn't write C
+  </p></div>
+  </div>
+  <br><br><div class="comment">
+  <span class="nick">Noah Spurrier</span>
+  <span class="date">(2015-08-24-12-58-20-413)</span>
+  <div class="body"><p>Yeah, be he co-wrote the book on it.
+  </p></div>
+  </div>
+  <br><br>
+  </div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p>But this is sound, not text.  So what is going on here?  Sound is just a stream of numbers.  Text is also a stream of numbers.  If you've ever tried making white noise with <code>cat /dev/urandom &gt; /dev/dsp</code> this is just an extension of the idea.  In fact, the very first version of this script was
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p><code>cat /dev/urandom | fold -b1 | awk '{for (i=0;i&lt;100;i++) printf($1);}' &gt; /dev/dsp</code>
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p>which has the effect of holding each random value for 100 cycles, lowering the pitch of the noise.  While Awk was made for processing text, it has a general purpose language backing it up.  To illustrate a few of these features, here is the oldest version of the script:
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><div class="paragraph">
+  <pre><code>awk 'BEGIN {srand();
+      while(1) {
+          wl=400*(0.87055^(int(rand()*10)+1));
+          d=(rand()*80000+8000)/wl;
+          for (i=0;i&lt;d;i++) {
+              for (j=0;j&lt;wl;j++)
+                 {printf("a")};
+              for (j=0;j&lt;wl;j++)
+                   {printf("z")}; };};};' &gt; /dev/dsp
+  </code></pre>
+  </div></div>
+  <div class="comm">
+  <div class="comment">
+  <span class="nick">Dan Jones</span>
+  <span class="date">(2011-10-25-12-10-41-725)</span>
+  <div class="body"><p>If you're using PulseAudio, you can replace the "&gt; /dev/dsp"
+     with "| pacat"
+  </p>
+  <p>It works a little better if you have a pulseaudio server running.
+  </p>
+  <p>In deb-based distros, pacat is part of the pulseaudio-utils package.
+  </p></div>
+  </div>
+  <br><br>
+  </div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p>This makes sound, but it pretty crude.  It plays random square waves for random durations.  The <code>BEGIN{}</code> stanza gives a chunk of code for Awk to execute before processing standard input.  Sadly I don't have the previous iteration of the script, which used <code>yes | awk '{...}'</code> instead of <code>BEGIN</code>.  The third line, <code>wl=400*(0.87055^(int(rand()*10)+1))</code>, takes a bit of explaining.  A musical scale is exponential in nature, and this function generates the wavelengths of notes on a musical scale.  There is one magic number, 0.87055.  This is not a random number or even something found by trial and error.  It is the fifth root of 0.5.  One half is important because every octave the wavelength doubles or halves.  Using the fifth root gives five intervals for each octave, a pentatonic scale.  Why five notes?  It is <a href="https://web.archive.org/web/20230602174644/http://www.ted.com/talks/bobby_mcferrin_hacks_your_brain_with_music.html">really easy to make something that sounds good</a> in the pentatonic scale and really hard for a pair of notes to be dissonant.  With a wavelength and a duration for the note, a pair of for loops pumps out a square wave.  A and Z make up the low and high values.
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><p>The more complicated version grew out of this.  The added features are triangle waves, two note chords, amplitude decay, and anti-pop.  The last item needs a little explaining.  Towards the end of the script there is a short loop, <code>while(c!=128)</code>, which returns the interrupted triangle wave to center.  Without it there will be a sharp popping sound between note transitions.  An explanation of the scoping rules regarding the <code>rate</code> variable is left as an exercise for the reader.
+  </p></div>
+  </div>
+
+
+  <div class="p_c_entry">
+  <div class="post"><div class="paragraph">
+  <p>Since the output is a single byte, this is real 8 bit music.  But this particular sound is a bit more mellow than other chip tunes around.  It is a wide open area for more experimentation.
+  </p>
+  </div></div>
+  <div class="comm">
+  <div class="comment">
+  <span class="nick">Rodrigo Siqueira</span>
+  <span class="date">(2011-11-10-17-40-42-220)</span>
+  <div class="body"><p>I found interesting equations to create digital sound and your algorithm to generate pentatonic scale notes and make them sound beautiful should be used to improve those new kind of equations. I will try to mix them:
+     http://js.postbit.com/digital-computer-music-with-bitwise-operators.html
+  </p></div>
+  </div>
+  <br><br>
+  </div>
+  </div>
+
+  <p class="clear">&nbsp;</p>
+  <br>
+  <div id="footer">
+    <div class="left">&copy; Kyle Keen 2008-2022</div>
+    <div class="center">Powered by Redraftable.</div>
+  </div>
+
+  </div>
+  </div>
+
+</body>
+</html>
