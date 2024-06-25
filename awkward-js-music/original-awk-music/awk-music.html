@@ -124,7 +124,9 @@
 
   <div class="p_c_entry">
   <div class="post"><div class="paragraph">
-  <p>One day I sat down to learn Awk, a language with a reputation for terse but powerful <a href="https://web.archive.org/web/20230602174644/http://www.pement.org/awk/awk1line.txt">one liners</a>.  It was a pleasant surprise to find an entire "conventional" language underneath with loops, branching and math operations common to all imperative languages.  Kernighan was a primary author, so it is no surprise it has a very C like syntax.  Unlike C it is completely untyped.  There are positional variables (<code>$1</code>) similar to what is found in shells.  Regex can be used anywhere.  Everything fits together perfectly for maximum convenience while processing text.
+  <p>One day I sat down to learn Awk, a language with a reputation for terse but powerful
+    <a href="https://www.pement.org/awk/awk1line.txt">one liners</a>.
+    It was a pleasant surprise to find an entire "conventional" language underneath with loops, branching and math operations common to all imperative languages.  Kernighan was a primary author, so it is no surprise it has a very C like syntax.  Unlike C it is completely untyped.  There are positional variables (<code>$1</code>) similar to what is found in shells.  Regex can be used anywhere.  Everything fits together perfectly for maximum convenience while processing text.
   </p>
   </div></div>
   <div class="comm">
@@ -194,7 +196,9 @@
 
 
   <div class="p_c_entry">
-  <div class="post"><p>This makes sound, but it pretty crude.  It plays random square waves for random durations.  The <code>BEGIN{}</code> stanza gives a chunk of code for Awk to execute before processing standard input.  Sadly I don't have the previous iteration of the script, which used <code>yes | awk '{...}'</code> instead of <code>BEGIN</code>.  The third line, <code>wl=400*(0.87055^(int(rand()*10)+1))</code>, takes a bit of explaining.  A musical scale is exponential in nature, and this function generates the wavelengths of notes on a musical scale.  There is one magic number, 0.87055.  This is not a random number or even something found by trial and error.  It is the fifth root of 0.5.  One half is important because every octave the wavelength doubles or halves.  Using the fifth root gives five intervals for each octave, a pentatonic scale.  Why five notes?  It is <a href="https://web.archive.org/web/20230602174644/http://www.ted.com/talks/bobby_mcferrin_hacks_your_brain_with_music.html">really easy to make something that sounds good</a> in the pentatonic scale and really hard for a pair of notes to be dissonant.  With a wavelength and a duration for the note, a pair of for loops pumps out a square wave.  A and Z make up the low and high values.
+  <div class="post"><p>This makes sound, but it pretty crude.  It plays random square waves for random durations.  The <code>BEGIN{}</code> stanza gives a chunk of code for Awk to execute before processing standard input.  Sadly I don't have the previous iteration of the script, which used <code>yes | awk '{...}'</code> instead of <code>BEGIN</code>.  The third line, <code>wl=400*(0.87055^(int(rand()*10)+1))</code>, takes a bit of explaining.  A musical scale is exponential in nature, and this function generates the wavelengths of notes on a musical scale.  There is one magic number, 0.87055.  This is not a random number or even something found by trial and error.  It is the fifth root of 0.5.  One half is important because every octave the wavelength doubles or halves.  Using the fifth root gives five intervals for each octave, a pentatonic scale.  Why five notes?  It is
+  [Note: The following phrase originally linked to a TED talk by Bobby McFerrin] really easy to make something that sounds good [Note: End of linked text.]
+  in the pentatonic scale and really hard for a pair of notes to be dissonant.  With a wavelength and a duration for the note, a pair of for loops pumps out a square wave.  A and Z make up the low and high values.
   </p></div>
   </div>
 
