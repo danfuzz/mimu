@@ -13,7 +13,7 @@ in the Appendix to the License, this project uses the following briefer
 file header (or footer in documentation):
 
 ```
-Copyright 2015-2024 the Mimu Authors (Dan Bornstein et alia).
+Copyright 2015-2025 the Mimu Authors (Dan Bornstein et alia).
 SPDX-License-Identifier: Apache-2.0
 ```
 
